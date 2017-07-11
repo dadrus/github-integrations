@@ -1,7 +1,7 @@
 package com.github.dadrus;
 
 /**
- * Hello world!
+ * Hello world App
  *
  */
 public class App 
