@@ -21,5 +21,5 @@ install: true
 
 script:
   - export BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH; else echo $TRAVIS_PULL_REQUEST_BRANCH; fi)
-  - mvn -e clean verify sonar:sonar  -Dsonar.organization=dadrus-github
+  - mvn -e clean verify sonar:sonar
 
