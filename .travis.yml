@@ -11,9 +11,6 @@ cache:
 addons:
   sonarcloud:
     organization: "dadrus-github"
-    github_token:
-      secure: "T/Gl0fOabXO+h8JmN5KbBymVuapU785HL/ayDbqoZLRaaQs6Oqh/gSOr3SEl1++5fTUdnWgOb/Yzakc7vZF09fdknaLCDJHajXCpBUGkXu6YuJXRCXT0R7chwmtB0YkEEv53dofLiMXwah/XFNGaKOS72e7kRu9d7g7sZldRI4e4QTP11mglbsRcqHEXDLwPvWf8qAZc9SxKMJ45iGYptJX6k0K28eoDOpk1AbVkmOHPFJQusdPM8F5qZ8AnvzlL+nMWaPz4kYmChmaQBHfuFsrU50/3/HRwt3v6KzhFzdXLDs3a0beLfoXxDuMAX5LH3qkVD9JQCeT3pZvVaQ1+Z5CCX6yxmk73zvjJx4aAXQytku/9e76WQnXYwj/68NXh81Koyf3TtuqZ5O1fsKaKI0kklEHt/kRkeWXZQScrmDi28KBMeBwa26G1Oe9pW1A7O3t6yP4eboyq9gsBOFCGRDsEkjqq4oaeQt97v1t9rAw2bCbqlDlXNjSEuBoQHsLge+COXU//xvQ2X4nwcs/bKicTp5jh6v0OLk9Uxmikw7Rkd1eoTz1LEDVx5GI2qMkl8dXmNmsY5chrGW8gJtW5yBWdlUh619fPAI7QYt/jyes3Jj+Auwzz2mjaI2X2ZKdMw4fSYPlzodCv8vyUJ0/Bql/+qiav97xVj2qTwEtkkis="
-   
 
 install: true
 
