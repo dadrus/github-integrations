@@ -11,7 +11,7 @@ public class App
         System.out.println( "Hello World!" );
     }
 	
-	public void test() {
+	public void test() throws Exception {
 		// just for test purposes
 	}
 }
