@@ -13,4 +13,8 @@ public class App
     {
         System.out.println( "Hello World!" );
     }
+	
+	public void test() throws Exception {
+		// expecting sonar to alert the method signature
+	}
 }
