@@ -7,7 +7,7 @@ if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
   echo "Building and analyzing a regular branch"
   
   export SONAR_ENV="-Dsonar.organization=$SONAR_ORGANIZATION -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.login=$SONAR_TOKEN"
-  if[ "$TRAVIS_BRANCH" != "master" ]; then
+  if [ "$TRAVIS_BRANCH" != "master" ]; then
     export SONAR_ENV="$SONAR_ENV -Dsonar.branch=$TRAVIS_BRANCH"
   fi
   
