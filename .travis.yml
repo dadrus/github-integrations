@@ -7,13 +7,9 @@ cache:
    directories:
    - $HOME/.m2
    - $HOME/.sonar
-   
-addons:
-  sonarcloud:
-    organization: "dadrus-github"
 
 install: true
 
 script:
-  - build.sh
+  - ./build.sh
 
