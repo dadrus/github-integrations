@@ -7,7 +7,7 @@ package com.github.dadrus;
 public class App 
 {
 	// expecting sonar to alert an issue here
-	public static final String PASSWORD = "foo";
+	public static final String PASSWORD = "boo";
 	
     public static void main( String[] args )
     {
