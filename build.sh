@@ -8,7 +8,7 @@ if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
   
   mvn clean verify sonar:sonar \
     -Dsonar.organization=$SONAR_ORGANIZATION \
-	-Dsonar.branch=$TRAVIS_BRANCH
+	-Dsonar.branch=$TRAVIS_BRANCH \
 	-Dsonar.host.url=$SONAR_HOST_URL \
 	-Dsonar.login=$SONAR_TOKEN \
 	
