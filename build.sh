@@ -19,6 +19,7 @@ else
   mvn clean verify sonar:sonar \
     -Dsource.skip=true \
     -Dsonar.analysis.mode=preview \
+	-Dsonar.organization=$SONAR_ORGANIZATION \
     -Dsonar.github.pullRequest=$TRAVIS_PULL_REQUEST \
     -Dsonar.github.oauth=$SONAR_GITHUB_TOKEN \
     -Dsonar.host.url=$SONAR_HOST_URL \
