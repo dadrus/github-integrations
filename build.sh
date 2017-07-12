@@ -1,7 +1,7 @@
 #/bin/bash
 
-SONAR_HOST_URL=https://sonarqube.com
-SONAR_ORGANIZATION=dadrus-github
+export SONAR_HOST_URL=https://sonarqube.com
+export SONAR_ORGANIZATION=dadrus-github
 
 if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
   echo "Building and analyzing a regular branch"
