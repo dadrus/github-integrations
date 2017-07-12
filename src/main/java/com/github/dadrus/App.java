@@ -7,7 +7,6 @@ package com.github.dadrus;
 public class App 
 {
 	// expecting sonar to alert an issue here
-	public static final String PASSWORD = "boo";
 	public static final String OTHER_PASSWORD = "boo";
 	
     public static void main( String[] args )
@@ -15,7 +14,7 @@ public class App
         System.out.println( "Hello World!" );
     }
 	
-	public void test() throws Exception {
-		// expecting sonar to alert the method signature
+	public void test() {
+		
 	}
 }
