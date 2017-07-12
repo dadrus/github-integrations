@@ -20,7 +20,6 @@ else
     -Dsource.skip=true \
     -Dsonar.analysis.mode=preview \
     -Dsonar.github.pullRequest=$TRAVIS_PULL_REQUEST \
-    -Dsonar.github.repository=$TRAVIS_REPO_SLUG \
     -Dsonar.github.oauth=$SONAR_GITHUB_TOKEN \
     -Dsonar.host.url=$SONAR_HOST_URL \
     -Dsonar.login=$SONAR_TOKEN
