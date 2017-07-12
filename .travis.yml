@@ -16,5 +16,5 @@ before_cache:
 install: true
 
 script:
-  - ./build.sh
+  - ./travis.sh
 
