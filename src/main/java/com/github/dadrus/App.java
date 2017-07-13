@@ -6,17 +6,13 @@ package com.github.dadrus;
  */
 public class App 
 {
-	public static final String PASSWORD="boo";
+	
     public static void main( String[] args )
     {
         System.out.println( "Hello World!" );
     }
 	
-	public void test() throws Exception {
-		if(true) { // sonar doesn't like this comment style
-			throw new Exception("this"); // and the raw exception anyway
-		} else {
-			throw new Exception("that");
-		}
+	public void test()  {
+		// now sonar should be happy
 	}
 }
