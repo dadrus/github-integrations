@@ -7,21 +7,21 @@ if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
   echo "Building and analyzing a regular branch"
   
   if [ "$TRAVIS_BRANCH" == "master" ]; then
-    mvn clean verify sonar:sonar \
+    mvn verify sonar:sonar \
 	  -Dsonar.organization=$SONAR_ORGANIZATION \
 	  -Dsonar.host.url=$SONAR_HOST_URL \
 	  -Dsonar.login=$SONAR_TOKEN
   else
-    mvn clean verify sonar:sonar \
+    mvn verify sonar:sonar \
 	  -Dsonar.organization=$SONAR_ORGANIZATION \
 	  -Dsonar.host.url=$SONAR_HOST_URL \
 	  -Dsonar.login=$SONAR_TOKEN \
 	  -Dsonar.branch=$TRAVIS_BRANCH
   fi
-else
-  echo "Building and analyzing a pull request from $TRAVIS_PULL_REQUEST_BRANCH branch"
+elif [ "$TRAVIS_PULL_REQUEST" == "true" ] && [ -n "${GITHUB_TOKEN:-}" ]; then
+  echo "Building and analyzing an internal pull request from $TRAVIS_PULL_REQUEST_BRANCH branch"
   
-  mvn clean verify sonar:sonar \
+  mvn verify sonar:sonar \
     -Dsource.skip=true \
     -Dsonar.analysis.mode=preview \
 	-Dsonar.organization=$SONAR_ORGANIZATION \
@@ -30,4 +30,9 @@ else
     -Dsonar.github.oauth=$SONAR_GITHUB_TOKEN \
     -Dsonar.host.url=$SONAR_HOST_URL \
     -Dsonar.login=$SONAR_TOKEN
+else
+  # external pull request. No Sonar analysis possible
+  echo 'Build external pull request'
+
+  mvn verify
 fi
