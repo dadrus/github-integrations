@@ -18,7 +18,7 @@ if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
 	  -Dsonar.login=$SONAR_TOKEN \
 	  -Dsonar.branch=$TRAVIS_BRANCH
   fi
-else [ "$TRAVIS_PULL_REQUEST" == "true" ]; then
+else
   if [ "${SONAR_TOKEN}" != "" ]; then
     echo "Building and analyzing an internal pull request from $TRAVIS_PULL_REQUEST_BRANCH branch"
   
