@@ -6,7 +6,6 @@ package com.github.dadrus;
  */
 public class App 
 {
-	public static final String PASSWORD="foo"; // just to see the sonar results in a pr
     public static void main( String[] args )
     {
         System.out.println( "Hello World!" );
