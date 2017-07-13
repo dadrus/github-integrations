@@ -12,7 +12,7 @@ public class App
         System.out.println( "Hello World!" );
     }
 	
-	public void test()  {
+	public void test() throws Exception {
 		System.out.println( "Hello from test!" );
 	}
 }
