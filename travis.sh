@@ -18,7 +18,7 @@ if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
 	  -Dsonar.login=$SONAR_TOKEN \
 	  -Dsonar.branch=$TRAVIS_BRANCH
   fi
-elif [ "$TRAVIS_PULL_REQUEST" == "true" ] && [ "${GITHUB_TOKEN:-}" ]; then
+elif [ "$TRAVIS_PULL_REQUEST" == "true" ] && [ -n "${SONAR_TOKEN:-}" ]; then
   echo "Building and analyzing an internal pull request from $TRAVIS_PULL_REQUEST_BRANCH branch"
   
   mvn verify sonar:sonar \
