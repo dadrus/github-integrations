@@ -13,6 +13,6 @@ public class App
     }
 	
 	public void test()  {
-		// now sonar should be happy
+		System.out.println( "Hello from test!" );
 	}
 }
