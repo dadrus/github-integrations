@@ -11,6 +11,6 @@ public class App {
     }
 
     public void test() {
-        // nothing to do
+        System.out.println("test");
     }
 }
