@@ -4,15 +4,13 @@ package com.github.dadrus;
  * Hello world App
  *
  */
-public class App 
-{
-	
-    public static void main( String[] args )
-    {
-        System.out.println( "Hello World!" );
+public class App {
+
+    public static void main(final String[] args) {
+        // nothing to do
     }
-	
-	public void test() throws Exception {
-		System.out.println( "Hello from test!" );
-	}
+
+    public void test() {
+        // nothing to do
+    }
 }
