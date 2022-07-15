@@ -2,9 +2,11 @@ name: CI
 
 on:
   push:
-    branches: [ "master" ]
+    branches:
+      - master
   pull_request:
-    branches: [ "master" ]
+    branches:
+      - master
 
 jobs:
 
@@ -25,4 +27,6 @@ jobs:
       with:
         name: my-artifact
         path: github-integrations
+    - name: Conventional Changelog Action
+      uses: TriPSs/conventional-changelog-action@v3
 
