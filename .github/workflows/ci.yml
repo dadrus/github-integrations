@@ -29,3 +29,25 @@ jobs:
         path: github-integrations
 
 
+  build-docker-mages:
+    runs-on: ubuntu-20.04
+    needs:
+     - test_and_build
+    steps:
+     - name: Set up QEMU
+       uses: docker/setup-qemu-action@v2
+     - name: Set up Docker Buildx
+       uses: docker/setup-buildx-action@v2
+     - uses: actions/github-script@v6
+       id: repo_name
+       with:
+         script: return context.repo.repo
+         result-encoding: string
+     - name: Build and push
+       uses: docker/build-push-action@v3
+       with:
+         context: ./
+         file: ./docker/Dockerfile
+         platforms: linux/amd64,linux/arm64
+         push: false
+         tags: test:${{ needs.prepare-release.outputs.tag_name }},test:latest
