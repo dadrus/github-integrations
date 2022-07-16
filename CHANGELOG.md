@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.1.1](https://github.com/dadrus/github-integrations/compare/v0.1.0...v0.1.1) (2022-07-16)
+
+Custom text
+
+
+### Bug Fixes
+
+* playing around ([4f87e69](https://github.com/dadrus/github-integrations/commit/4f87e6912a9c6180feba3303fa16aaab9cd1f441))
+
 ## [0.1.0](https://github.com/dadrus/github-integrations/compare/v0.0.1...v0.1.0) (2022-07-16)
 
 
