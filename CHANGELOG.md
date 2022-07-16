@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.8](https://github.com/dadrus/github-integrations/compare/v0.1.7...v0.1.8) (2022-07-16)
+
+
+### Bug Fixes
+
+* **ci:** nex round. now using a PAT ([a0f36c3](https://github.com/dadrus/github-integrations/commit/a0f36c3fc1ba8afff2f2a7d5ba85045e5a4db94c))
+
 ## [0.1.7](https://github.com/dadrus/github-integrations/compare/v0.1.6...v0.1.7) (2022-07-16)
 
 
