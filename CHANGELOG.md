@@ -2,6 +2,8 @@
 
 ## [0.1.1](https://github.com/dadrus/github-integrations/compare/v0.1.0...v0.1.1) (2022-07-16)
 
+Custom text
+
 
 ### Bug Fixes
 
