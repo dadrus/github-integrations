@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.1](https://github.com/dadrus/github-integrations/compare/v0.2.0...v0.2.1) (2022-07-16)
+
+
+### Bug Fixes
+
+* **ci:** go-release-action updated ([dcf1b9f](https://github.com/dadrus/github-integrations/commit/dcf1b9f65a80415db18fb00b4151bb122aa516c6))
+
 ## [0.2.0](https://github.com/dadrus/github-integrations/compare/v0.1.8...v0.2.0) (2022-07-16)
 
 
