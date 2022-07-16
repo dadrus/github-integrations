@@ -50,4 +50,4 @@ jobs:
          file: ./docker/Dockerfile
          platforms: linux/amd64,linux/arm64
          push: false
-         tags: test:${{ needs.prepare-release.outputs.tag_name }},test:latest
+         tags: test:latest
