@@ -32,9 +32,11 @@ jobs:
       uses: google-github-actions/release-please-action@v3
       with:
         command: manifest
-    - name: Release
-      uses: softprops/action-gh-release@v1
+    - name: Upload Assets to Release
+      uses: actions/upload-release-asset@v1
       if: ${{ steps.release_prepare.outputs.release_created }}
       with:
-        files: github-integrations
+        upload_url: ${{ steps.release_prepare.outputs.upload_url }}
+        asset_path: ./github-integrations
+        asset_name: github-integrations_linux_amd64
 
