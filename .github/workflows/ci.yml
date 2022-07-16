@@ -39,4 +39,5 @@ jobs:
         upload_url: ${{ steps.release_prepare.outputs.upload_url }}
         asset_path: ./github-integrations
         asset_name: github-integrations_linux_amd64
+        asset_content_type: application/octet-stream
 
