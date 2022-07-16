@@ -1,6 +1,5 @@
 {
   "bump-minor-pre-major": true,
-  "skip-github-release": true,
   "release-type": "go",
   "packages": {
     ".": {}
