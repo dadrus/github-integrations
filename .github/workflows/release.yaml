@@ -1,13 +1,29 @@
 name: Release Binaries
 
 on:
-  release:
-    types: [created, published, prereleased, released]
+  push:
+    branches:
+      - master
 
 jobs:
-  release-binaries:
-    name: Release Go Binary
+  prepare-release:
     runs-on: ubuntu-20.04
+    outputs:
+      release_created: ${{ steps.release_prepare.outputs.release_created }}
+      tag_name: ${{ steps.release_prepare.outputs.tag_name }}
+    steps:
+      - name: Prepare Release
+        id: release_prepare
+        uses: google-github-actions/release-please-action@v3
+        with:
+          command: manifest
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+  release-binaries:
+    runs-on: ubuntu-20.04
+    needs:
+      - prepare-release
+    if: needs.prepare-release.outputs.release_created
     strategy:
       matrix:
         # build and publish in parallel: linux/amd64, linux/arm64, windows/amd64, darwin/amd64, darwin/arm64
@@ -23,6 +39,6 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           goos: ${{ matrix.goos }}
           goarch: ${{ matrix.goarch }}
-          ldflags: "-buildid= -w -s -X main.Version=${{ github.ref_name }}"
+          ldflags: "-buildid= -w -s -X main.Version=${{ needs.prepare-release.outputs.tag_name }}"
           build_flags: -trimpath
           extra_files: CHANGELOG.md README.md

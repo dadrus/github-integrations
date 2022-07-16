@@ -21,18 +21,9 @@ jobs:
       uses: actions/checkout@v3
     - name: Test
       run: go test -v ./...
-    - name: Prepare Release
-      id: release_prepare
-      uses: google-github-actions/release-please-action@v3
-      with:
-        command: manifest
-        token: ${{ secrets.PAT_TOKEN }}
-    # don't build if release is created
     - name: Build
-      if: steps.release_prepare.outputs.release_created == false
       run: GOOS=linux GOARCH=amd64 go build -trimpath -ldflags="-buildid= -w -s -X main.Version=${{ github.sha }}"
     - uses: actions/upload-artifact@v3
-      if: steps.release_prepare.outputs.release_created == false
       with:
         name: build-result
         path: github-integrations
