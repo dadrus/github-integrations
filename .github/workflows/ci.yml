@@ -38,4 +38,5 @@ jobs:
       with:
         release-tag: ${{ steps.release_prepare.outputs.tag_name }}
         files: github-integrations
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
 
