@@ -26,13 +26,12 @@ jobs:
       uses: google-github-actions/release-please-action@v3
       with:
         command: manifest
-    - name: Release Build
-      if: steps.release_prepare.outputs.release_created
-      run: GOOS=linux GOARCH=amd64 go build -trimpath -ldflags="-buildid= -w -s -X main.Version=${{ steps.release_prepare.outputs.tag_name }}"
+    # don't build if release is created
     - name: Build
       if: steps.release_prepare.outputs.release_created == false
       run: GOOS=linux GOARCH=amd64 go build -trimpath -ldflags="-buildid= -w -s -X main.Version=${{ github.sha }}"
     - uses: actions/upload-artifact@v3
+      if: steps.release_prepare.outputs.release_created == false
       with:
         name: build-result
         path: github-integrations
