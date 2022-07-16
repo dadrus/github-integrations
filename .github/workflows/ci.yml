@@ -26,6 +26,7 @@ jobs:
       uses: google-github-actions/release-please-action@v3
       with:
         command: manifest
+        token: ${{ secrets.PAT_TOKEN }}
     # don't build if release is created
     - name: Build
       if: steps.release_prepare.outputs.release_created == false

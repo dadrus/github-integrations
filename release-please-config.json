@@ -1,6 +1,6 @@
 {
   "bump-minor-pre-major": true,
-  "draft": false,
+  "draft": true,
   "release-type": "go",
   "packages": {
     ".": {}
