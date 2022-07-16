@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.6](https://github.com/dadrus/github-integrations/compare/v0.1.5...v0.1.6) (2022-07-16)
+
+
+### Bug Fixes
+
+* **ci:** next attempt to properly upload build artifacts to create release ([4cc336b](https://github.com/dadrus/github-integrations/commit/4cc336b447a0e9b28510922c6f19499ec08c3605))
+
 ## [0.1.5](https://github.com/dadrus/github-integrations/compare/v0.1.4...v0.1.5) (2022-07-16)
 
 
