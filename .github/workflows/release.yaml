@@ -49,6 +49,7 @@ jobs:
           ldflags: "-buildid= -w -s -X main.Version=${{ needs.prepare-release.outputs.tag_name }}"
           build_flags: -trimpath
           sha256sum: true
+          md5sum: false
           extra_files: CHANGELOG.md README.md
 
   release-docker-mages:
@@ -95,3 +96,10 @@ jobs:
           build-args: VERSION=${{ needs.prepare-release.outputs.tag_name }}
           labels: ${{ steps.meta.outputs.labels }}
           tags: ${{ secrets.DOCKERHUB_USER }}/${{ steps.repo_name.outputs.result }}:${{ needs.prepare-release.outputs.tag_name }},${{ secrets.DOCKERHUB_USER }}/${{ steps.repo_name.outputs.result }}:latest
+      - name: Update DockerHub repository description & readme
+        uses: peter-evans/dockerhub-description@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USER }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          repository: ${{ secrets.DOCKERHUB_USER }}/${{ steps.repo_name.outputs.result }}
+          short-description: ${{ github.event.repository.description }}
