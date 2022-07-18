@@ -19,7 +19,7 @@ jobs:
         with:
           command: manifest
           token: ${{ secrets.GITHUB_TOKEN }}
-          --signoff: "release-bot[bot] <${{ github.job }}-release-bot@users.noreply.github.com>"
+          --signoff: release-bot[bot] <${{ github.job }}+release-bot@users.noreply.github.com>
 
   # This job is executed only if the prepare-release job has created a release
   release-binaries:
