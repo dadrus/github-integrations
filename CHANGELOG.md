@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.4](https://github.com/dadrus/github-integrations/compare/v0.2.3...v0.2.4) (2022-07-18)
+
+
+### Bug Fixes
+
+* arm32 support for releasing binaries added ([460e452](https://github.com/dadrus/github-integrations/commit/460e452dd40b7fc06be1e3b2a8b2ef5f3aaaf6a1))
+
 ## [0.2.3](https://github.com/dadrus/github-integrations/compare/v0.2.2...v0.2.3) (2022-07-18)
 
 
