@@ -20,11 +20,11 @@ jobs:
           command: manifest
           token: ${{ secrets.GITHUB_TOKEN }}
 
+  # This job is executed only if the prepare-release job has created a release
   release-binaries:
     runs-on: ubuntu-20.04
     needs:
       - prepare-release
-    # run this job only if the prepare-release job has created a release
     if: needs.prepare-release.outputs.release_created
     strategy:
       matrix:
@@ -53,6 +53,7 @@ jobs:
           md5sum: false
           extra_files: CHANGELOG.md README.md
 
+  # This job is executed only if the prepare-release job has created a release
   release-docker-images:
     runs-on: ubuntu-20.04
     needs:
@@ -75,7 +76,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: ${{ secrets.DOCKERHUB_USER }}/${{ steps.repo_name.outputs.result }}
+          images: ${{ github.repository }}
           labels: |
             org.opencontainers.image.version=${{ needs.prepare-release.outputs.docker_tag }}
             org.opencontainers.image.documentation=https://dadrus.github.io/heimdall/

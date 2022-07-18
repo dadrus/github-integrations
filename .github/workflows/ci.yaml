@@ -12,6 +12,18 @@ jobs:
 
   test_and_build:
     runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        # build and publish in parallel: linux/amd64, linux/arm64, windows/amd64, darwin/amd64, darwin/arm64
+        goos: [ linux, windows, darwin ]
+        goarch: [ amd64, arm64, arm ]
+        exclude:
+          - goarch: arm
+            goos: darwin
+          - goarch: arm
+            goos: windows
+          - goarch: arm64
+            goos: windows
     steps:
     - name: Set up Go
       uses: actions/setup-go@v3
@@ -22,10 +34,10 @@ jobs:
     - name: Test
       run: go test -v ./...
     - name: Build
-      run: GOOS=linux GOARCH=amd64 go build -trimpath -ldflags="-buildid= -w -s -X main.Version=${{ github.sha }}"
+      run: GOOS=${{ matrix.goos }} GOARCH=${{ matrix.goarch }} go build -trimpath -ldflags="-buildid= -w -s -X main.Version=${{ github.sha }}"
     - uses: actions/upload-artifact@v3
       with:
-        name: build-result
+        name: build-result-${{ matrix.goos }}-${{ matrix.goarch }}
         path: github-integrations
 
 
