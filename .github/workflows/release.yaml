@@ -18,6 +18,12 @@ jobs:
         with:
           command: manifest
           token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/github-script@v6
+        id: foobar
+        with:
+          script: return steps.release_prepare.outputs.release_created + "." + foobar
+          result-encoding: string
+      - run: echo ${{ steps.foobar.outputs.result }}
 
   release-binaries:
     runs-on: ubuntu-20.04
