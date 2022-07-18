@@ -45,11 +45,16 @@ jobs:
        with:
          username: ${{ secrets.DOCKERHUB_USER }}
          password: ${{ secrets.DOCKERHUB_TOKEN }}
+     - name: Docker meta
+       id: meta
+       uses: docker/metadata-action@v4
+       with:
+         images: ${{ secrets.DOCKERHUB_USER }}/test:latest
      - name: Build and push
        uses: docker/build-push-action@v3
        with:
          context: .
          file: ./docker/Dockerfile
          platforms: linux/amd64,linux/arm64,linux/arm
-         push: true
+         push: false
          tags: ${{ secrets.DOCKERHUB_USER }}/test:latest
