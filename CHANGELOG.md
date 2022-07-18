@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.2.6](https://github.com/dadrus/github-integrations/compare/v0.2.5...v0.2.6) (2022-07-18)
+
+
+### Bug Fixes
+
+* not echoing github.event anymore ([9031ff1](https://github.com/dadrus/github-integrations/commit/9031ff12d25599716f549d34a6c167b9763b338e))
+* obsolete labels removed ([caddf2c](https://github.com/dadrus/github-integrations/commit/caddf2c23c673a5799492b63191d6935bda49527))
+* playing around ([d0c6b81](https://github.com/dadrus/github-integrations/commit/d0c6b816c1882e9ffd2d8a1bab0c696763f2a9c5))
+
 ## [0.2.5](https://github.com/dadrus/github-integrations/compare/v0.2.4...v0.2.5) (2022-07-18)
 
 
