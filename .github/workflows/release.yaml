@@ -21,7 +21,7 @@ jobs:
       - uses: actions/github-script@v6
         id: foobar
         with:
-          script: return steps.release_prepare.outputs.release_created + "." + foobar
+          script: return ${{ steps.release_prepare.outputs.release_created }} + "." + foobar
           result-encoding: string
       - run: echo ${{ steps.foobar.outputs.result }}
 
