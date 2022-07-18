@@ -61,7 +61,7 @@ jobs:
          context: .
          file: ./docker/Dockerfile
          platforms: linux/amd64,linux/arm64,linux/arm
-         push: false
+         push: true
          build-args: VERSION=${{ github.sha }}
          tags: ${{ secrets.DOCKERHUB_USER }}/test:latest
          labels: ${{ steps.meta.outputs.labels }}
