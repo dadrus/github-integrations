@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.1-alpha](https://github.com/dadrus/github-integrations/compare/v0.1.0-alpha...v0.1.1-alpha) (2022-07-18)
+
+
+### Bug Fixes
+
+* signoff changed to use the run id ([ea896be](https://github.com/dadrus/github-integrations/commit/ea896bea3629ee4648bade27809510d970412e43))
+* version settign for docker images ([c286a0e](https://github.com/dadrus/github-integrations/commit/c286a0e6c7149a1ca8ca8f1d32cef00ba1274414))
+
 ## [0.1.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.0.1...v0.1.0-alpha) (2022-07-18)
 
 
