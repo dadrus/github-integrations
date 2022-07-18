@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.11](https://github.com/dadrus/github-integrations/compare/v0.2.10...v0.2.11) (2022-07-18)
+
+
+### Bug Fixes
+
+* dockerhub description ([5f7c8b1](https://github.com/dadrus/github-integrations/commit/5f7c8b16ffeee13e97ac75b73a9aa741fe52b208))
+
 ## [0.2.10](https://github.com/dadrus/github-integrations/compare/v0.2.9...v0.2.10) (2022-07-18)
 
 
