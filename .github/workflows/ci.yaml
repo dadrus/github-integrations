@@ -49,7 +49,7 @@ jobs:
        id: meta
        uses: docker/metadata-action@v4
        with:
-         images: ${{ secrets.DOCKERHUB_USER }}/test
+         images: ${{ secrets.DOCKERHUB_USER }}/github-integrations
          labels: |
            org.opencontainers.image.version=master
      - name: Build and push
@@ -60,5 +60,5 @@ jobs:
          platforms: linux/amd64,linux/arm64,linux/arm
          push: true
          build-args: VERSION=${{ github.sha }}
-         tags: ${{ secrets.DOCKERHUB_USER }}/test:latest
+         tags: ${{ secrets.DOCKERHUB_USER }}/github-integrations:latest
          labels: ${{ steps.meta.outputs.labels }}

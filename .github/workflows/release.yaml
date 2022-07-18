@@ -87,6 +87,6 @@ jobs:
           file: ./docker/Dockerfile
           platforms: linux/amd64,linux/arm64,linux/arm
           push: true
-          build-args: VERSION=${{ github.sha }}
+          build-args: VERSION=${{ needs.prepare-release.outputs.tag_name }}
           labels: ${{ steps.meta.outputs.labels }}
           tags: ${{ secrets.DOCKERHUB_USER }}/${{ steps.repo_name.outputs.result }}:${{ needs.prepare-release.outputs.tag_name }},${{ secrets.DOCKERHUB_USER }}/${{ steps.repo_name.outputs.result }}:latest
