@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.7](https://github.com/dadrus/github-integrations/compare/v0.2.6...v0.2.7) (2022-07-18)
+
+
+### Bug Fixes
+
+* just testing ([4601cec](https://github.com/dadrus/github-integrations/commit/4601cecb73b6a2f501073c0b02ca71b80884921e))
+
 ## [0.2.6](https://github.com/dadrus/github-integrations/compare/v0.2.5...v0.2.6) (2022-07-18)
 
 
