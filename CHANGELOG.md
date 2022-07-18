@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.12](https://github.com/dadrus/github-integrations/compare/v0.2.11...v0.2.12) (2022-07-18)
+
+
+### Bug Fixes
+
+* badges added ([dde7773](https://github.com/dadrus/github-integrations/commit/dde7773fec628b59abb89e6a545bd11b6e1bde70))
+* changed the signoff content ([350dd53](https://github.com/dadrus/github-integrations/commit/350dd533acd3ae9eb59ceb491440439d793b74ff))
+
 ## [0.2.11](https://github.com/dadrus/github-integrations/compare/v0.2.10...v0.2.11) (2022-07-18)
 
 
