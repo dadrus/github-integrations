@@ -2,6 +2,9 @@
 # Builder image to build the app
 FROM --platform=$BUILDPLATFORM golang:1.18.4 as builder
 LABEL maintainer=dadrus@gmx.de
+LABEL org.opencontainers.image.description="Test description"
+LABEL org.opencontainers.image.documentation=https://dadrus.github.io/heimdall/
+LABEL org.opencontainers.image.licenses=Apache-2.0
 
 ARG TARGETARCH
 ARG VERSION="unknown"

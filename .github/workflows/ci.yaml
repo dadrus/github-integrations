@@ -51,10 +51,7 @@ jobs:
        with:
          images: ${{ secrets.DOCKERHUB_USER }}/test
          labels: |
-           org.opencontainers.image.description=Test description
-           org.opencontainers.image.documentation=https://dadrus.github.io/heimdall/
            org.opencontainers.image.version=master
-           org.opencontainers.image.licenses=Apache-2.0
      - name: Build and push
        uses: docker/build-push-action@v3
        with:
