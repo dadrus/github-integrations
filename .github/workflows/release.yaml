@@ -77,6 +77,9 @@ jobs:
           images: ${{ secrets.DOCKERHUB_USER }}/${{ steps.repo_name.outputs.result }}
           labels: |
             org.opencontainers.image.version=${{ needs.prepare-release.outputs.tag_name }}
+            org.opencontainers.image.description=Test description
+            org.opencontainers.image.documentation=https://dadrus.github.io/heimdall/
+            org.opencontainers.image.licenses=Apache-2.0
       - name: Build and push
         uses: docker/build-push-action@v3
         with:
