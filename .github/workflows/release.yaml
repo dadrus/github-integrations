@@ -102,3 +102,4 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
           repository: ${{ secrets.DOCKERHUB_USER }}/${{ steps.repo_name.outputs.result }}
           short-description: ${{ github.event.repository.description }}
+          readme-filepath: ./README.md
