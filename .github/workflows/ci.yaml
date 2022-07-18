@@ -34,11 +34,11 @@ jobs:
     - name: Test
       run: go test -v ./...
     - name: Build
-      run: GOOS=${{ matrix.goos }} GOARCH=${{ matrix.goarch }} go build -trimpath -ldflags="-buildid= -w -s -X main.Version=${{ github.sha }}"
+      run: GOOS=${{ matrix.goos }} GOARCH=${{ matrix.goarch }} go build -trimpath -ldflags="-buildid= -w -s -X main.Version=${{ github.sha }}" -o ./build/
     - uses: actions/upload-artifact@v3
       with:
         name: build-result-${{ matrix.goos }}-${{ matrix.goarch }}
-        path: github-integrations
+        path: ./build/*
 
 
   # this job is here only for the verification purpose of the docker images build
