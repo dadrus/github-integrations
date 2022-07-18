@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.10](https://github.com/dadrus/github-integrations/compare/v0.2.9...v0.2.10) (2022-07-18)
+
+
+### Bug Fixes
+
+* Go build step updated to write the results into a directory. So the artifact upload step can grab whatever is inside. ([12d9905](https://github.com/dadrus/github-integrations/commit/12d9905ec35bb147687955c7b8ac3b3d1ccfcff9))
+
 ## [0.2.9](https://github.com/dadrus/github-integrations/compare/v0.2.8...v0.2.9) (2022-07-18)
 
 
