@@ -48,6 +48,7 @@ jobs:
           goarch: ${{ matrix.goarch }}
           ldflags: "-buildid= -w -s -X main.Version=${{ needs.prepare-release.outputs.tag_name }}"
           build_flags: -trimpath
+          sha256sum: true
           extra_files: CHANGELOG.md README.md
 
   release-docker-mages:
