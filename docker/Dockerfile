@@ -6,7 +6,7 @@ LABEL maintainer=dadrus@gmx.de
 ARG TARGETARCH
 ARG VERSION="unknown"
 
-ENV USER=heimdall
+ENV USER=test
 ENV UID=10001
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
