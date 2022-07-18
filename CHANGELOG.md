@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.5](https://github.com/dadrus/github-integrations/compare/v0.2.4...v0.2.5) (2022-07-18)
+
+
+### Bug Fixes
+
+* trying to update dockerhub repo description ([8d26305](https://github.com/dadrus/github-integrations/commit/8d26305b50427ca26037be6fb0a18ebcd3d4af6d))
+
 ## [0.2.4](https://github.com/dadrus/github-integrations/compare/v0.2.3...v0.2.4) (2022-07-18)
 
 
