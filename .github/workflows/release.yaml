@@ -11,7 +11,6 @@ jobs:
     outputs:
       release_created: ${{ steps.release_prepare.outputs.release_created }}
       tag_name: ${{ steps.release_prepare.outputs.tag_name }}
-      docker_tag: ${{ steps.release_prepare.outputs.major }}.${{ steps.release_prepare.outputs.minor }}.${{ steps.release_prepare.outputs.patch }}
     steps:
       - name: Prepare Release
         id: release_prepare
@@ -19,7 +18,7 @@ jobs:
         with:
           command: manifest
           token: ${{ secrets.GITHUB_TOKEN }}
-          --signoff: release-bot[bot] <${{ github.job }}+release-bot@users.noreply.github.com>
+          signoff: release-bot[bot] <${{ github.job }}+release-bot@users.noreply.github.com>
 
   # This job is executed only if the prepare-release job has created a release
   release-binaries:
@@ -62,6 +61,11 @@ jobs:
     # run this job only if the prepare-release job has created a release
     if: needs.prepare-release.outputs.release_created
     steps:
+      - name: Prepare image version
+        id: image-version
+        run: |
+          export version=$(echo ${{ needs.prepare-release.outputs.tag_name }} |  sed 's/v//g')
+          echo ::set-output name=version::$version
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: Set up QEMU
@@ -79,7 +83,7 @@ jobs:
         with:
           images: ${{ github.repository }}
           labels: |
-            org.opencontainers.image.version=${{ needs.prepare-release.outputs.docker_tag }}
+            org.opencontainers.image.version=${{ steps.image-version.outputs.version }}
             org.opencontainers.image.documentation=https://dadrus.github.io/heimdall/
       - name: Build and push
         uses: docker/build-push-action@v3
@@ -90,7 +94,7 @@ jobs:
           push: true
           build-args: VERSION=${{ needs.prepare-release.outputs.tag_name }}
           labels: ${{ steps.meta.outputs.labels }}
-          tags: ${{ github.repository }}:${{ needs.prepare-release.outputs.docker_tag }},${{ github.repository }}:latest
+          tags: ${{ github.repository }}:${{ steps.image-version.outputs.version }},${{ github.repository }}:latest
       - name: Update DockerHub repository description & readme
         uses: peter-evans/dockerhub-description@v3
         with:
