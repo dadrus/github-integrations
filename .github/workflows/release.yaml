@@ -11,6 +11,7 @@ jobs:
     outputs:
       release_created: ${{ steps.release_prepare.outputs.release_created }}
       tag_name: ${{ steps.release_prepare.outputs.tag_name }}
+      docker_tag: ${{ steps.release_prepare.outputs.major }}.${{ steps.release_prepare.outputs.minor }}.${{ steps.release_prepare.outputs.patch }}
     steps:
       - name: Prepare Release
         id: release_prepare
@@ -18,12 +19,6 @@ jobs:
         with:
           command: manifest
           token: ${{ secrets.GITHUB_TOKEN }}
-      - uses: actions/github-script@v6
-        id: foobar
-        with:
-          script: return ${{ steps.release_prepare.outputs.release_created }} + ".foobar"
-          result-encoding: string
-      - run: echo ${{ steps.foobar.outputs.result }}
 
   release-binaries:
     runs-on: ubuntu-20.04
@@ -76,18 +71,13 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USER }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - uses: actions/github-script@v6
-        id: repo_name
-        with:
-          script: return context.repo.repo
-          result-encoding: string
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v4
         with:
           images: ${{ secrets.DOCKERHUB_USER }}/${{ steps.repo_name.outputs.result }}
           labels: |
-            org.opencontainers.image.version=${{ needs.prepare-release.outputs.tag_name }}
+            org.opencontainers.image.version=${{ needs.prepare-release.outputs.docker_tag }}
             org.opencontainers.image.documentation=https://dadrus.github.io/heimdall/
       - name: Build and push
         uses: docker/build-push-action@v3
@@ -98,7 +88,7 @@ jobs:
           push: true
           build-args: VERSION=${{ needs.prepare-release.outputs.tag_name }}
           labels: ${{ steps.meta.outputs.labels }}
-          tags: ${{ secrets.DOCKERHUB_USER }}/${{ steps.repo_name.outputs.result }}:${{ needs.prepare-release.outputs.tag_name }},${{ secrets.DOCKERHUB_USER }}/${{ steps.repo_name.outputs.result }}:latest
+          tags: ${{ github.repository }}:${{ needs.prepare-release.outputs.docker_tag }},${{ github.repository }}:latest
       - name: Update DockerHub repository description & readme
         uses: peter-evans/dockerhub-description@v3
         with:
