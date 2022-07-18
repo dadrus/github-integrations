@@ -55,4 +55,3 @@ jobs:
          push: false
          build-args: VERSION=${{ github.sha }}
          tags: ${{ github.repository }}:latest
-     - run: echo "${{ toJSON(github.event) }}"
