@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.2](https://github.com/dadrus/github-integrations/compare/v0.2.1...v0.2.2) (2022-07-18)
+
+
+### Bug Fixes
+
+* trying to relase ([c7e7dad](https://github.com/dadrus/github-integrations/commit/c7e7daddd95a937e7ad072d00ba99a3f93d46389))
+* trying to relase ([111d841](https://github.com/dadrus/github-integrations/commit/111d8417f84cf8b2429a743e6406a0714cc064f8))
+
 ## [0.2.1](https://github.com/dadrus/github-integrations/compare/v0.2.0...v0.2.1) (2022-07-16)
 
 
