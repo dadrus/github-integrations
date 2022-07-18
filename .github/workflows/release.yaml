@@ -19,6 +19,7 @@ jobs:
         with:
           command: manifest
           token: ${{ secrets.GITHUB_TOKEN }}
+          --signoff: "release-bot[bot] <${{ github.job }}-release-bot@users.noreply.github.com>"
 
   # This job is executed only if the prepare-release job has created a release
   release-binaries:
@@ -95,6 +96,6 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USER }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-          repository: ${{ secrets.DOCKERHUB_USER }}/${{ steps.repo_name.outputs.result }}
+          repository: ${{ github.repository }}
           short-description: ${{ github.event.repository.description }}
           readme-filepath: ./README.md
