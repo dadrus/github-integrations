@@ -65,7 +65,7 @@ jobs:
         id: image-version
         run: |
           export version=$(echo ${{ needs.prepare-release.outputs.tag_name }} |  sed 's/v//g')
-          echo ::set-output name=version::$version
+          echo ::set-output name=result::$version
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: Set up QEMU
@@ -83,7 +83,7 @@ jobs:
         with:
           images: ${{ github.repository }}
           labels: |
-            org.opencontainers.image.version=${{ steps.image-version.outputs.version }}
+            org.opencontainers.image.version=${{ steps.image-version.outputs.result }}
             org.opencontainers.image.documentation=https://dadrus.github.io/heimdall/
       - name: Build and push
         uses: docker/build-push-action@v3
@@ -94,7 +94,7 @@ jobs:
           push: true
           build-args: VERSION=${{ needs.prepare-release.outputs.tag_name }}
           labels: ${{ steps.meta.outputs.labels }}
-          tags: ${{ github.repository }}:${{ steps.image-version.outputs.version }},${{ github.repository }}:latest
+          tags: ${{ github.repository }}:${{ steps.image-version.outputs.result }},${{ github.repository }}:latest
       - name: Update DockerHub repository description & readme
         uses: peter-evans/dockerhub-description@v3
         with:
