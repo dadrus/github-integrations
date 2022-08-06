@@ -124,7 +124,7 @@ jobs:
           find: x-release-version
           replace: ${{ needs.prepare-release.outputs.tag_name }}
           regex: false
-          include: /docs/redirect/index.html
+          include: ./docs/redirect/index.html
       - name: Deploy redirect
         uses: peaceiris/actions-gh-pages@v3
         with:
