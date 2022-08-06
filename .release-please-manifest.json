@@ -1,8 +1,3 @@
 {
-  ".": "0.2.0-alpha",
-  "extra-files": [
-    {
-      "path": "./docs/redirect/index.html"
-    }
-  ]
+  ".": "0.2.0-alpha"
 }

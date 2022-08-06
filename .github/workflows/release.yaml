@@ -118,6 +118,13 @@ jobs:
       - uses: ./.github/actions/build-and-publish-docs/
         with:
           publish_dir: ${{ needs.prepare-release.outputs.tag_name }}
+      - name: Update uri for redirecting to new version
+        uses: jacobtomlinson/gha-find-replace@v2
+        with:
+          find: x-release-version
+          replace: ${{ needs.prepare-release.outputs.tag_name }}
+          regex: false
+          include: /docs/redirect/index.html
       - name: Deploy redirect
         uses: peaceiris/actions-gh-pages@v3
         with:
