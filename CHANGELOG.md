@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.3.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.2.0-alpha...v0.3.0-alpha) (2022-08-06)
+
+
+### Features
+
+* redirecting to new released version ([c31616c](https://github.com/dadrus/github-integrations/commit/c31616cd0405f2890d55b719382084462d6f4581))
+* redirecting to the latest released docu ([acc8788](https://github.com/dadrus/github-integrations/commit/acc87885b54737d8d9d89bd4dabe96e301818671))
+
+
+### Bug Fixes
+
+* docu update ([ba4d208](https://github.com/dadrus/github-integrations/commit/ba4d208d1ceb068f18d68eb6d4c18a4557cc7d2a))
+
 ## [0.2.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.1.1-alpha...v0.2.0-alpha) (2022-08-06)
 
 
