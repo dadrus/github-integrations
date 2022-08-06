@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.2.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.1.1-alpha...v0.2.0-alpha) (2022-08-06)
+
+
+### Features
+
+* checking docs ([fb62ffe](https://github.com/dadrus/github-integrations/commit/fb62ffe01aac19bd383ceb95cbd0258f829dda3a))
+* docs for tests added ([995d85a](https://github.com/dadrus/github-integrations/commit/995d85aa80fa11288065cab33c9a2d653eee6b05))
+
+
+### Bug Fixes
+
+* docs related workflow ([a4a0d04](https://github.com/dadrus/github-integrations/commit/a4a0d04408adf3576b330c1a20797bc4aeb63e3c))
+* docs related workflow ([89e7a7a](https://github.com/dadrus/github-integrations/commit/89e7a7a16a5d26d8c5708340f4a54c547d88954b))
+* docs related workflow ([fe80c06](https://github.com/dadrus/github-integrations/commit/fe80c0603420769f9b1e23a3661f01eba5573870))
+* docs related workflow ([4846251](https://github.com/dadrus/github-integrations/commit/4846251376c615b050f92694ce76d6e7e49e5d59))
+
 ## [0.1.1-alpha](https://github.com/dadrus/github-integrations/compare/v0.1.0-alpha...v0.1.1-alpha) (2022-07-18)
 
 
