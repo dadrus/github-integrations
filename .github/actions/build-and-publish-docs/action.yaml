@@ -1,0 +1,50 @@
+name: Build and publish docs
+description: Builds and publishes project documentation
+
+inputs:
+  publish_dir:
+    description: The destination subdirectory on a publishing branch. Defaults to dev
+    required: false
+    default: dev
+  docs_dir:
+    description: The directory containing the documentation. Defaults to docs
+    required: false
+    default: docs
+
+runs:
+  using: composite
+  steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      with:
+        submodules: true  # Fetch Hugo themes (true OR recursive)
+        fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
+    - name: Setup Hugo
+      uses: peaceiris/actions-hugo@v2
+      with:
+        hugo-version: 0.100.1
+        extended: true
+    - name: Setup Node
+      uses: actions/setup-node@v3
+      with:
+        node-version: 17.7
+    - name: Install mermaid
+      run: npm install -g @mermaid-js/mermaid-cli
+    - name: Setup ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 2.7
+    - name: Install asciidoctor
+      run: gem install asciidoctor asciidoctor-diagram asciidoctor-html5s rouge
+    - name: Install dependencies
+      working-directory: ${{ inputs.docs_dir }}
+      run: npm install
+    - name: Build documentation
+      working-directory: ${{ inputs.docs_dir }}
+      run: hugo --minify -d ./public
+    - name: Deploy documentation
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ${{ inputs.docs_dir }}/public
+        destination_dir: ${{ inputs.publish_dir }}

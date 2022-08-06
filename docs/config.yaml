@@ -1,6 +1,6 @@
 baseURL: https://dadrus.github.io/
 languageCode: en-us
-title: Heimdall
+title: Test
 theme: mytheme
 relativeURLS: true
 sectionPagesMenu: main
@@ -58,15 +58,11 @@ frontmatter:
     - ':default'
 
 params:
-  copyright: 2022 © Heimdall Project Authors. All rights reserved.
-  license:
-    name: Apache 2.0
-    url: https://github.com/dadrus/heimdall/blob/master/LICENSE
   author: Dimitrij Drus
-  description: Heimdall is an open source identity & access proxy (IAP) and access control decision API, designed for cloud native applications
+  description: Test docu
   github:
     user: dadrus
-    project: heimdall
+    project: github-integrations
 
 module:
   mounts:

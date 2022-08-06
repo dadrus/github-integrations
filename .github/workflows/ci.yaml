@@ -81,3 +81,8 @@ jobs:
          push: false
          build-args: VERSION=${{ github.sha }}
          tags: ${{ github.repository }}:latest
+
+  build-and-publish-docs:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: ./.github/actions/build-and-publish-docs

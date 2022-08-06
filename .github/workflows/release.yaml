@@ -103,3 +103,14 @@ jobs:
           repository: ${{ github.repository }}
           short-description: ${{ github.event.repository.description }}
           readme-filepath: ./README.md
+
+  build-and-publish-docs:
+    runs-on: ubuntu-20.04
+    needs:
+      - prepare-release
+    if: needs.prepare-release.outputs.release_created
+    steps:
+      - uses: ./.github/actions/build-and-publish-docs
+        with:
+          docs_dir: ./docs
+          publish_dir: ${{ needs.prepare-release.outputs.tag_name }}
