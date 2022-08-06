@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.3.0-alpha...v0.4.0-alpha) (2022-08-06)
+
+
+### Features
+
+* next attempt to deploy redirects ([06a4e19](https://github.com/dadrus/github-integrations/commit/06a4e19f613e6e99a256c5f18b78bc4a8f1f9f71))
+
 ## [0.3.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.2.0-alpha...v0.3.0-alpha) (2022-08-06)
 
 
