@@ -2,7 +2,7 @@
   ".": "0.2.0-alpha",
   "extra-files": [
     {
-      "path": "/docs/redirect/index.html"
+      "path": "./docs/redirect/index.html"
     }
   ]
 }

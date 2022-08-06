@@ -121,6 +121,6 @@ jobs:
       - name: Deploy redirect
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ inputs.github_token }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./redirect
           keep_files: true
