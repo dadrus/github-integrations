@@ -10,6 +10,10 @@ inputs:
     description: The directory containing the documentation. Defaults to docs
     required: false
     default: docs
+  github_token:
+    description: The github token to use for publishing
+    required: false
+    default: ${{ github.token }}
 
 runs:
   using: composite
@@ -44,6 +48,6 @@ runs:
     - name: Deploy documentation
       uses: peaceiris/actions-gh-pages@v3
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        github_token: ${{ inputs.github_token }}
         publish_dir: ${{ inputs.docs_dir }}/public
         destination_dir: ${{ inputs.publish_dir }}
