@@ -85,4 +85,6 @@ jobs:
   build-and-publish-docs:
     runs-on: ubuntu-20.04
     steps:
-      - uses: ./.github/actions/build-and-publish-docs
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - uses: ./.github/actions/build-and-publish-docs/
