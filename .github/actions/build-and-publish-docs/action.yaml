@@ -24,18 +24,22 @@ runs:
       with:
         node-version: 17.7
     - name: Install mermaid
+      shell: bash
       run: npm install -g @mermaid-js/mermaid-cli
     - name: Setup ruby
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: 2.7
     - name: Install asciidoctor
+      shell: bash
       run: gem install asciidoctor asciidoctor-diagram asciidoctor-html5s rouge
     - name: Install dependencies
       working-directory: ${{ inputs.docs_dir }}
+      shell: bash
       run: npm install
     - name: Build documentation
       working-directory: ${{ inputs.docs_dir }}
+      shell: bash
       run: hugo --minify -d ./public
     - name: Deploy documentation
       uses: peaceiris/actions-gh-pages@v3
