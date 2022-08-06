@@ -117,5 +117,4 @@ jobs:
           fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
       - uses: ./.github/actions/build-and-publish-docs/
         with:
-          docs_dir: ./docs
           publish_dir: ${{ needs.prepare-release.outputs.tag_name }}

@@ -8,4 +8,4 @@ menu:
     weight: 5
 ---
 
-Just to check how versioning is working
+Just to check how versioning is working. Current status
