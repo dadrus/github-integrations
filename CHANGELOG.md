@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.4.0-alpha...v0.5.0-alpha) (2022-08-06)
+
+
+### Features
+
+* next attempt ([6d8060f](https://github.com/dadrus/github-integrations/commit/6d8060f91d8c3dac9460bfb6995fb7c541b2a54a))
+
 ## [0.4.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.3.0-alpha...v0.4.0-alpha) (2022-08-06)
 
 
