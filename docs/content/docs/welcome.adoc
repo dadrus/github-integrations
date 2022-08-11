@@ -9,3 +9,21 @@ menu:
 ---
 
 Just to check how versioning is working. Dev status
+
+NOTE: This is a note. http://foo.bar[Link] `inline code`
+
+Regular text
+
+TIP: This is a tip. http://foo.bar[Link] `inline code`
+
+Regular Text
+
+Regular Text
+
+CAUTION: This is a caution note. http://foo.bar[Link] `inline code`
+
+Regular Text
+
+WARNING: This is a warning note. http://foo.bar[Link] `inline code`
+
+Regular Text

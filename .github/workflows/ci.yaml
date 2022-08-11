@@ -10,6 +10,19 @@ on:
 
 jobs:
 
+  redirect:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+      - run: echo $PWD
+      - name: Update uri for redirecting to new version
+        uses: jacobtomlinson/gha-find-replace@v2
+        with:
+          find: x-release-version
+          replace: ${{ needs.prepare-release.outputs.tag_name }}
+          regex: false
+          include: ./docs/redirect/index.html
+      - run: cat ./docs/redirect/index.html
   test:
     runs-on: ubuntu-20.04
     steps:

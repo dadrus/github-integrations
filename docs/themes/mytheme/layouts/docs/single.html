@@ -3,37 +3,33 @@
   <div class="container-xxl d-flex align-items-md-center">
     <form class="position-relative me-auto">
       <span>
-        <input id="search-input" class="form-control" type="search" placeholder="Search docs..." aria-label="Search docs for..." autocomplete="off">
+        <input id="search-input" class="form-control" type="search" placeholder="Search docs..."
+               aria-label="Search docs for..." autocomplete="off" hidden>
       </span>
     </form>
-    <div class="dropdown ms-3">
-      <button class="btn btn-light btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static">
-        <span class="d-none d-lg-inline">{{ .Site.Title }}</span> v0.1.0-alpha
+    <doc-version-select class="dropdown ms-3" version-info="/data.json" current-version="{{ .Site.Params.version }}">
+      <button class="btn btn-light btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+        {{ .Site.Params.version }}
       </button>
-      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="heimdall-versions">
-        <li>
-          <a class="dropdown-item" aria-current="true" href="#">Latest (v0.1.0-alpha)</a>
-        </li>
-        <li>
-          <hr class="dropdown-divider">
-        </li>
-        <li>
-          <a class="dropdown-item" href="#">v0.0.1-alpha</a>
-        </li>
-      </ul>
-      <button class="btn btn-light btn-outline-light navbar-toggler d-md-none py-0 px-1 ms-3 order-3 collapsed" type="button"
-              data-bs-toggle="collapse" data-bs-target="#heimdall-docs-menu"
-              aria-controls="heimdall-docs-menu" aria-expanded="false" aria-label="Toggle docs menu">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi bi-expand" fill="currentColor" viewBox="0 0 16 16">
-          <title>Expand</title>
-          <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13A.5.5 0 0 1 1 8zM7.646.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 1.707V5.5a.5.5 0 0 1-1 0V1.707L6.354 2.854a.5.5 0 1 1-.708-.708l2-2zM8 10a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 14.293V10.5A.5.5 0 0 1 8 10z"></path>
-        </svg>
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi bi-collapse" fill="currentColor" viewBox="0 0 16 16">
-          <title>Collapse</title>
-          <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13A.5.5 0 0 1 1 8zm7-8a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 1 1 .708-.708L7.5 4.293V.5A.5.5 0 0 1 8 0zm-.5 11.707l-1.146 1.147a.5.5 0 0 1-.708-.708l2-2a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 11.707V15.5a.5.5 0 0 1-1 0v-3.793z"></path>
-        </svg>
-      </button>
-    </div>
+    </doc-version-select>
+    <button class="btn btn-light btn-outline-light navbar-toggler d-md-none py-0 px-1 ms-3 order-3 collapsed"
+            type="button"
+            data-bs-toggle="collapse" data-bs-target="#heimdall-docs-menu"
+            aria-controls="heimdall-docs-menu" aria-expanded="false" aria-label="Toggle docs menu">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi bi-expand" fill="currentColor"
+           viewBox="0 0 16 16">
+        <title>Expand</title>
+        <path fill-rule="evenodd"
+              d="M1 8a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13A.5.5 0 0 1 1 8zM7.646.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 1.707V5.5a.5.5 0 0 1-1 0V1.707L6.354 2.854a.5.5 0 1 1-.708-.708l2-2zM8 10a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 14.293V10.5A.5.5 0 0 1 8 10z"></path>
+      </svg>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi bi-collapse" fill="currentColor"
+           viewBox="0 0 16 16">
+        <title>Collapse</title>
+        <path fill-rule="evenodd"
+              d="M1 8a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13A.5.5 0 0 1 1 8zm7-8a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 1 1 .708-.708L7.5 4.293V.5A.5.5 0 0 1 8 0zm-.5 11.707l-1.146 1.147a.5.5 0 0 1-.708-.708l2-2a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 11.707V15.5a.5.5 0 0 1-1 0v-3.793z"></path>
+      </svg>
+    </button>
   </div>
 </nav>
 
@@ -41,11 +37,11 @@
 <div class="container-xxl d-xxl-flex">
   <aside class="d-none d-md-block pe-4 pt-4 flex-xxl-shrink-0">
     <nav id="heimdall-docs-menu" class="collapse">
-    {{ partial "sidebar/docs-menu.html" . }}
+      {{ partial "sidebar/docs-menu.html" . }}
     </nav>
   </aside>
 
-  <main class="px-3 pt-4 flex-xxl-grow-0">
+  <main class="px-3 pt-4 flex-xxl-grow-1">
     <h1>{{ .Title }}</h1>
     <div>
       {{ .Content }}

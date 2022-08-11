@@ -60,11 +60,16 @@ frontmatter:
 params:
   author: Dimitrij Drus
   description: Test docu
+  version: 0.1.0-alpha
   github:
     user: dadrus
     project: github-integrations
 
 module:
   mounts:
+    - source: static
+      target: static
     - source: node_modules/bootstrap/dist/js/bootstrap.bundle.js
       target: assets/js/bootstrap.bundle.js
+    - source: node_modules/bootstrap-icons/font/fonts
+      target: static/css/fonts
