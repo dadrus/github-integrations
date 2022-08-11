@@ -31,7 +31,7 @@ jobs:
       - run: cat ./docs/static/data.json
       - name: Update versions.json
         run: |
-          cat ./docs/static/data.json | jq '. + [{ "version": "foo", "path": "bar" }]' > ./docs/static/data.json
+          cat ./docs/static/data.json | jq '. + [{ "version": "foo", "path": "bar" }]' | tee ./docs/static/data.json
       - run: cat ./docs/static/data.json
         
 
