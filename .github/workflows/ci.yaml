@@ -19,10 +19,10 @@ jobs:
       - name: Update uri for redirecting to new version
         uses: jacobtomlinson/gha-find-replace@v2
         with:
-          find: x-release-version
-          replace: foo
+          find: "x-release-version"
+          replace: "foo"
           regex: false
-          include: ./docs/redirect/index.html
+          include: docs/**
       - run: cat ./docs/redirect/index.html
   test:
     runs-on: ubuntu-20.04
