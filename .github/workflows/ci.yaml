@@ -24,6 +24,12 @@ jobs:
           regex: false
           include: docs/**
       - run: cat ./docs/redirect/index.html
+      - name: Update versions.json
+        run: |
+          cat ./docs/static/data.json | jq '. + [{ "version": "foo", "path": "bar" }]' > ./docs/static/data.json
+      - run: cat ./docs/static/data.json
+        
+
   test:
     runs-on: ubuntu-20.04
     steps:
