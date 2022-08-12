@@ -60,7 +60,7 @@ frontmatter:
 params:
   author: Dimitrij Drus
   description: Test docu
-  version: 0.1.0-alpha
+  version: x-current-version
   github:
     user: dadrus
     project: github-integrations
