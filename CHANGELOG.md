@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.6.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.5.0-alpha...v0.6.0-alpha) (2022-08-12)
+
+
+### Features
+
+* ci update to see whether everything is working ([63bc3df](https://github.com/dadrus/github-integrations/commit/63bc3dfc1d5036af27a769b8e27f31f2982c065f))
+* playing around ([567b0c9](https://github.com/dadrus/github-integrations/commit/567b0c92050d2229c5cc7aa92a1daee3d7224aba))
+
+
+### Bug Fixes
+
+* next attempt ([72a519f](https://github.com/dadrus/github-integrations/commit/72a519f672ec4be3f7cb40186bbf0a0bf726d174))
+* next attempt ([d9362f5](https://github.com/dadrus/github-integrations/commit/d9362f53ba9876062735b8686a365c35bc09248c))
+
 ## [0.5.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.4.0-alpha...v0.5.0-alpha) (2022-08-06)
 
 
