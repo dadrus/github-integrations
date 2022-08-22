@@ -49,7 +49,7 @@
           <doc-version-select class="nav-item dropdown"
                               version-file="/heimdall/versions.json"
                               current-version="{{ .Site.Params.version }}"
-                              current-page="{{ relURL .URL }}" >
+                              current-page="{{ .RelPermalink }}" >
             <button class="btn btn-dark dropdown-toggle me-4" data-bs-toggle="dropdown" aria-expanded="false">
               {{ .Site.Params.version }}
             </button>
