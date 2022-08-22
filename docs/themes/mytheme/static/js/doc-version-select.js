@@ -66,11 +66,11 @@ const html = htmlSnippet => {
     return doc.body.firstChild
 }
 
-const linkListItem = currentVersion => element => `
-<li><a class="dropdown-item ${currentVersion === element.version ? 'current' : ''}" href="${element.path}">${element.version}</a></li>`
+const linkListItem = (currentVersion, currentPath) => element => `
+<li><a class="dropdown-item ${currentVersion === element.version ? 'current' : ''}" href="${element.path} + ${currentPath}">${element.version}</a></li>`
 
-const linkList = (elements = [], currentVersion) => {
-    const linkItem = linkListItem(currentVersion)
+const linkList = (elements = [], currentVersion, currentPath) => {
+    const linkItem = linkListItem(currentVersion, currentPath)
 
     return html(`
     <ul class="dropdown-menu">
@@ -99,19 +99,25 @@ const load = async dataFile => {
 
 class DocVersionSelect extends HTMLElement {
     async connectedCallback() {
-        const versions = await load(this.versionInfoFile)
+        const versions = await load(this.versionsFile)
 
-        this.appendChild(linkList(versions, this.currentVersion))
+        this.appendChild(linkList(versions, this.currentVersion, this.currentPage))
     }
 
-    get versionInfoFile() {
-        const versionInfoFile = this.hasAttribute('version-info') ? this.getAttribute('version-info') : null
+    get currentPage() {
+        const page = this.hasAttribute('current-page') ? this.getAttribute('current-page') : null
 
-        if (!versionInfoFile) {
-            throw new Error('No version info data provided! Please add the attribute "version-info"!')
+        return page || ''
+    }
+
+    get versionsFile() {
+        const versionsFile = this.hasAttribute('version-file') ? this.getAttribute('version-file') : null
+
+        if (!versionsFile) {
+            throw new Error('No version info data provided! Please add the attribute "version-file"!')
         }
 
-        return versionInfoFile
+        return versionsFile
     }
 
     get currentVersion() {
