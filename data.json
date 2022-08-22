@@ -1,10 +1,10 @@
 [
   {
     "version": "dev",
-    "path": "/heimdall/dev"
+    "path": "/github-integrations/dev"
   },
   {
     "version": "v0.6.0-alpha",
-    "path": "/heimdall/v0.6.0-alpha"
+    "path": "/github-integrations/v0.6.0-alpha"
   }
 ]
