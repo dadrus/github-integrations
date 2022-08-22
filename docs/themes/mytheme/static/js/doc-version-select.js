@@ -67,7 +67,7 @@ const html = htmlSnippet => {
 }
 
 const linkListItem = (currentVersion, currentPath) => element => `
-<li><a class="dropdown-item ${currentVersion === element.version ? 'current' : ''}" href="${element.path} + ${currentPath}">${element.version}</a></li>`
+<li><a class="dropdown-item ${currentVersion === element.version ? 'current' : ''}" href="${element.path}${currentPath}">${element.version}</a></li>`
 
 const linkList = (elements = [], currentVersion, currentPath) => {
     const linkItem = linkListItem(currentVersion, currentPath)
