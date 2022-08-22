@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.7.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.6.0-alpha...v0.7.0-alpha) (2022-08-22)
+
+
+### Features
+
+* making use of current page info ([03be81a](https://github.com/dadrus/github-integrations/commit/03be81a19a800670b7e9ea2f6dd9796a84e50c30))
+* next attempts ([277ba3d](https://github.com/dadrus/github-integrations/commit/277ba3d1df5c18a90423d6da45652a4d346689cd))
+
+
+### Bug Fixes
+
+* docu workflow & path ([603ac16](https://github.com/dadrus/github-integrations/commit/603ac16686fac520c2cd21d9aac8e776b25113e2))
+* path to data.json ([8f7939f](https://github.com/dadrus/github-integrations/commit/8f7939f09be740362de7385dee02708a14819ba1))
+
 ## [0.6.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.5.0-alpha...v0.6.0-alpha) (2022-08-12)
 
 
