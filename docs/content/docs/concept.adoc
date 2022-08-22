@@ -1,0 +1,11 @@
+---
+title: "Concept"
+date: 2022-06-10T17:30:17+02:00
+draft: false
+weight: 6
+menu:
+  docs:
+    weight: 6
+---
+
+Foo Bar
