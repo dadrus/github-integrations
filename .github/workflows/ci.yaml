@@ -3,30 +3,63 @@ name: CI
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
     branches:
-      - master
+      - main
+
+env:
+  GO_VERSION: 1.18.5
+  GOLANGCI_LINT_VERSION: v1.48.0
+  DOCUMENTATION_URL: https://dadrus.github.io/heimdall/
 
 jobs:
+  lint-code:
+    runs-on: ubuntu-20.04
+    steps:
+    - name: Test
+      run: echo ({{ github.ref_name }})
+    - name: Set up Go
+      uses: actions/setup-go@v3
+      with:
+        go-version: ${{ env.GO_VERSION }}
+    - name: Checkout repository
+      uses: actions/checkout@v3
+    - name: golangci-lint
+      uses: golangci/golangci-lint-action@v3
+      with:
+        version: ${{ env.GOLANGCI_LINT_VERSION }}
+        args: --timeout 4m
+
+  lint-dockerfiles:
+    runs-on: ubuntu-20.04
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+    - name: Run hadolint for Dockerfile
+      uses: hadolint/hadolint-action@v2.1.0
+      with:
+        dockerfile: docker/Dockerfile
+    - name: Run hadolint for debug.Dockerfile
+      uses: hadolint/hadolint-action@v2.1.0
+      with:
+        dockerfile: docker/debug.Dockerfile
 
   test:
     runs-on: ubuntu-20.04
     steps:
-      - name: Set up Go
-        uses: actions/setup-go@v3
-        with:
-          go-version: 1.18.4
-      - name: Checkout repository
-        uses: actions/checkout@v3
-      - name: Test
-        run: go test -v ./...
+    - name: Set up Go
+      uses: actions/setup-go@v3
+      with:
+        go-version: ${{ env.GO_VERSION }}
+    - name: Checkout repository
+      uses: actions/checkout@v3
+    - name: Test
+      run: go test -v -coverprofile=coverage.cov -coverpkg=./... ./...
 
   prepare-release:
     runs-on: ubuntu-20.04
-    if: github.ref == 'refs/heads/master'
-    needs:
-      - test
+    if: github.ref == 'refs/heads/main'
     outputs:
       release_created: ${{ steps.release_prepare.outputs.release_created }}
       tag_name: ${{ steps.release_prepare.outputs.tag_name }}
@@ -37,17 +70,13 @@ jobs:
         with:
           command: manifest
           token: ${{ secrets.GITHUB_TOKEN }}
-          signoff: release-bot[bot] <${{ github.run_id }}+release-bot[bot]@users.noreply.github.com>
 
-  build:
+  build-binaries:
     runs-on: ubuntu-20.04
     needs:
       - test
       - prepare-release
-    if: |
-      always() && 
-      needs.prepare-release.outputs.release_created == false &&
-      needs.test.result == 'success'
+    if: always() && needs.prepare-release.outputs.release_created == false && needs.test.result == 'success'
     strategy:
       matrix:
         # build and publish in parallel: linux/amd64, linux/arm64, windows/amd64, darwin/amd64, darwin/arm64
@@ -61,22 +90,21 @@ jobs:
           - goarch: arm64
             goos: windows
     steps:
-    - name: Set up Go
-      uses: actions/setup-go@v3
-      with:
-        go-version: 1.18.4
-    - name: Checkout repository
-      uses: actions/checkout@v3
-    - name: Build
-      run: GOOS=${{ matrix.goos }} GOARCH=${{ matrix.goarch }} go build -trimpath -ldflags="-buildid= -w -s -X main.Version=${{ github.sha }}" -o ./build/
-    - uses: actions/upload-artifact@v3
-      if: success()
-      with:
-        name: build-result-${{ matrix.goos }}-${{ matrix.goarch }}
-        path: ./build/*
-        retention-days: 30
+      - name: Set up Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: ${{ env.GO_VERSION }}
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Build
+        run: CGO_ENABLED=0 GOOS=${{ matrix.goos }} GOARCH=${{ matrix.goarch }} go build -trimpath -ldflags="-buildid= -w -s -X github.com/dadrus/heimdall/cmd.Version=${{ github.sha }}" -o ./build/
+      - uses: actions/upload-artifact@v3
+        if: github.event_name != 'pull_request'
+        with:
+          name: build-result-${{ matrix.goos }}-${{ matrix.goarch }}
+          path: ./build/*
+          retention-days: 30
 
-  # This job is executed only if the prepare-release job has created a release
   release-binaries:
     runs-on: ubuntu-20.04
     needs:
@@ -95,58 +123,52 @@ jobs:
           - goarch: arm64
             goos: windows
     steps:
-      - uses: actions/checkout@v3
-      - uses: wangyoucao577/go-release-action@v1.30
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Build release binaries and upload them to the release
+        uses: wangyoucao577/go-release-action@v1.30
         with:
           release_tag: ${{ needs.prepare-release.outputs.tag_name }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          goversion: 1.18.4
+          pre_command: export CGO_ENABLED=0
+          goversion: ${{ env.GO_VERSION }}
           goos: ${{ matrix.goos }}
           goarch: ${{ matrix.goarch }}
           ldflags: "-buildid= -w -s -X main.Version=${{ needs.prepare-release.outputs.tag_name }}"
           build_flags: -trimpath
           sha256sum: true
           md5sum: false
-          extra_files: CHANGELOG.md README.md
+          extra_files: CHANGELOG.md LICENSE
 
   # this job is here only for the verification purpose of the docker images build
   build-docker-images:
     runs-on: ubuntu-20.04
     needs:
-     - test
-     - prepare-release
-    if: |
-      always() && 
-      needs.prepare-release.outputs.release_created == false &&
-      needs.test.result == 'success'
+      - test
+      - prepare-release
+    if: always() && needs.prepare-release.outputs.release_created == false && needs.test.result == 'success'
     steps:
-     - name: Checkout repository
-       uses: actions/checkout@v3
-     - name: Set up QEMU
-       uses: docker/setup-qemu-action@v2
-     - name: Set up Docker Buildx
-       uses: docker/setup-buildx-action@v2
-     - name: Login to DockerHub
-       uses: docker/login-action@v2
-       with:
-         username: ${{ secrets.DOCKERHUB_USER }}
-         password: ${{ secrets.DOCKERHUB_TOKEN }}
-     - name: Build and push
-       uses: docker/build-push-action@v3
-       with:
-         context: .
-         file: ./docker/Dockerfile
-         platforms: linux/amd64,linux/arm64,linux/arm
-         push: false
-         build-args: VERSION=${{ github.sha }}
-         tags: ${{ github.repository }}:latest
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          file: ./docker/Dockerfile
+          platforms: linux/amd64,linux/arm64,linux/arm
+          push: false
+          build-args: VERSION=${{ github.sha }}
+          tags: ${{ github.repository }}:latest
 
-  # This job is executed only if the prepare-release job has created a release
   release-docker-images:
+    if: needs.prepare-release.outputs.release_created
     runs-on: ubuntu-20.04
     needs:
       - prepare-release
-    if: needs.prepare-release.outputs.release_created
     steps:
       - name: Prepare image version
         id: image-version
@@ -164,15 +186,15 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USER }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Docker meta
+      - name: Collect Docker meta-info
         id: meta
         uses: docker/metadata-action@v4
         with:
           images: ${{ github.repository }}
           labels: |
             org.opencontainers.image.version=${{ steps.image-version.outputs.result }}
-            org.opencontainers.image.documentation=https://dadrus.github.io/heimdall/
-      - name: Build and push
+            org.opencontainers.image.documentation=${{ env.DOCUMENTATION_URL }}
+      - name: Build and push images to DockerHub
         uses: docker/build-push-action@v3
         with:
           context: .
@@ -182,16 +204,8 @@ jobs:
           build-args: VERSION=${{ needs.prepare-release.outputs.tag_name }}
           labels: ${{ steps.meta.outputs.labels }}
           tags: ${{ github.repository }}:${{ steps.image-version.outputs.result }},${{ github.repository }}:latest
-      - name: Update DockerHub repository description & readme
-        uses: peter-evans/dockerhub-description@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USER }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-          repository: ${{ github.repository }}
-          short-description: ${{ github.event.repository.description }}
-          readme-filepath: ./README.md
 
-  build-and-publish-docs:
+  documentation:
     runs-on: ubuntu-20.04
     needs:
       - prepare-release
@@ -231,7 +245,7 @@ jobs:
           regex: false
           include: docs/**
       - name: Update version string to dev version
-        if: github.ref == 'refs/heads/master' && needs.prepare-release.outputs.release_created == false
+        if: github.ref == 'refs/heads/main' && needs.prepare-release.outputs.release_created == false
         uses: jacobtomlinson/gha-find-replace@v2
         with:
           find: "x-current-version"
@@ -253,9 +267,9 @@ jobs:
         id: update-version-json
         if: needs.prepare-release.outputs.release_created
         run: |
-          cat ./docs/versions/data.json | jq '. + [{ "version": "${{ needs.prepare-release.outputs.tag_name }}", "path": "/heimdall/${{ needs.prepare-release.outputs.tag_name }}/docs/welcome/" }]' | tee ./docs/versions/data.json
+          cat ./docs/versions/data.json | jq '. + [{ "version": "${{ needs.prepare-release.outputs.tag_name }}", "path": "/heimdall/${{ needs.prepare-release.outputs.tag_name }}/" }]' | tee ./docs/versions/data.json
       - name: Deploy dev documentation
-        if: github.ref == 'refs/heads/master' && needs.prepare-release.outputs.release_created == false
+        if: github.ref == 'refs/heads/main' && needs.prepare-release.outputs.release_created == false
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -288,7 +302,7 @@ jobs:
           git config --local user.email "{{ github.sha }}+github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add ./docs/versions/data.json
-          git commit -m "chore: Preparing for next iteration"
+          git commit -m "chore({{ github.ref_name }}): Preparing for next iteration"
       - name: Push changes
         if: needs.prepare-release.outputs.release_created
         uses: ad-m/github-push-action@master
