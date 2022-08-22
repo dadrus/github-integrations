@@ -107,7 +107,7 @@ class DocVersionSelect extends HTMLElement {
     get currentPage() {
         const page = this.hasAttribute('current-page') ? this.getAttribute('current-page') : null
 
-        return page || ''
+        return page || '/'
     }
 
     get versionsFile() {
