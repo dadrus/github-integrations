@@ -3,10 +3,10 @@ name: CI
 on:
   push:
     branches:
-      - main
+      - master
   pull_request:
     branches:
-      - main
+      - master
 
 env:
   GO_VERSION: 1.18.5
@@ -59,7 +59,7 @@ jobs:
 
   prepare-release:
     runs-on: ubuntu-20.04
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/master'
     outputs:
       release_created: ${{ steps.release_prepare.outputs.release_created }}
       tag_name: ${{ steps.release_prepare.outputs.tag_name }}
@@ -245,7 +245,7 @@ jobs:
           regex: false
           include: docs/**
       - name: Update version string to dev version
-        if: github.ref == 'refs/heads/main' && needs.prepare-release.outputs.release_created == false
+        if: github.ref == 'refs/heads/master' && needs.prepare-release.outputs.release_created == false
         uses: jacobtomlinson/gha-find-replace@v2
         with:
           find: "x-current-version"
@@ -269,7 +269,7 @@ jobs:
         run: |
           cat ./docs/versions/data.json | jq '. + [{ "version": "${{ needs.prepare-release.outputs.tag_name }}", "path": "/heimdall/${{ needs.prepare-release.outputs.tag_name }}/" }]' | tee ./docs/versions/data.json
       - name: Deploy dev documentation
-        if: github.ref == 'refs/heads/main' && needs.prepare-release.outputs.release_created == false
+        if: github.ref == 'refs/heads/master' && needs.prepare-release.outputs.release_created == false
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
