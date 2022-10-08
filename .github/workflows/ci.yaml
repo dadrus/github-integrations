@@ -38,10 +38,6 @@ jobs:
       uses: hadolint/hadolint-action@v2.1.0
       with:
         dockerfile: docker/Dockerfile
-    - name: Run hadolint for debug.Dockerfile
-      uses: hadolint/hadolint-action@v2.1.0
-      with:
-        dockerfile: docker/debug.Dockerfile
 
   test:
     runs-on: ubuntu-20.04
