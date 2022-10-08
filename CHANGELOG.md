@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.8.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.7.0-alpha...v0.8.0-alpha) (2022-10-08)
+
+
+### Features
+
+* ci updated to consider docs diff for docs deployment ([#69](https://github.com/dadrus/github-integrations/issues/69)) ([c15b1ab](https://github.com/dadrus/github-integrations/commit/c15b1ab3f6e658f6236f77362a926ce9ecb88699))
+* small docu changes ([#71](https://github.com/dadrus/github-integrations/issues/71)) ([7faa170](https://github.com/dadrus/github-integrations/commit/7faa17040afc0b5f0c87bed567d267d3180cbf9d))
+
 ## [0.7.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.6.0-alpha...v0.7.0-alpha) (2022-08-22)
 
 
