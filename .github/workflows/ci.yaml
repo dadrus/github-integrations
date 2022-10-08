@@ -17,8 +17,6 @@ jobs:
   lint-code:
     runs-on: ubuntu-20.04
     steps:
-    - name: Test
-      run: echo (${{ github.ref_name }})
     - name: Set up Go
       uses: actions/setup-go@v3
       with:
