@@ -25,7 +25,7 @@ jobs:
           PATTERNS: |
             charts/**
       - name: Publish Helm Chart
-        if: steps.chart-diff.outputs.diff
+        if: env.GIT_DIFF
         uses: stefanprodan/helm-gh-pages@v1.7.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
