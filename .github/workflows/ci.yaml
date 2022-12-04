@@ -17,7 +17,10 @@ jobs:
   publish-helm-chart:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - name: Calculate diff
         uses: technote-space/get-diff-action@v6
         id: chart-diff
