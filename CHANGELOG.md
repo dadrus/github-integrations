@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.11.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.10.0-alpha...v0.11.0-alpha) (2022-12-04)
+
+
+### Features
+
+* helm chart test ([#79](https://github.com/dadrus/github-integrations/issues/79)) ([d5e4e7f](https://github.com/dadrus/github-integrations/commit/d5e4e7f68f4145f94ff8c447258232a677c2b5f0))
+
 ## [0.10.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.9.0-alpha...v0.10.0-alpha) (2022-11-09)
 
 
