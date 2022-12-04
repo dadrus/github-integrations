@@ -14,6 +14,17 @@ env:
   DOCUMENTATION_URL: https://dadrus.github.io/heimdall/
 
 jobs:
+  publish-helm-chart:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: Publish Helm charts
+        uses: stefanprodan/helm-gh-pages@master
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          charts_dir: helm-chart
+          target_dir: charts
+
   lint-code:
     runs-on: ubuntu-20.04
     steps:
