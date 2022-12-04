@@ -14,6 +14,27 @@ env:
   DOCUMENTATION_URL: https://dadrus.github.io/heimdall/
 
 jobs:
+  publish-helm-chart:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Calculate diff
+        uses: technote-space/get-diff-action@v6
+        id: chart-diff
+        with:
+          PATTERNS: |
+            charts/**
+      - name: Publish Helm Chart
+        if: env.GIT_DIFF
+        uses: stefanprodan/helm-gh-pages@v1.7.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          target_dir: charts
+          linting: off
+
   lint-code:
     runs-on: ubuntu-20.04
     steps:
