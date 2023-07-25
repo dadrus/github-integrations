@@ -14,5 +14,9 @@
   {
     "version": "v0.11.0-alpha",
     "path": "/github-integrations/v0.11.0-alpha"
+  },
+  {
+    "version": "v0.12.0-alpha",
+    "path": "/github-integrations/v0.12.0-alpha"
   }
 ]
