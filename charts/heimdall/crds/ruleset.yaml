@@ -1,3 +1,19 @@
+# Copyright 2022 Dimitrij Drus <dadrus@gmx.de>
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# SPDX-License-Identifier: Apache-2.0
+
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
@@ -11,7 +27,7 @@ spec:
     singular: ruleset
     listKind: RuleSetList
   versions:
-    - name: v1alpha1
+    - name: v1alpha2
       served: true
       storage: true
       schema:
@@ -39,7 +55,7 @@ spec:
                     x-kubernetes-validations:
                       - rule: "has(self.id)"
                         message: "a rule must have an id defined"
-                      - rule: "has(self.url)"
+                      - rule: "has(self.match) && has(self.match.url) && size(self.match.url) > 0"
                         message: "a rule must have a url set to match incoming requests"
                       - rule: "has(self.execute) && size(self.execute) > 0"
                         message: "execute pipeline is not allowed to be empty"
@@ -47,19 +63,53 @@ spec:
                       id:
                         description: The identifier of the rule
                         type: string
-                      url:
-                        description: The url to match
-                        type: string
-                      matching_strategy:
-                        description: Strategy to match the url. Can either be regex or glob. defaults to glob
-                        type: string
-                        default: glob
-                        enum:
-                          - regex
-                          - glob
-                      upstream:
-                        description: Schema, host and port of the upstream service to forward the request to. Required only if heimdall is used in proxy operation mode.
-                        type: string
+                      match:
+                        description: How to match the rule
+                        type: object
+                        properties:
+                          url:
+                            description: The url to match
+                            type: string
+                          strategy:
+                            description: Strategy to match the url. Can either be regex or glob.
+                            type: string
+                            default: glob
+                            enum:
+                              - regex
+                              - glob
+                      forward_to:
+                        description: Where to forward the request to. Required only if heimdall is used in proxy operation mode.
+                        type: object
+                        x-kubernetes-validations:
+                          - rule: "has(self.host)"
+                            message: "no host is defined for the forward_to property"
+                        properties:
+                          host:
+                            description: Host and port of the upstream service to forward the request to
+                            type: string
+                          rewrite:
+                            description: Configures middlewares to rewrite parts of the URL
+                            type: object
+                            x-kubernetes-validations:
+                              - rule: "has(self.scheme) || has(self.strip_path_prefix) || has(self.add_path_prefix) || has(self.strip_query_parameters)"
+                                message: "rewrite is defined, but does not contain any middleware"
+                              - rule: "has(self.strip_query_parameters) ? size(self.strip_query_parameters) > 0 : true"
+                                message: "no query parameters defined in strip_query_parameters"
+                            properties:
+                              scheme:
+                                description: If you want to overwrite the used HTTP scheme, set it here
+                                type: string
+                              strip_path_prefix:
+                                description: If you want to cut a prefix from the URL path, set it here
+                                type: string
+                              add_path_prefix:
+                                description: If you want to add a prefix to the URL path, set it here
+                                type: string
+                              strip_query_parameters:
+                                description: If you want to remove some query parameters, specify it here
+                                type: array
+                                items:
+                                  type: string
                       methods:
                         description: The allowed HTTP methods
                         type: array

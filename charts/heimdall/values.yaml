@@ -1,3 +1,19 @@
+# Copyright 2022 Dimitrij Drus <dadrus@gmx.de>
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# SPDX-License-Identifier: Apache-2.0
+
 # Select the operation mode. Can be decision, or proxy
 # Defaults to "decision" as operating in proxy mode makes most probably only sense
 # if heimdall is installed as a side card either in the Ingress Controller itself,
@@ -7,21 +23,21 @@ operationMode: "decision" # decision or proxy
 # If set to true, a demo deployment with exemplary rules, as these can be found in the documentation,
 # will be done
 demo:
-  enable: false
+  enabled: false
 
   # the demo setup assumes nginx ingress controller and will use the
   # following values to configure the ingress rule
   # change the values to what is required for your ingress controller
   forwardAuthMiddlewareAnnotation: nginx.ingress.kubernetes.io/auth-url
   forwardAuthMiddlewareResponseAnnotation: nginx.ingress.kubernetes.io/auth-response-headers
-  forwardAuthMiddlewareRequestUri: /$request_uri
+  forwardAuthMiddlewareRequestUri: $request_uri
 
 # Default values for heimdall.
 image:
   repository: dadrus/heimdall
   pullPolicy: IfNotPresent
-  tag: "0.5.0-alpha"
-  pullSecrets: []
+  tag: ""
+  pullSecrets: [ ]
 
 nameOverride: ""
 fullnameOverride: ""
@@ -29,36 +45,37 @@ fullnameOverride: ""
 # Deployment configuration
 deployment:
   # Remove the curly braces after 'annotations:' if you want to specify annotations
-  annotations: {}
+  annotations: { }
   # Remove the curly braces after 'labels:' if you do want to specify additional labels
-  labels: {}
+  labels: { }
 
   # This configuration is applied directly to the pods and not higher objects
   pod:
-    securityContext: {}
-      # E.g.:
-      # fsGroup: 2000
+    securityContext:
+      fsGroup: 10001
+      runAsUser: 10001
+      runAsGroup: 10001
+      runAsNonRoot: true
 
     # Remove the curly braces after 'annotations:' if you want to specify annotations
-    annotations: {}
+    annotations: { }
 
   securityContext:
     capabilities:
       drop:
         - ALL
     readOnlyRootFilesystem: true
-    runAsNonRoot: true
-    runAsUser: 1000
+    allowPrivilegeEscalation: false
 
   # Remove the curly braces after 'resources:' if you want to specify resources
-  resources: {}
+  resources: { }
     # E.g.:
     # limits:
     #   cpu: 100m
     #   memory: 128Mi
     # requests:
     #   cpu: 100m
-    #   memory: 128Mi
+  #   memory: 128Mi
 
   # Only used if autoscaling is disabled (see below)
   replicaCount: 2
@@ -72,18 +89,18 @@ deployment:
     targetMemoryUtilizationPercentage: 80
 
   # Remove the curly braces after 'nodeSelector:' if you want to specify nodeSelector
-  nodeSelector: {}
+  nodeSelector: { }
 
-  tolerations: []
+  tolerations: [ ]
 
-  affinity: {}
+  affinity: { }
 
 # Configures k8s services (decision, proxy, management)
 service:
   # Remove the curly braces after 'labels:' if you do want to specify additional labels
-  labels: {}
+  labels: { }
   # Remove the curly braces after 'annotations:' if you want to specify annotations
-  annotations: {}
+  annotations: { }
 
   # Only used if "operationMode" is set to "decision"
   decision:
@@ -103,9 +120,11 @@ service:
     # Service port name
     name: management
 
+# Configures arbitrary environment variables for the deployment
+env: { }
+
 # heimdall config defaults
 # DO NOT OVERRIDE the values here. Use heimdall config yaml file instead!
-# If you create your own values.yaml file, copy the below contents to it as well.
 serve:
   decision:
     port: 4456
@@ -114,7 +133,14 @@ serve:
   management:
     port: 4457
 metrics:
-  prometheus:
-    port: 10250
-    metrics_path: "/metrics"
+  enabled: true
+  port: 10250
+  host: 0.0.0.0 # to enable scraping of metrics information by corresponding agents.
+  metrics_path: "/metrics"
+profiling:
+  enabled: false
+  port: 10251
+  host: 0.0.0.0 # to enable scraping of profiling information by corresponding agents.
+
+
 
