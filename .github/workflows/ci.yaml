@@ -103,7 +103,7 @@ jobs:
         id: release_prepare
         uses: google-github-actions/release-please-action@v3
         with:
-          command: manifest
+          #command: manifest
           token: ${{ secrets.GITHUB_TOKEN }}
           changelog-types: >
             [
