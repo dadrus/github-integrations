@@ -3,37 +3,33 @@ name: CI
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
     branches:
-      - master
+      - main
 
 env:
-  GO_VERSION: 1.18.5
-  GOLANGCI_LINT_VERSION: v1.48.0
-  DOCUMENTATION_URL: https://dadrus.github.io/heimdall/
+  GO_VERSION: "1.20"
+  GOLANGCI_LINT_VERSION: "v1.53.3"
+  HELM_VERSION: "3.12.1"
+  KUBECONFORM_VERSION: "0.6.2"
+  KUBERNETES_API_VERSION: "1.27.0"
+  DOCUMENTATION_URL: "https://dadrus.github.io/heimdall/"
 
 jobs:
-  publish-helm-chart:
+  check-licenses:
     runs-on: ubuntu-22.04
     steps:
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: "${{ env.GO_VERSION }}"
+      - name: Get google/go-licenses package
+        run: go install github.com/google/go-licenses@latest
       - name: Checkout repository
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - name: Calculate diff
-        uses: technote-space/get-diff-action@v6
-        id: chart-diff
-        with:
-          PATTERNS: |
-            charts/**
-      - name: Publish Helm Chart
-        if: env.GIT_DIFF
-        uses: stefanprodan/helm-gh-pages@v1.7.0
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          target_dir: charts
-          linting: off
+      - name: Check the licenses
+        run: go-licenses check --disallowed_types=forbidden,restricted,reciprocal,permissive,unknown .
 
   lint-code:
     runs-on: ubuntu-20.04
@@ -41,14 +37,14 @@ jobs:
     - name: Set up Go
       uses: actions/setup-go@v3
       with:
-        go-version: ${{ env.GO_VERSION }}
+        go-version: "${{ env.GO_VERSION }}"
     - name: Checkout repository
       uses: actions/checkout@v3
     - name: golangci-lint
       uses: golangci/golangci-lint-action@v3
       with:
         version: ${{ env.GOLANGCI_LINT_VERSION }}
-        args: --timeout 4m
+        args: --timeout 5m
 
   lint-dockerfiles:
     runs-on: ubuntu-20.04
@@ -60,13 +56,37 @@ jobs:
       with:
         dockerfile: docker/Dockerfile
 
+  lint-helm-chart:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Setup k8s tools
+        uses: yokawasa/action-setup-kube-tools@v0.9.3
+        with:
+          setup-tools: |
+            helm
+            kubeconform
+          helm: '${{ env.HELM_VERSION }}'
+          kubeconform: '${{ env.KUBECONFORM_VERSION }}'
+      - name: Helm Lint
+        run: helm lint ./charts/heimdall
+      - name: Kubeconform decision mode deployment
+        run: |
+          helm template --set demo.enabled=true ./charts/heimdall > decision-demo.yaml
+          kubeconform --skip RuleSet -kubernetes-version ${{ env.KUBERNETES_API_VERSION }} decision-demo.yaml
+      - name: Kubeconform proxy mode deployment
+        run: |
+          helm template --set operationMode=proxy --set demo.enabled=true ./charts/heimdall > proxy-demo.yaml
+          kubeconform --skip RuleSet -kubernetes-version ${{ env.KUBERNETES_API_VERSION }} decision-demo.yaml
+
   test:
     runs-on: ubuntu-20.04
     steps:
     - name: Set up Go
       uses: actions/setup-go@v3
       with:
-        go-version: ${{ env.GO_VERSION }}
+        go-version: "${{ env.GO_VERSION }}"
     - name: Checkout repository
       uses: actions/checkout@v3
     - name: Test
@@ -74,7 +94,7 @@ jobs:
 
   prepare-release:
     runs-on: ubuntu-20.04
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/main'
     outputs:
       release_created: ${{ steps.release_prepare.outputs.release_created }}
       tag_name: ${{ steps.release_prepare.outputs.tag_name }}
@@ -108,11 +128,11 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v3
         with:
-          go-version: ${{ env.GO_VERSION }}
+          go-version: "${{ env.GO_VERSION }}"
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: Build
-        run: CGO_ENABLED=0 GOOS=${{ matrix.goos }} GOARCH=${{ matrix.goarch }} go build -trimpath -ldflags="-buildid= -w -s -X github.com/dadrus/heimdall/cmd.Version=${{ github.sha }}" -o ./build/
+        run: CGO_ENABLED=0 GOOS=${{ matrix.goos }} GOARCH=${{ matrix.goarch }} go build -trimpath -ldflags="-buildid= -w -s -X github.com/dadrus/heimdall/version.Version=${{ github.sha }}" -o ./build/
       - uses: actions/upload-artifact@v3
         if: github.event_name != 'pull_request'
         with:
@@ -149,7 +169,7 @@ jobs:
           goversion: ${{ env.GO_VERSION }}
           goos: ${{ matrix.goos }}
           goarch: ${{ matrix.goarch }}
-          ldflags: "-buildid= -w -s -X main.Version=${{ needs.prepare-release.outputs.tag_name }}"
+          ldflags: "-buildid= -w -s -X github.com/dadrus/heimdall/version.Version=${{ needs.prepare-release.outputs.tag_name }}"
           build_flags: -trimpath
           sha256sum: true
           md5sum: false
@@ -220,6 +240,28 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           tags: ${{ github.repository }}:${{ steps.image-version.outputs.result }},${{ github.repository }}:latest
 
+  release-helm-chart:
+    runs-on: ubuntu-22.04
+    needs:
+      - prepare-release
+      - release-docker-images
+    if: needs.prepare-release.outputs.release_created
+    steps:
+      - name: Prepare image version
+        id: image-version
+        run: |
+          export version=$(echo ${{ needs.prepare-release.outputs.tag_name }} |  sed 's/v//g')
+          echo ::set-output name=result::$version
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Publish Helm Chart
+        uses: stefanprodan/helm-gh-pages@v1.7.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          target_dir: charts
+          linting: off
+          app_version: ${{ steps.image-version.outputs.result }}
+
   documentation:
     runs-on: ubuntu-20.04
     needs:
@@ -265,7 +307,7 @@ jobs:
           regex: false
           include: docs/**
       - name: Update version string to dev version
-        if: github.ref == 'refs/heads/master' && needs.prepare-release.outputs.release_created == false && env.GIT_DIFF
+        if: github.ref == 'refs/heads/main' && needs.prepare-release.outputs.release_created == false && env.GIT_DIFF
         uses: jacobtomlinson/gha-find-replace@v2
         with:
           find: "x-current-version"
@@ -283,13 +325,13 @@ jobs:
           replace: "${{ needs.prepare-release.outputs.tag_name }}"
           regex: false
           include: docs/**
-      - name: Update versions.json
+      - name: Update versions JSON document
         id: update-version-json
         if: needs.prepare-release.outputs.release_created
         run: |
           cat ./docs/versions/data.json | jq '. + [{ "version": "${{ needs.prepare-release.outputs.tag_name }}", "path": "/github-integrations/${{ needs.prepare-release.outputs.tag_name }}" }]' | tee ./docs/versions/data.json
       - name: Deploy dev documentation
-        if: github.ref == 'refs/heads/master' && needs.prepare-release.outputs.release_created == false && env.GIT_DIFF
+        if: github.ref == 'refs/heads/main' && needs.prepare-release.outputs.release_created == false && env.GIT_DIFF
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
