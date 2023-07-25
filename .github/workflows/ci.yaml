@@ -105,6 +105,7 @@ jobs:
         with:
           command: manifest
           token: ${{ secrets.GITHUB_TOKEN }}
+          changelog-types: '[{"type":"docs","section":"Documentation Updates","hidden":false}]'
 
   build-binaries:
     runs-on: ubuntu-20.04
@@ -166,7 +167,7 @@ jobs:
           release_tag: ${{ needs.prepare-release.outputs.tag_name }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
           pre_command: export CGO_ENABLED=0
-          goversion: ${{ env.GO_VERSION }}
+          goversion: "${{ env.GO_VERSION }}"
           goos: ${{ matrix.goos }}
           goarch: ${{ matrix.goarch }}
           ldflags: "-buildid= -w -s -X github.com/dadrus/heimdall/version.Version=${{ needs.prepare-release.outputs.tag_name }}"
@@ -175,6 +176,7 @@ jobs:
           md5sum: false
           extra_files: CHANGELOG.md LICENSE
 
+  # this job builds container images for PRs, as well as publishes these on merges to main
   build-dev-container-images:
     runs-on: ubuntu-22.04
     needs:
@@ -224,6 +226,7 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           tags: ${{ github.repository }}:dev-${{ github.sha }},${{ github.repository }}:dev
 
+  # this job releases container images
   release-container-images:
     if: needs.prepare-release.outputs.release_created
     runs-on: ubuntu-20.04
