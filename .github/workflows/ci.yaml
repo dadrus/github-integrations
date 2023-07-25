@@ -35,7 +35,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
     - name: Set up Go
-      uses: actions/setup-go@v3
+      uses: actions/setup-go@v4
       with:
         go-version: "${{ env.GO_VERSION }}"
     - name: Checkout repository
@@ -84,7 +84,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
     - name: Set up Go
-      uses: actions/setup-go@v3
+      uses: actions/setup-go@v4
       with:
         go-version: "${{ env.GO_VERSION }}"
     - name: Checkout repository
@@ -133,7 +133,7 @@ jobs:
             goos: windows
     steps:
       - name: Set up Go
-        uses: actions/setup-go@v3
+        uses: actions/setup-go@v4
         with:
           go-version: "${{ env.GO_VERSION }}"
       - name: Checkout repository
@@ -264,7 +264,7 @@ jobs:
             org.opencontainers.image.version=${{ steps.image-version.outputs.result }}
             org.opencontainers.image.documentation=${{ env.DOCUMENTATION_URL }}
       - name: Build and push images to DockerHub
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v4
         with:
           context: .
           file: ./docker/Dockerfile
