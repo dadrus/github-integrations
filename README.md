@@ -4,4 +4,4 @@
 [![Docker](https://img.shields.io/docker/v/dadrus/github-integrations?color=lightblue&label=docker)](https://hub.docker.com/repository/docker/dadrus/github-integrations)
 
 Just for test purposes to see which changes have which effect for changes.
-Next attempt
+Next attempt 2
