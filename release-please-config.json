@@ -4,7 +4,11 @@
   "release-type": "go",
   "changelog-sections": [
     { "type": "docs", "section": "Documentation", "hidden": false },
-    { "type": "deps", "section": "Dependencies", "hidden": false }
+    { "type": "deps", "section": "Dependencies", "hidden": false },
+    { "type": "feat", "section": "New Features", "hidden": false },
+    { "type": "fix", "section": "Bug Fixes", "hidden": false },
+    { "type": "perf", "section": "Performance Improvements", "hidden": false },
+    { "type": "refactor", "section": "Code Refactoring", "hidden": true }
   ],
   "packages": {
     ".": {}
