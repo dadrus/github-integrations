@@ -105,13 +105,13 @@ jobs:
         with:
           command: manifest
           token: ${{ secrets.GITHUB_TOKEN }}
-          changelog-types: |
-            [
-              {"type":"docs","section":"Documentation Updates","hidden":false},
-              {"type":"deps","section":"Dependencies Updated","hidden":false},
-              {"type":"feat","section":"New Features","hidden":false},
-              {"type":"fix","section":"Bugfixes","hidden":false}
-            ]
+          #changelog-types: |
+          #  [
+          #    {"type":"docs","section":"Documentation Updates","hidden":false},
+          #    {"type":"deps","section":"Dependencies Updated","hidden":false},
+          #    {"type":"feat","section":"New Features","hidden":false},
+          #    {"type":"fix","section":"Bugfixes","hidden":false}
+          #  ]
 
   build-binaries:
     runs-on: ubuntu-20.04
