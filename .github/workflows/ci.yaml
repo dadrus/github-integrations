@@ -175,13 +175,12 @@ jobs:
           md5sum: false
           extra_files: CHANGELOG.md LICENSE
 
-  # this job is here only for the verification purpose of the docker images build
+  # this job is here only for the verification purpose of the docker images build in PRs only
   build-docker-images:
     runs-on: ubuntu-20.04
     needs:
       - test
-      - prepare-release
-    if: always() && needs.prepare-release.outputs.release_created == false && needs.test.result == 'success'
+    if: always() && github.ref != 'refs/heads/main' && needs.test.result == 'success'
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -197,7 +196,45 @@ jobs:
           platforms: linux/amd64,linux/arm64,linux/arm
           push: false
           build-args: VERSION=${{ github.sha }}
-          tags: ${{ github.repository }}:latest
+          tags: ${{ github.repository }}:local
+
+  # this job is here to build and publish images containing the recent updates to main
+  publish-dev-docker-images:
+    runs-on: ubuntu-22.04
+    needs:
+      - test
+      - prepare-release
+    if: always() && github.ref == 'refs/heads/main' && needs.prepare-release.outputs.release_created == false && needs.test.result == 'success' && github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USER }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Collect Docker meta-info
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: ${{ github.repository }}
+          labels: |
+            org.opencontainers.image.version=${{ github.sha }}
+            org.opencontainers.image.documentation=${{ env.DOCUMENTATION_URL }}
+      - name: Build and push images to DockerHub
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          file: ./docker/Dockerfile
+          platforms: linux/amd64,linux/arm64,linux/arm
+          push: true
+          build-args: VERSION=${{ github.sha }}
+          labels: ${{ steps.meta.outputs.labels }}
+          tags: ${{ github.repository }}:dev-${{ github.sha }},${{ github.repository }}:dev
 
   release-docker-images:
     if: needs.prepare-release.outputs.release_created
