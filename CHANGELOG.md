@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.11.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.10.0-alpha...v0.11.0-alpha) (2023-07-25)
+
+
+### Features
+
+* helm chart test ([#79](https://github.com/dadrus/github-integrations/issues/79)) ([d5e4e7f](https://github.com/dadrus/github-integrations/commit/d5e4e7f68f4145f94ff8c447258232a677c2b5f0))
+
+
+### Bug Fixes
+
+* **deps:** update dependency bootstrap to v5.3.0 ([#85](https://github.com/dadrus/github-integrations/issues/85)) ([a6fda4b](https://github.com/dadrus/github-integrations/commit/a6fda4be07fc9ff9f57d6661ee077d0b0b9e348a))
+* **deps:** update dependency bootstrap-icons to v1.10.5 ([#86](https://github.com/dadrus/github-integrations/issues/86)) ([a0b4bf4](https://github.com/dadrus/github-integrations/commit/a0b4bf4a83bd271c6693b8ce367ccd6a5150bd2e))
+
 ## [0.10.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.9.0-alpha...v0.10.0-alpha) (2022-11-09)
 
 
