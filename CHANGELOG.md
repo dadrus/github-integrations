@@ -1,5 +1,55 @@
 # Changelog
 
+## [0.12.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.11.0-alpha...v0.12.0-alpha) (2023-07-25)
+
+
+### ⚠ BREAKING CHANGES
+
+* further release please updates
+* changelog section updated
+* test 7
+* test 2
+
+### New Features
+
+* feature test ([7bfc909](https://github.com/dadrus/github-integrations/commit/7bfc90918bb558749ad93ce7d352ffad4cbe6f21))
+* further release please updates ([00179d4](https://github.com/dadrus/github-integrations/commit/00179d492f89d76738abe51acd26ff84ec5b4338))
+* test 1 ([611deaa](https://github.com/dadrus/github-integrations/commit/611deaa0d8bd32c59634c6fb4ec502f046d90ff7))
+* test 7 ([ed3141f](https://github.com/dadrus/github-integrations/commit/ed3141fc2c0371bdc611692e9e3947bbd03cdb70))
+
+
+### Code Refactoring
+
+* changelog section updated ([08aed19](https://github.com/dadrus/github-integrations/commit/08aed193783534c2a739d48791c11d898a58e402))
+* test 2 ([915e146](https://github.com/dadrus/github-integrations/commit/915e1465fac75955ed9fcfa16c80d846316f751d))
+
+
+### Bug Fixes
+
+* foo ([8bab808](https://github.com/dadrus/github-integrations/commit/8bab808e3eebd9c56e80666bddd7b1bf5e6e72ce))
+
+
+### Documentation
+
+* foo ([8b87c29](https://github.com/dadrus/github-integrations/commit/8b87c29667996a27cba8e7ce32d0ecdb493a0218))
+* next test ([f5f35d6](https://github.com/dadrus/github-integrations/commit/f5f35d67b66896c7d036a0d47dfbc3ca04fb102f))
+* next test 1 ([188c131](https://github.com/dadrus/github-integrations/commit/188c1314f4d98e8cae196d1816a00991e2664d25))
+* next test 2 ([5a9dcdf](https://github.com/dadrus/github-integrations/commit/5a9dcdf493458500bf4e685bb9859171bf01326c))
+* next test 3 ([7cc0c8e](https://github.com/dadrus/github-integrations/commit/7cc0c8eeed6537db38b2efc2df8bbe4d3bec14ab))
+* next test 4 ([2703f8b](https://github.com/dadrus/github-integrations/commit/2703f8b48474010a1a1474e6052686a8ed5d2b6d))
+* next test 5 ([08dc789](https://github.com/dadrus/github-integrations/commit/08dc78906a75cb49cd285a74c65d19a4b198d93a))
+* next test 6 ([eb4ff3d](https://github.com/dadrus/github-integrations/commit/eb4ff3d4965a314166a3c33aede469fb1b582b41))
+* test ([3c0ea31](https://github.com/dadrus/github-integrations/commit/3c0ea31498f5a5cd6a359fc0f9bcf567e3238f63))
+
+
+### Updated Dependencies
+
+* foo ([5b35878](https://github.com/dadrus/github-integrations/commit/5b3587891b2faefcdc2e11d581fd389101a5db0e))
+* update docker/build-push-action action to v4 ([#84](https://github.com/dadrus/github-integrations/issues/84)) ([6982a54](https://github.com/dadrus/github-integrations/commit/6982a54c95f9130d56bb1fad3c9d2e8aeb31d15d))
+* update golang docker tag ([#82](https://github.com/dadrus/github-integrations/issues/82)) ([dc414e3](https://github.com/dadrus/github-integrations/commit/dc414e3406706aa977593d2f447a6e4c235c760a))
+* update golang docker tar ([058b030](https://github.com/dadrus/github-integrations/commit/058b030b9080664e6c2bc6497f32c4dce71341cc))
+* update jacobtomlinson/gha-find-replace action to v3 ([#88](https://github.com/dadrus/github-integrations/issues/88)) ([c7958c1](https://github.com/dadrus/github-integrations/commit/c7958c1faf4523901eee61fec3fdf21580b8eed8))
+
 ## [0.11.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.10.0-alpha...v0.11.0-alpha) (2023-07-25)
 
 
