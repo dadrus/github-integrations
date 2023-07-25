@@ -3,6 +3,12 @@
   "draft": false,
   "release-type": "go",
   "packages": {
-    ".": {}
+    ".": {},
+    "changelog-types": [
+      {"type":"docs","section":"Documentation","hidden":false},
+      {"type":"deps","section":"Dependencies","hidden":false},
+      {"type":"feat","section":"Features","hidden":false},
+      {"type":"fix","section":"Bug Fixes","hidden":false}
+    ]
   }
 }
