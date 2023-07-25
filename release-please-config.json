@@ -2,6 +2,10 @@
   "bump-minor-pre-major": true,
   "draft": false,
   "release-type": "go",
+  "changelog-sections": [
+    { "type": "docs", "section": "Documentation", "hidden": false },
+    { "type": "deps", "section": "Dependencies", "hidden": false }
+  ],
   "packages": {
     ".": {}
   }

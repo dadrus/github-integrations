@@ -103,15 +103,8 @@ jobs:
         id: release_prepare
         uses: google-github-actions/release-please-action@v3
         with:
-          #command: manifest
+          command: manifest
           token: ${{ secrets.GITHUB_TOKEN }}
-          changelog-types: >
-            [
-              { "type": "docs","section": "Documentation","hidden": false },
-              { "type": "deps","section": "Dependencies","hidden": false },
-              { "type": "feat","section": "Features","hidden": false },
-              { "type": "fix","section": "Bug Fixes","hidden": false }
-            ]
 
   build-binaries:
     runs-on: ubuntu-20.04
