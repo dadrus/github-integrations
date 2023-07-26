@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.17.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.16.0-alpha...v0.17.0-alpha) (2023-07-26)
+
+
+### New Features
+
+* goreleaser 4th attempt ([#99](https://github.com/dadrus/github-integrations/issues/99)) ([89a7387](https://github.com/dadrus/github-integrations/commit/89a7387bc7df7c95067001387023423776696741))
+
 ## [0.16.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.15.0-alpha...v0.16.0-alpha) (2023-07-26)
 
 
