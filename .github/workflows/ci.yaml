@@ -60,17 +60,17 @@ jobs:
             docs/**
       - name: Set job outputs
         run: |
-          echo "code-changed=$(${{steps.code-changes.outputs.count}} > 0)"
-          echo "test-data-changed=$(${{steps.test-data-changes.outputs.count}} > 0)"
-          echo "image-config-changed=$(${{steps.image-config-changes.outputs.count}} > 0)"
-          echo "helm-chart-changed=$(${{steps.helm-chart-changes.outputs.count}} > 0)"
-          echo "docs-changed=$(${{steps.docs-changes.outputs.count}} > 0)"
+          echo "code-changed=$(test ${{steps.code-changes.outputs.count}} -gt 0 && echo 'true' || echo 'false')"
+          echo "test-data-changed=$(test ${{steps.test-data-changes.outputs.count}} -gt 0 && echo 'true' || echo 'false')"
+          echo "image-config-changed=$(test ${{steps.image-config-changes.outputs.count}} -gt 0 && echo 'true' || echo 'false')"
+          echo "helm-chart-changed=$(test ${{steps.helm-chart-changes.outputs.count}} -gt 0 && echo 'true' || echo 'false')"
+          echo "docs-changed=$(test ${{steps.docs-changes.outputs.count}} -gt 0 && echo 'true' || echo 'false')"
           
-          echo "code-changed=$(${{steps.code-changes.outputs.count}} > 0)" >> $GITHUB_OUTPUT
-          echo "test-data-changed=$(${{steps.test-data-changes.outputs.count}} > 0)" >> $GITHUB_OUTPUT
-          echo "image-config-changed=$(${{steps.image-config-changes.outputs.count}} > 0)" >> $GITHUB_OUTPUT
-          echo "helm-chart-changed=$(${{steps.helm-chart-changes.outputs.count}} > 0)" >> $GITHUB_OUTPUT
-          echo "docs-changed=$(${{steps.docs-changes.outputs.count}} > 0)" >> $GITHUB_OUTPUT
+          echo "code-changed=$(test ${{steps.code-changes.outputs.count}} -gt 0 && echo 'true' || echo 'false')"  >> $GITHUB_OUTPUT
+          echo "test-data-changed=$(test ${{steps.test-data-changes.outputs.count}} -gt 0 && echo 'true' || echo 'false')"  >> $GITHUB_OUTPUT
+          echo "image-config-changed=$(test ${{steps.image-config-changes.outputs.count}} -gt 0 && echo 'true' || echo 'false')"  >> $GITHUB_OUTPUT
+          echo "helm-chart-changed=$(test ${{steps.helm-chart-changes.outputs.count}} -gt 0 && echo 'true' || echo 'false')"  >> $GITHUB_OUTPUT
+          echo "docs-changed=$(test ${{steps.docs-changes.outputs.count}} -gt 0 && echo 'true' || echo 'false')"  >> $GITHUB_OUTPUT
       
 
   check-licenses:
