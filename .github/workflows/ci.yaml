@@ -219,40 +219,59 @@ jobs:
           path: ./build/*
           retention-days: 30
 
-  release-binaries:
+  goreleaser:
     runs-on: ubuntu-20.04
     needs:
       - prepare-release
     if: needs.prepare-release.outputs.release_created
-    strategy:
-      matrix:
-        # build and publish in parallel: linux/amd64, linux/arm64, windows/amd64, darwin/amd64, darwin/arm64
-        goos: [ linux, windows, darwin ]
-        goarch: [ amd64, arm64, arm ]
-        exclude:
-          - goarch: arm
-            goos: darwin
-          - goarch: arm
-            goos: windows
-          - goarch: arm64
-            goos: windows
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v3
-      - name: Build release binaries and upload them to the release
-        uses: wangyoucao577/go-release-action@v1.38
         with:
-          release_tag: ${{ needs.prepare-release.outputs.tag_name }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          pre_command: export CGO_ENABLED=0
-          goversion: "${{ env.GO_VERSION }}"
-          goos: ${{ matrix.goos }}
-          goarch: ${{ matrix.goarch }}
-          ldflags: "-buildid= -w -s -X github.com/dadrus/heimdall/version.Version=${{ needs.prepare-release.outputs.tag_name }}"
-          build_flags: -trimpath
-          sha256sum: true
-          md5sum: false
-          extra_files: CHANGELOG.md LICENSE
+          fetch-depth: 0
+      - name: Set up Go
+        uses: actions/setup-go@v4
+      - name: Run GoReleaser
+        uses: goreleaser/goreleaser-action@v4
+        with:
+          args: release --clean
+        env:
+          RELEASE_VERSION: ${{ needs.prepare-release.outputs.tag_name }}
+
+  #release-binaries:
+  #  runs-on: ubuntu-20.04
+  #  needs:
+  #    - prepare-release
+  #  if: needs.prepare-release.outputs.release_created
+  #  strategy:
+  #    matrix:
+  #      # build and publish in parallel: linux/amd64, linux/arm64, windows/amd64, darwin/amd64, darwin/arm64
+  #      goos: [ linux, windows, darwin ]
+  #      goarch: [ amd64, arm64, arm ]
+  #      exclude:
+  #        - goarch: arm
+  #          goos: darwin
+  #        - goarch: arm
+  #          goos: windows
+  #        - goarch: arm64
+  #          goos: windows
+  #  steps:
+  #    - name: Checkout repository
+  #      uses: actions/checkout@v3
+  #    - name: Build release binaries and upload them to the release
+  #      uses: wangyoucao577/go-release-action@v1.38
+  #      with:
+  #        release_tag: ${{ needs.prepare-release.outputs.tag_name }}
+  #        github_token: ${{ secrets.GITHUB_TOKEN }}
+  #        pre_command: export CGO_ENABLED=0
+  #        goversion: "${{ env.GO_VERSION }}"
+  #        goos: ${{ matrix.goos }}
+  #        goarch: ${{ matrix.goarch }}
+  #        ldflags: "-buildid= -w -s -X github.com/dadrus/heimdall/version.Version=${{ needs.prepare-release.outputs.tag_name }}"
+  #        build_flags: -trimpath
+  #        sha256sum: true
+  #        md5sum: false
+  #        extra_files: CHANGELOG.md LICENSE
 
   # this job builds container images for PRs, as well as publishes these on merges to main
   build-dev-container-images:
@@ -502,3 +521,4 @@ jobs:
           git commit -m "chore(${{ github.ref_name }}): Preparing for next iteration"
       - name: Push changes
         uses: ad-m/github-push-action@master
+
