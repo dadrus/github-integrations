@@ -60,17 +60,23 @@ jobs:
             docs/**
       - name: Set job outputs
         run: |
-          echo "code-changed=$(test ${{steps.code-changes.outputs.count}} -gt 0 && echo 'true' || echo 'false')"
-          echo "test-data-changed=$(test ${{steps.test-data-changes.outputs.count}} -gt 0 && echo 'true' || echo 'false')"
-          echo "image-config-changed=$(test ${{steps.image-config-changes.outputs.count}} -gt 0 && echo 'true' || echo 'false')"
-          echo "helm-chart-changed=$(test ${{steps.helm-chart-changes.outputs.count}} -gt 0 && echo 'true' || echo 'false')"
-          echo "docs-changed=$(test ${{steps.docs-changes.outputs.count}} -gt 0 && echo 'true' || echo 'false')"
+          code_changed=$(test ${{steps.code-changes.outputs.count}} -gt 0 && echo 'true' || echo 'false')
+          test_data_changed=$(test ${{steps.test-data-changes.outputs.count}} -gt 0 && echo 'true' || echo 'false')
+          image_config_changed=$(test ${{steps.image-config-changes.outputs.count}} -gt 0 && echo 'true' || echo 'false')
+          helm_chart_changed=$(test ${{steps.helm-chart-changes.outputs.count}} -gt 0 && echo 'true' || echo 'false')
+          docs_changed=$(test ${{steps.docs-changes.outputs.count}} -gt 0 && echo 'true' || echo 'false')
           
-          echo "code-changed=$(test ${{steps.code-changes.outputs.count}} -gt 0 && echo 'true' || echo 'false')"  >> $GITHUB_OUTPUT
-          echo "test-data-changed=$(test ${{steps.test-data-changes.outputs.count}} -gt 0 && echo 'true' || echo 'false')"  >> $GITHUB_OUTPUT
-          echo "image-config-changed=$(test ${{steps.image-config-changes.outputs.count}} -gt 0 && echo 'true' || echo 'false')"  >> $GITHUB_OUTPUT
-          echo "helm-chart-changed=$(test ${{steps.helm-chart-changes.outputs.count}} -gt 0 && echo 'true' || echo 'false')"  >> $GITHUB_OUTPUT
-          echo "docs-changed=$(test ${{steps.docs-changes.outputs.count}} -gt 0 && echo 'true' || echo 'false')"  >> $GITHUB_OUTPUT
+          echo "code_changed=$code_changed"
+          echo "test_data_changed=$test_data_changed"
+          echo "image_config_changed=$image_config_changed"
+          echo "helm_chart_changed=$helm_chart_changed"
+          echo "docs_changed=$docs_changed"
+          
+          echo "code-changed=$$code_changed"  >> $GITHUB_OUTPUT
+          echo "test-data-changed=$test_data_changed"  >> $GITHUB_OUTPUT
+          echo "image-config-changed=$image_config_changed"  >> $GITHUB_OUTPUT
+          echo "helm-chart-changed=$helm_chart_changed"  >> $GITHUB_OUTPUT
+          echo "docs-changed=$docs_changed"  >> $GITHUB_OUTPUT
       
 
   check-licenses:
