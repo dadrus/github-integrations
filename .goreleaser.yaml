@@ -1,9 +1,8 @@
 builds:
-  - binary: heimdall
-    env:
+  - env:
       - CGO_ENABLED=0
     ldflags:
-      - -buildid= -w -s -X github.com/dadrus/heimdall/version.Version={{ .Env.RELEASE_VERSION }}
+      - -buildid= -w -s -X github-integrations/main.Version={{ .Env.RELEASE_VERSION }}
     flags:
       - -trimpath
     goos:
@@ -29,8 +28,8 @@ changelog:
   skip: true
 
 archives:
-  - id: heimdall
-    format: tar.gz
+  - format: tar.gz
+    name_template: '{{ .ProjectName }}_v{{ .Env.RELEASE_VERSION }}_{{ .Os }}_{{ .Arch }}{{ with .Arm }}v{{ . }}{{ end }}{{ with .Mips }}_{{ . }}{{ end }}{{ if not (eq .Amd64 "v1") }}{{ .Amd64 }}{{ end }}"'
     format_overrides:
       - goos: windows
         format: zip
@@ -39,4 +38,4 @@ archives:
       - CHANGELOG.md
 
 checksum:
-  name_template: "{{ .ProjectName }}_v{{ .Version }}_checksums.txt"
+  name_template: "{{ .ProjectName }}_v{{ .Env.RELEASE_VERSION }}_checksums.txt"
