@@ -36,8 +36,8 @@ jobs:
     steps:
     - name: Printing out some info
       run: |
-        echo "github.ref == 'refs/heads/main': ${{github.ref == 'refs/heads/main'}}"
-        echo "github.event.head_commit.message': ${{github.event.head_commit.message}}"
+        echo "github.ref == 'refs/heads/main': '${{github.ref == 'refs/heads/main'}}'"
+        echo "github.event.head_commit.message': '${{github.event.head_commit.message}}'"
         echo "commit message is either feat, fix, refactor, deps or perf: ${{startsWith(github.event.head_commit.message, 'feat') || 
                   startsWith(github.event.head_commit.message, 'fix') || 
                   startsWith(github.event.head_commit.message, 'refactor') || 
