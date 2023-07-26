@@ -75,6 +75,9 @@ jobs:
 
   check-licenses:
     runs-on: ubuntu-22.04
+    needs:
+      - check-changes
+    if: needs.check-changes.outputs.code-changed == 'true'
     steps:
       - name: Set up Go
         uses: actions/setup-go@v4
