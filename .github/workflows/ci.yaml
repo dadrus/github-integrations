@@ -19,6 +19,12 @@ env:
 jobs:
   check-changes:
     runs-on: ubuntu-22.04
+    outputs:
+      code_changed:  ${{steps.code-changes.outputs.count > 0}}
+      test_data_changed: ${{steps.test-data-changes.outputs.count > 0}}
+      image_config_changed: ${{steps.image-config-changes.outputs.count > 0}}
+      helm_chart_changed: ${{steps.helm-chart-changes.outputs.count > 0}}
+      docs_changed: ${{steps.docs-changes.outputs.count > 0}}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -58,22 +64,6 @@ jobs:
         with:
           PATTERNS: |
             docs/**
-      - name: Set job outputs
-        run: |
-          code_changed=$(test ${{steps.code-changes.outputs.count}} -gt 0 && echo 'true' || echo 'false')
-          test_data_changed=$(test ${{steps.test-data-changes.outputs.count}} -gt 0 && echo 'true' || echo 'false')
-          image_config_changed=$(test ${{steps.image-config-changes.outputs.count}} -gt 0 && echo 'true' || echo 'false')
-          helm_chart_changed=$(test ${{steps.helm-chart-changes.outputs.count}} -gt 0 && echo 'true' || echo 'false')
-          docs_changed=$(test ${{steps.docs-changes.outputs.count}} -gt 0 && echo 'true' || echo 'false')
-          
-          echo "code_changed=$code_changed"
-          echo "test_data_changed=$test_data_changed"
-          echo "image_config_changed=$image_config_changed"
-          echo "helm_chart_changed=$helm_chart_changed"
-          echo "docs_changed=$docs_changed"
-          
-          echo "code-changed=$code_changed" >> $GITHUB_OUTPUT
-      
 
   check-licenses:
     runs-on: ubuntu-22.04
