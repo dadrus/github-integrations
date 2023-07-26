@@ -73,7 +73,7 @@ jobs:
     steps:
       - name: Set job outputs
         run: |
-            echo "code changed: ${{needs.check-changes.outputs.code-changed}}"
+            echo "code changed: ${{needs.check-changes.outputs.code_changed}}"
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
