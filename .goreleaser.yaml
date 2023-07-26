@@ -1,0 +1,41 @@
+builds:
+  - binary: heimdall
+    env:
+      - CGO_ENABLED=0
+    ldflags:
+      - -buildid= -w -s -X github.com/dadrus/heimdall/version.Version=${{ env.RELEASE_VERSION }}
+    flags:
+      - -trimpath
+    goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - amd64
+      - '386'
+      - arm
+      - arm64
+    goarm:
+      - '7'
+      - '6'
+    ignore:
+      - goos: darwin
+        goarch: '386'
+      - goos: windows
+        goarch: arm
+
+changelog:
+  skip: true
+
+archives:
+  - id: heimdall
+    format: tar.gz
+    format_overrides:
+      - goos: windows
+        format: zip
+    files:
+      - LICENSE
+      - CHANGELOG.md
+
+checksum:
+  name_template: "{{ .ProjectName }}_v{{ .Version }}_checksums.txt"
