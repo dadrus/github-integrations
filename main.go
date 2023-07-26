@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-var Version = "just test 12"
+var Version = "just test 13"
 
 func main() {
 	fmt.Println("Current Version: ", Version)
