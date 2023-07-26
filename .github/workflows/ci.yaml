@@ -84,6 +84,9 @@ jobs:
 
   lint-code:
     runs-on: ubuntu-20.04
+    needs:
+      - check-changes
+    if: needs.check-changes.outputs.code_changed == 'true'
     steps:
     - name: Check new image eligibility
       id: shall-push-image
@@ -99,23 +102,22 @@ jobs:
       run: |
         echo "shall-push-image: '${{steps.shall-push-image.outputs.result}}'"
     - name: Set up Go
-      if: steps.shall-push-image.outputs.result == 'false'
       uses: actions/setup-go@v4
       with:
         go-version: "${{ env.GO_VERSION }}"
     - name: Checkout repository
-      if: steps.shall-push-image.outputs.result == 'true'
       uses: actions/checkout@v3
     - name: golangci-lint
-      if: ${{ steps.shall-push-image.outputs.result }} == true
       uses: golangci/golangci-lint-action@v3
       with:
         version: ${{ env.GOLANGCI_LINT_VERSION }}
         args: --timeout 5m
 
-
   lint-dockerfiles:
     runs-on: ubuntu-20.04
+    needs:
+      - check-changes
+    if: needs.check-changes.outputs.image_config_changed == 'true'
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
@@ -126,6 +128,9 @@ jobs:
 
   lint-helm-chart:
     runs-on: ubuntu-22.04
+    needs:
+      - check-changes
+    if: needs.check-changes.outputs.helm_chart_changed == 'true'
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -150,6 +155,9 @@ jobs:
 
   test:
     runs-on: ubuntu-20.04
+    needs:
+      - check-changes
+    if: needs.check-changes.outputs.code_changed == 'true' || needs.check-changes.outputs.test_data_changed == 'true'
     steps:
     - name: Set up Go
       uses: actions/setup-go@v4
@@ -251,11 +259,13 @@ jobs:
     runs-on: ubuntu-22.04
     needs:
       - test
+      - check-changes
       - prepare-release
     if: > 
       always() && 
       needs.prepare-release.outputs.release_created == false && 
-      needs.test.result == 'success'
+      (needs.test.result == 'success' || needs.test.result == 'skipped') &&
+      needs.check-changes.outputs.image_config_changed == 'true'
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -272,7 +282,7 @@ jobs:
             org.opencontainers.image.version=${{ github.sha }}
             org.opencontainers.image.documentation=${{ env.DOCUMENTATION_URL }}
       - name: Build images
-        if: ${{ github.ref != 'refs/heads/main' }}
+        if: github.ref != 'refs/heads/main'
         uses: docker/build-push-action@v4
         with:
           context: .
@@ -282,25 +292,13 @@ jobs:
           build-args: VERSION=${{ github.sha }}
           tags: ${{ github.repository }}:local
       - name: Login to container registry
-        if: >
-          github.ref == 'refs/heads/main' &&
-              (startsWith(github.event.head_commit.message, 'feat') || 
-                  startsWith(github.event.head_commit.message, 'fix') || 
-                  startsWith(github.event.head_commit.message, 'refactor') || 
-                  startsWith(github.event.head_commit.message, 'deps') ||
-                  startsWith(github.event.head_commit.message, 'perf'))
+        if: github.ref == 'refs/heads/main'
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKERHUB_USER }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build and push dev images to container registry
-        if: >
-          github.ref == 'refs/heads/main' &&
-              (startsWith(github.event.head_commit.message, 'feat') || 
-                  startsWith(github.event.head_commit.message, 'fix') || 
-                  startsWith(github.event.head_commit.message, 'refactor') || 
-                  startsWith(github.event.head_commit.message, 'deps') ||
-                  startsWith(github.event.head_commit.message, 'perf'))
+        if: github.ref == 'refs/heads/main'
         uses: docker/build-push-action@v4
         with:
           context: .
@@ -379,6 +377,7 @@ jobs:
     runs-on: ubuntu-20.04
     needs:
       - prepare-release
+      - check-changes
     if: always()
     steps:
       - name: Checkout repository
@@ -386,11 +385,6 @@ jobs:
         with:
           submodules: true  # Fetch Hugo themes (true OR recursive)
           fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
-      - name: Calculate diff of the docs
-        uses: technote-space/get-diff-action@v6
-        with:
-          PATTERNS: |
-            docs/**
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
@@ -420,7 +414,7 @@ jobs:
           regex: false
           include: docs/**
       - name: Update version string to dev version
-        if: github.ref == 'refs/heads/main' && needs.prepare-release.outputs.release_created == false && env.GIT_DIFF
+        if: github.ref == 'refs/heads/main' && needs.prepare-release.outputs.release_created == false && needs.check-changes.outputs.docs_changed == 'true'
         uses: jacobtomlinson/gha-find-replace@v3
         with:
           find: "x-current-version"
@@ -444,7 +438,7 @@ jobs:
         run: |
           cat ./docs/versions/data.json | jq '. + [{ "version": "${{ needs.prepare-release.outputs.tag_name }}", "path": "/github-integrations/${{ needs.prepare-release.outputs.tag_name }}" }]' | tee ./docs/versions/data.json
       - name: Deploy dev documentation
-        if: github.ref == 'refs/heads/main' && needs.prepare-release.outputs.release_created == false && env.GIT_DIFF
+        if: github.ref == 'refs/heads/main' && needs.prepare-release.outputs.release_created == false && needs.check-changes.outputs.docs_changed == 'true'
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
