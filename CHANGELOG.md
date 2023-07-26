@@ -1,5 +1,30 @@
 # Changelog
 
+## [0.13.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.12.0-alpha...v0.13.0-alpha) (2023-07-26)
+
+
+### New Features
+
+* new stuff ([fe7c673](https://github.com/dadrus/github-integrations/commit/fe7c6733e26ea97d0dad404223b15be0179f260f))
+* next attempt 5 ([6606185](https://github.com/dadrus/github-integrations/commit/660618553cd5fbd9caf72e7e3c7b0ac3f1cf7be7))
+* test changes 10 ([e219aa3](https://github.com/dadrus/github-integrations/commit/e219aa306b5f8c5494fad86343cd43a26a40d108))
+* test changes 11 ([9ac6913](https://github.com/dadrus/github-integrations/commit/9ac6913c334315257c76306462cb66712e23422f))
+* test changes 12 ([58b8228](https://github.com/dadrus/github-integrations/commit/58b8228c5bdab37c42dab0bb3c2b3f40528f84c8))
+* test changes 13 ([df519bc](https://github.com/dadrus/github-integrations/commit/df519bc74777c93d34e8fcaf588a2275745f0416))
+* test changes 14 ([df64c99](https://github.com/dadrus/github-integrations/commit/df64c99f2585b1a74a3fa006eded0b7e9e680b7a))
+* test changes 4 ([36b7122](https://github.com/dadrus/github-integrations/commit/36b712285c3b7f7a4faa1b58521fc6e741b1fd34))
+* test changes 5 ([22f768c](https://github.com/dadrus/github-integrations/commit/22f768cb3abfd4d7dc6449e3334e01aa8382effe))
+* test changes 6 ([ebf62cc](https://github.com/dadrus/github-integrations/commit/ebf62cc6b7261cf36cb2fb9df4772f527f737ac7))
+* test changes 7 ([7dd200f](https://github.com/dadrus/github-integrations/commit/7dd200f8e4c4dc73e318ece57fbddf6092ceb749))
+* test changes 8 ([a3b2515](https://github.com/dadrus/github-integrations/commit/a3b251524cbf02295af89c3a741e63e223fc3190))
+* test changes 9 ([b345ce8](https://github.com/dadrus/github-integrations/commit/b345ce855c2f96eb6fb0b312737036caf873de4e))
+* testing out ([a3047af](https://github.com/dadrus/github-integrations/commit/a3047afac594c133421368a347d8cba5c4ea18b3))
+
+
+### Updated Dependencies
+
+* update wangyoucao577/go-release-action action to v1.38 ([#78](https://github.com/dadrus/github-integrations/issues/78)) ([08b26d1](https://github.com/dadrus/github-integrations/commit/08b26d166c17a7de6cf5a7f358a756ce4e68d39e))
+
 ## [0.12.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.11.0-alpha...v0.12.0-alpha) (2023-07-25)
 
 
