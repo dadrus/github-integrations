@@ -17,20 +17,31 @@ env:
   DOCUMENTATION_URL: "https://dadrus.github.io/heimdall/"
 
 jobs:
-  step-conditions:
+  check-changes:
     runs-on: ubuntu-22.04
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
       - name: Check code changes
         id: code-changes
         uses: technote-space/get-diff-action@v6
         with:
           PATTERNS: |
-            go.mod
-            go.sum
             *.go
             **/*.go
+            schema/*.json
+          FILES: |
+            go.mod
+            go.sum
+      - name: Check test data changes
+        id: test-data-changes
+        uses: technote-space/get-diff-action@v6
+        with:
+          PATTERNS: |
+            cmd/**/*.yaml
+            internal/**/*.yaml
       - name: Check container image config changes
-        id: image-changes
+        id: image-config-changes
         uses: technote-space/get-diff-action@v6
         with:
           PATTERNS: |
@@ -47,6 +58,20 @@ jobs:
         with:
           PATTERNS: |
             docs/**
+      - name: Set job outputs
+        run: |
+          echo "code-changed=$(${{steps.code-changes.outputs.count}} > 0)"
+          echo "test-data-changed=$(${{steps.test-data-changes.outputs.count}} > 0)"
+          echo "image-config-changed=$(${{steps.image-config-changes.outputs.count}} > 0)"
+          echo "helm-chart-changed=$(${{steps.helm-chart-changes.outputs.count}} > 0)"
+          echo "docs-changed=$(${{steps.docs-changes.outputs.count}} > 0)"
+          
+          echo "code-changed=$(${{steps.code-changes.outputs.count}} > 0)" >> $GITHUB_OUTPUT
+          echo "test-data-changed=$(${{steps.test-data-changes.outputs.count}} > 0)" >> $GITHUB_OUTPUT
+          echo "image-config-changed=$(${{steps.image-config-changes.outputs.count}} > 0)" >> $GITHUB_OUTPUT
+          echo "helm-chart-changed=$(${{steps.helm-chart-changes.outputs.count}} > 0)" >> $GITHUB_OUTPUT
+          echo "docs-changed=$(${{steps.docs-changes.outputs.count}} > 0)" >> $GITHUB_OUTPUT
+      
 
   check-licenses:
     runs-on: ubuntu-22.04
@@ -65,15 +90,6 @@ jobs:
   lint-code:
     runs-on: ubuntu-20.04
     steps:
-    - name: Printing out some info
-      run: |
-        echo "github.ref == 'refs/heads/main': '${{github.ref == 'refs/heads/main'}}'"
-        echo "github.event.head_commit.message': '${{github.event.head_commit.message}}'"
-        echo "commit message is either feat, fix, refactor, deps or perf: ${{startsWith(github.event.head_commit.message, 'feat') || 
-                  startsWith(github.event.head_commit.message, 'fix') || 
-                  startsWith(github.event.head_commit.message, 'refactor') || 
-                  startsWith(github.event.head_commit.message, 'deps') ||
-                  startsWith(github.event.head_commit.message, 'perf')}}"
     - name: Check new image eligibility
       id: shall-push-image
       run: >
