@@ -72,11 +72,7 @@ jobs:
           echo "helm_chart_changed=$helm_chart_changed"
           echo "docs_changed=$docs_changed"
           
-          echo "code-changed=$code_changed"  >> $GITHUB_OUTPUT
-          echo "test-data-changed=$test_data_changed"  >> $GITHUB_OUTPUT
-          echo "image-config-changed=$image_config_changed"  >> $GITHUB_OUTPUT
-          echo "helm-chart-changed=$helm_chart_changed"  >> $GITHUB_OUTPUT
-          echo "docs-changed=$docs_changed"  >> $GITHUB_OUTPUT
+          echo "code-changed=$code_changed" >> $GITHUB_OUTPUT
       
 
   check-licenses:
