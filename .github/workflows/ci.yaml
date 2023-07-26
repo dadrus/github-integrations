@@ -189,6 +189,9 @@ jobs:
       needs.prepare-release.outputs.release_created == false && 
       needs.test.result == 'success'
     steps:
+      - name: Prepare image version
+        run: |
+            echo "commit message: ${{github.event.head_commit.message}}"
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: Set up QEMU
