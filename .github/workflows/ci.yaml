@@ -43,6 +43,16 @@ jobs:
                   startsWith(github.event.head_commit.message, 'refactor') || 
                   startsWith(github.event.head_commit.message, 'deps') ||
                   startsWith(github.event.head_commit.message, 'perf')}}"
+    - name: Check new image eligibility
+      id: shall-push-image
+      run: |
+        shouldPushImage=${{github.ref == 'refs/heads/main' && \
+            (startsWith(github.event.head_commit.message, 'feat') || \
+                startsWith(github.event.head_commit.message, 'fix') || \
+                startsWith(github.event.head_commit.message, 'refactor') || \
+                startsWith(github.event.head_commit.message, 'deps') || \
+                startsWith(github.event.head_commit.message, 'perf')) }}
+        echo "result=$shouldPushImage" >> $GITHUB_OUTPUT
     - name: Set up Go
       uses: actions/setup-go@v4
       with:
@@ -51,13 +61,7 @@ jobs:
       uses: actions/checkout@v3
     - name: golangci-lint
       uses: golangci/golangci-lint-action@v3
-      if: >
-        github.ref == 'refs/heads/main' &&
-            (startsWith(github.event.head_commit.message, 'feat') || 
-                startsWith(github.event.head_commit.message, 'fix') || 
-                startsWith(github.event.head_commit.message, 'refactor') || 
-                startsWith(github.event.head_commit.message, 'deps') ||
-                startsWith(github.event.head_commit.message, 'perf'))
+      if: steps.shall-push-image.outputs.result
       with:
         version: ${{ env.GOLANGCI_LINT_VERSION }}
         args: --timeout 5m
@@ -205,9 +209,6 @@ jobs:
       needs.prepare-release.outputs.release_created == false && 
       needs.test.result == 'success'
     steps:
-      - name: Prepare image version
-        run: |
-            echo "commit message: ${{github.event.head_commit.message}}"
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: Set up QEMU
@@ -246,12 +247,12 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build and push dev images to container registry
         if: >
-          ${{ github.ref == 'refs/heads/main' &&
+          github.ref == 'refs/heads/main' &&
               (startsWith(github.event.head_commit.message, 'feat') || 
                   startsWith(github.event.head_commit.message, 'fix') || 
                   startsWith(github.event.head_commit.message, 'refactor') || 
                   startsWith(github.event.head_commit.message, 'deps') ||
-                  startsWith(github.event.head_commit.message, 'perf')) }}
+                  startsWith(github.event.head_commit.message, 'perf'))
         uses: docker/build-push-action@v4
         with:
           context: .
