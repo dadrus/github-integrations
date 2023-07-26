@@ -3,7 +3,7 @@ builds:
     env:
       - CGO_ENABLED=0
     ldflags:
-      - -buildid= -w -s -X github.com/dadrus/heimdall/version.Version=${{ env.RELEASE_VERSION }}
+      - -buildid= -w -s -X github.com/dadrus/heimdall/version.Version={{ .Env.RELEASE_VERSION }}
     flags:
       - -trimpath
     goos:
