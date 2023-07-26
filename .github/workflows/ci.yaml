@@ -218,12 +218,12 @@ jobs:
           tags: ${{ github.repository }}:local
       - name: Login to container registry
         if: >
-          ${{ github.ref == 'refs/heads/main' &&
+          github.ref == 'refs/heads/main' &&
               (startsWith(github.event.head_commit.message, 'feat') || 
                   startsWith(github.event.head_commit.message, 'fix') || 
                   startsWith(github.event.head_commit.message, 'refactor') || 
                   startsWith(github.event.head_commit.message, 'deps') ||
-                  startsWith(github.event.head_commit.message, 'perf')) }}
+                  startsWith(github.event.head_commit.message, 'perf'))
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKERHUB_USER }}
