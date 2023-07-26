@@ -17,6 +17,37 @@ env:
   DOCUMENTATION_URL: "https://dadrus.github.io/heimdall/"
 
 jobs:
+  step-conditions:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Check code changes
+        id: code-changes
+        uses: technote-space/get-diff-action@v6
+        with:
+          PATTERNS: |
+            go.mod
+            go.sum
+            *.go
+            **/*.go
+      - name: Check container image config changes
+        id: image-changes
+        uses: technote-space/get-diff-action@v6
+        with:
+          PATTERNS: |
+            **/*Dockerfile
+      - name: Check helm chart changes
+        id: helm-chart-changes
+        uses: technote-space/get-diff-action@v6
+        with:
+          PATTERNS: |
+            charts/**
+      - name: Check documentation changes
+        id: docs-changes
+        uses: technote-space/get-diff-action@v6
+        with:
+          PATTERNS: |
+            docs/**
+
   check-licenses:
     runs-on: ubuntu-22.04
     steps:
@@ -53,6 +84,9 @@ jobs:
                 startsWith(github.event.head_commit.message, 'deps') || 
                 startsWith(github.event.head_commit.message, 'perf')) }};
         echo "result=$shouldPushImage" >> $GITHUB_OUTPUT
+    - name: Printing result
+      run: |
+        echo "shall-push-image: '${{steps.shall-push-image.outputs.result}}'"
     - name: Set up Go
       uses: actions/setup-go@v4
       with:
