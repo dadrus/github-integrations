@@ -236,6 +236,7 @@ jobs:
         with:
           args: release --clean
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           RELEASE_VERSION: ${{ needs.prepare-release.outputs.tag_name }}
 
   #release-binaries:
