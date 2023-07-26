@@ -219,7 +219,7 @@ jobs:
           path: ./build/*
           retention-days: 30
 
-  goreleaser:
+  release-binaries:
     runs-on: ubuntu-20.04
     needs:
       - prepare-release
@@ -237,42 +237,6 @@ jobs:
           args: release --clean
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          RELEASE_VERSION: ${{ needs.prepare-release.outputs.tag_name }}
-
-  #release-binaries:
-  #  runs-on: ubuntu-20.04
-  #  needs:
-  #    - prepare-release
-  #  if: needs.prepare-release.outputs.release_created
-  #  strategy:
-  #    matrix:
-  #      # build and publish in parallel: linux/amd64, linux/arm64, windows/amd64, darwin/amd64, darwin/arm64
-  #      goos: [ linux, windows, darwin ]
-  #      goarch: [ amd64, arm64, arm ]
-  #      exclude:
-  #        - goarch: arm
-  #          goos: darwin
-  #        - goarch: arm
-  #          goos: windows
-  #        - goarch: arm64
-  #          goos: windows
-  #  steps:
-  #    - name: Checkout repository
-  #      uses: actions/checkout@v3
-  #    - name: Build release binaries and upload them to the release
-  #      uses: wangyoucao577/go-release-action@v1.38
-  #      with:
-  #        release_tag: ${{ needs.prepare-release.outputs.tag_name }}
-  #        github_token: ${{ secrets.GITHUB_TOKEN }}
-  #        pre_command: export CGO_ENABLED=0
-  #        goversion: "${{ env.GO_VERSION }}"
-  #        goos: ${{ matrix.goos }}
-  #        goarch: ${{ matrix.goarch }}
-  #        ldflags: "-buildid= -w -s -X github.com/dadrus/heimdall/version.Version=${{ needs.prepare-release.outputs.tag_name }}"
-  #        build_flags: -trimpath
-  #        sha256sum: true
-  #        md5sum: false
-  #        extra_files: CHANGELOG.md LICENSE
 
   # this job builds container images for PRs, as well as publishes these on merges to main
   build-dev-container-images:
