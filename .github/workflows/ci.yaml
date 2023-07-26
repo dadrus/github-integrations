@@ -88,12 +88,12 @@ jobs:
       run: |
         echo "shall-push-image: '${{steps.shall-push-image.outputs.result}}'"
     - name: Set up Go
-      if: steps.shall-push-image.outputs.result == 'true
+      if: ${{steps.shall-push-image.outputs.result}} == 'true
       uses: actions/setup-go@v4
       with:
         go-version: "${{ env.GO_VERSION }}"
     - name: Checkout repository
-      if: steps.shall-push-image.outputs.result == 'false'
+      if: ${{steps.shall-push-image.outputs.result}} == 'false'
       uses: actions/checkout@v3
     - name: golangci-lint
       if: ${{ steps.shall-push-image.outputs.result }} == true
