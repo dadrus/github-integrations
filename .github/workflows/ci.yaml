@@ -45,13 +45,13 @@ jobs:
                   startsWith(github.event.head_commit.message, 'perf')}}"
     - name: Check new image eligibility
       id: shall-push-image
-      run: |
-        shouldPushImage=${{github.ref == 'refs/heads/main' && \
-            (startsWith(github.event.head_commit.message, 'feat') || \
-                startsWith(github.event.head_commit.message, 'fix') || \
-                startsWith(github.event.head_commit.message, 'refactor') || \
-                startsWith(github.event.head_commit.message, 'deps') || \
-                startsWith(github.event.head_commit.message, 'perf')) }}
+      run: >
+        shouldPushImage=${{github.ref == 'refs/heads/main' && 
+            (startsWith(github.event.head_commit.message, 'feat') || 
+                startsWith(github.event.head_commit.message, 'fix') || 
+                startsWith(github.event.head_commit.message, 'refactor') || 
+                startsWith(github.event.head_commit.message, 'deps') || 
+                startsWith(github.event.head_commit.message, 'perf')) }};
         echo "result=$shouldPushImage" >> $GITHUB_OUTPUT
     - name: Set up Go
       uses: actions/setup-go@v4
