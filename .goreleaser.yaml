@@ -47,5 +47,13 @@ signs:
   - cmd: cosign
     signature: "${artifact}-keyless.sig"
     certificate: "${artifact}-keyless.pem"
-    args: ["sign-blob", "--yes", "--verbose", "--oidc-issuer", "https://token.actions.githubusercontent.com", "--oidc-provider", "github-actions", "--output-signature", "${artifact}-keyless.sig", "--output-certificate", "${artifact}-keyless.pem", "${artifact}"]
+    args:
+      - "sign-blob",
+      - "--verbose"
+      - "--oidc-issuer=https://token.actions.githubusercontent.com",
+      - "--oidc-provider=github-actions",
+      - "--output-signature=${artifact}-keyless.sig"
+      - "--output-certificate=${artifact}-keyless.pem",
+      - "${artifact}"
+      - "--yes"
     artifacts: all
