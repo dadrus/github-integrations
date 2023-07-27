@@ -225,6 +225,9 @@ jobs:
     needs:
       - prepare-release
     if: needs.prepare-release.outputs.release_created
+    permissions:
+      contents: write
+      id-token: write
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -241,7 +244,10 @@ jobs:
         with:
           args: release --clean
         env:
+          COSIGN_EXPERIMENTAL: 1
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ACTIONS_ID_TOKEN_REQUEST_TOKEN: ${{ env.ACTIONS_ID_TOKEN_REQUEST_TOKEN }}
+          ACTIONS_ID_TOKEN_REQUEST_URL: ${{ env.ACTIONS_ID_TOKEN_REQUEST_URL }}
 
   # this job builds container images for PRs, as well as publishes these on merges to main
   build-dev-container-images:
