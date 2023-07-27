@@ -14,6 +14,7 @@ env:
   HELM_VERSION: "3.12.1"
   KUBECONFORM_VERSION: "0.6.2"
   KUBERNETES_API_VERSION: "1.27.0"
+  COSIGN_VERSION: "v2.1.1"
   DOCUMENTATION_URL: "https://dadrus.github.io/heimdall/"
 
 jobs:
@@ -231,10 +232,10 @@ jobs:
           fetch-depth: 0
       - name: Set up Go
         uses: actions/setup-go@v4
-      - name: install cosign
+      - name: Install Cosign
         uses: sigstore/cosign-installer@v3.1.1
         with:
-          cosign-release: 'v2.1.1'
+          cosign-release: "${{ env.COSIGN_VERSION }}"
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v4
         with:
