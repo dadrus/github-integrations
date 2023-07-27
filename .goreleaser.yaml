@@ -48,12 +48,12 @@ signs:
     signature: "${artifact}-keyless.sig"
     certificate: "${artifact}-keyless.pem"
     args:
-      - "sign-blob",
+      - "sign-blob"
       - "--verbose"
-      - "--oidc-issuer=https://token.actions.githubusercontent.com",
-      - "--oidc-provider=github-actions",
+      - "--oidc-issuer=https://token.actions.githubusercontent.com"
+      - "--oidc-provider=github-actions"
       - "--output-signature=${artifact}-keyless.sig"
-      - "--output-certificate=${artifact}-keyless.pem",
+      - "--output-certificate=${artifact}-keyless.pem"
       - "${artifact}"
       - "--yes"
     artifacts: all
