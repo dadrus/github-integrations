@@ -231,6 +231,10 @@ jobs:
           fetch-depth: 0
       - name: Set up Go
         uses: actions/setup-go@v4
+      - name: install cosign
+        uses: sigstore/cosign-installer@v3.1.1
+        with:
+          cosign-release: 'v2.1.1'
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v4
         with:
