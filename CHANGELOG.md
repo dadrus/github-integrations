@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.23.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.22.0-alpha...v0.23.0-alpha) (2023-07-27)
+
+
+### New Features
+
+* next cosign attempt ([#111](https://github.com/dadrus/github-integrations/issues/111)) ([d476f57](https://github.com/dadrus/github-integrations/commit/d476f57214806856347105652e9646a6580689b7))
+
+
+### Updated Dependencies
+
+* update dependency bootstrap to v5.3.1 ([#92](https://github.com/dadrus/github-integrations/issues/92)) ([97d5ea2](https://github.com/dadrus/github-integrations/commit/97d5ea2c9172ac3960f199625c2114008f535b49))
+
 ## [0.22.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.21.0-alpha...v0.22.0-alpha) (2023-07-27)
 
 
