@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.27.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.26.0-alpha...v0.27.0-alpha) (2023-07-27)
+
+
+### New Features
+
+* next attempt ([#119](https://github.com/dadrus/github-integrations/issues/119)) ([caba6a6](https://github.com/dadrus/github-integrations/commit/caba6a64ab136bc93c00619a8c55944ccd1584e3))
+
 ## [0.26.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.25.0-alpha...v0.26.0-alpha) (2023-07-27)
 
 
