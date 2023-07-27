@@ -299,14 +299,14 @@ jobs:
           tags: ${{ github.repository }}:dev-${{ github.sha }},${{ github.repository }}:dev
       - name: Show publish image results
         run: |
-          echo "digest: ${{ steps.publish-image.digest }}"
-          echo "imageid: ${{ steps.publish-image.imageid }}"
-          echo "metadata: ${{ steps.publish-image.metadata }}"
+          echo "digest: ${{ steps.publish-image.outputs.digest }}"
+          echo "imageid: ${{ steps.publish-image.outputs.imageid }}"
+          echo "metadata: ${{ steps.publish-image.outputs.metadata }}"
       - name: Sign the published Docker image
         if: steps.publish-image.conclusion == 'success'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: cosign sign -d ${{ github.repository }}:${{ github.publish-image.digest }}
+        run: cosign sign --yes ${{ github.repository }}@${{ github.publish-image.outputs.digest }}
 
 
   # this job releases container images
