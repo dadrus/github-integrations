@@ -301,7 +301,7 @@ jobs:
         if: steps.publish-image.conclusion == 'success'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: cosign sign ${{ github.repository }}:dev-${{ github.sha }}
+        run: cosign sign ${{ github.repository }}:${{ github.publish-image.digest }}
 
 
   # this job releases container images
