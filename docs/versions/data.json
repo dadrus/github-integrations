@@ -90,5 +90,9 @@
   {
     "version": "v0.31.0-alpha",
     "path": "/github-integrations/v0.31.0-alpha"
+  },
+  {
+    "version": "v0.32.0-alpha",
+    "path": "/github-integrations/v0.32.0-alpha"
   }
 ]
