@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.21.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.20.0-alpha...v0.21.0-alpha) (2023-07-27)
+
+
+### New Features
+
+* cosign next attempt ([#107](https://github.com/dadrus/github-integrations/issues/107)) ([e28bd49](https://github.com/dadrus/github-integrations/commit/e28bd4943d6abf16f3ce785cfbc9d602f61378f9))
+
 ## [0.20.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.19.0-alpha...v0.20.0-alpha) (2023-07-27)
 
 
