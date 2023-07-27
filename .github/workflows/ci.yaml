@@ -320,6 +320,9 @@ jobs:
   release-container-images:
     if: needs.prepare-release.outputs.release_created
     runs-on: ubuntu-20.04
+    permissions:
+      contents: read
+      id-token: write
     needs:
       - prepare-release
     steps:
@@ -347,7 +350,8 @@ jobs:
           labels: |
             org.opencontainers.image.version=${{ steps.image-version.outputs.result }}
             org.opencontainers.image.documentation=${{ env.DOCUMENTATION_URL }}
-      - name: Build and push images to DockerHub
+      - name: Build and push images to container registry
+        id: publish-image
         uses: docker/build-push-action@v4
         with:
           context: .
@@ -357,6 +361,11 @@ jobs:
           build-args: VERSION=${{ needs.prepare-release.outputs.tag_name }}
           labels: ${{ steps.meta.outputs.labels }}
           tags: ${{ github.repository }}:${{ steps.image-version.outputs.result }},${{ github.repository }}:latest
+      - name: Sign the published container image
+        if: steps.publish-image.conclusion == 'success'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: cosign sign --yes ${{ github.repository }}@${{ steps.publish-image.outputs.digest }}
 
   release-helm-chart:
     runs-on: ubuntu-22.04
