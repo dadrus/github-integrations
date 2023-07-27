@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.31.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.30.0-alpha...v0.31.0-alpha) (2023-07-27)
+
+
+### New Features
+
+* always building dev images ([#127](https://github.com/dadrus/github-integrations/issues/127)) ([072e78f](https://github.com/dadrus/github-integrations/commit/072e78ffee5505004e6a526f14d262aae9bae24d))
+* signing released images as well ([#129](https://github.com/dadrus/github-integrations/issues/129)) ([faa23e4](https://github.com/dadrus/github-integrations/commit/faa23e405cfc4740aa2dbed4457da7ee134e2c9a))
+
 ## [0.30.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.29.0-alpha...v0.30.0-alpha) (2023-07-27)
 
 
