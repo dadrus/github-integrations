@@ -20,6 +20,9 @@ env:
 jobs:
   check-changes:
     runs-on: ubuntu-22.04
+    permissions:
+      contents: read
+      id-token: write
     outputs:
       code_changed:  ${{steps.code-changes.outputs.count > 0}}
       test_data_changed: ${{steps.test-data-changes.outputs.count > 0}}
