@@ -31,5 +31,4 @@ COPY --from=builder /app/github-integrations .
 
 USER ${USER}:${USER}
 
-
 ENTRYPOINT ["/opt/github-integrations/github-integrations"]
