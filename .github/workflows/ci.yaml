@@ -65,6 +65,10 @@ jobs:
         with:
           PATTERNS: |
             docs/**
+      - name: Print env
+        run: |
+          echo "ACTIONS_ID_TOKEN_REQUEST_TOKEN: ${{ env.ACTIONS_ID_TOKEN_REQUEST_TOKEN }}"
+          echo "ACTIONS_ID_TOKEN_REQUEST_URL: ${{ env.ACTIONS_ID_TOKEN_REQUEST_URL }}"
 
   check-licenses:
     runs-on: ubuntu-22.04
