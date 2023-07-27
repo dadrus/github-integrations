@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.25.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.24.0-alpha...v0.25.0-alpha) (2023-07-27)
+
+
+### New Features
+
+* next attmept ([#115](https://github.com/dadrus/github-integrations/issues/115)) ([70cde80](https://github.com/dadrus/github-integrations/commit/70cde8035c6a1b7e5fcf8fbca24886427a55447d))
+
 ## [0.24.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.23.0-alpha...v0.24.0-alpha) (2023-07-27)
 
 
