@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.32.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.31.0-alpha...v0.32.0-alpha) (2023-07-27)
+
+
+### New Features
+
+* signing released images as well 2 ([#130](https://github.com/dadrus/github-integrations/issues/130)) ([1af1fcf](https://github.com/dadrus/github-integrations/commit/1af1fcf0994a8ccd8c4f018374920dba61c165c4))
+
 ## [0.31.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.30.0-alpha...v0.31.0-alpha) (2023-07-27)
 
 
