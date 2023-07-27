@@ -294,11 +294,6 @@ jobs:
           build-args: VERSION=${{ github.sha }}
           labels: ${{ steps.meta.outputs.labels }}
           tags: ${{ github.repository }}:dev-${{ github.sha }},${{ github.repository }}:dev
-      - name: Show publish image results
-        run: |
-          echo "digest: ${{ steps.publish-image.outputs.digest }}"
-          echo "imageid: ${{ steps.publish-image.outputs.imageid }}"
-          echo "metadata: ${{ steps.publish-image.outputs.metadata }}"
       - name: Sign the published Docker image
         if: steps.publish-image.conclusion == 'success'
         run: cosign sign --yes ${{ github.repository }}@${{ steps.publish-image.outputs.digest }}
