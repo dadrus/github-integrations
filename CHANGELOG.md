@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.20.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.19.0-alpha...v0.20.0-alpha) (2023-07-27)
+
+
+### New Features
+
+* signing released binaries ([#105](https://github.com/dadrus/github-integrations/issues/105)) ([a430faa](https://github.com/dadrus/github-integrations/commit/a430faaa698c3a0d6c9c7a17bc433cae37eeff42))
+
 ## [0.19.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.18.0-alpha...v0.19.0-alpha) (2023-07-26)
 
 
