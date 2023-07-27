@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.34.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.33.0-alpha...v0.34.0-alpha) (2023-07-27)
+
+
+### New Features
+
+* next update ([#134](https://github.com/dadrus/github-integrations/issues/134)) ([42077bb](https://github.com/dadrus/github-integrations/commit/42077bba98e73d3f858e83845ba684ea58b7c879))
+
 ## [0.33.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.32.0-alpha...v0.33.0-alpha) (2023-07-27)
 
 
