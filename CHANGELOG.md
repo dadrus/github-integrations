@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.30.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.29.0-alpha...v0.30.0-alpha) (2023-07-27)
+
+
+### New Features
+
+* image_signing_1 ([#125](https://github.com/dadrus/github-integrations/issues/125)) ([92f041e](https://github.com/dadrus/github-integrations/commit/92f041e625df909fe72e503025aa2333ddedfff1))
+
 ## [0.29.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.28.0-alpha...v0.29.0-alpha) (2023-07-27)
 
 
