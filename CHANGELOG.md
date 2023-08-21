@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.35.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.34.0-alpha...v0.35.0-alpha) (2023-08-21)
+
+
+### New Features
+
+* SBOM ([#138](https://github.com/dadrus/github-integrations/issues/138)) ([aa647ae](https://github.com/dadrus/github-integrations/commit/aa647ae93bf3914a41e858ff2319e12d708e268d))
+
 ## [0.34.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.33.0-alpha...v0.34.0-alpha) (2023-07-27)
 
 
