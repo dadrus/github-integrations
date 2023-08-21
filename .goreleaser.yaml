@@ -53,7 +53,7 @@ signs:
       - "--output-certificate=${artifact}-keyless.pem"
       - "${artifact}"
       - "--yes"
-    artifacts: all
+    artifacts: checksum
 
 sboms:
   - artifacts: archive
