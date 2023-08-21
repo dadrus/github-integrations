@@ -54,3 +54,6 @@ signs:
       - "${artifact}"
       - "--yes"
     artifacts: all
+
+sboms:
+  - artifacts: archive
