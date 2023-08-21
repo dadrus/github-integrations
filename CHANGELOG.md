@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.36.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.35.0-alpha...v0.36.0-alpha) (2023-08-21)
+
+
+### New Features
+
+* Signing checksums file only ([#140](https://github.com/dadrus/github-integrations/issues/140)) ([683e0dc](https://github.com/dadrus/github-integrations/commit/683e0dcc1d602ecddc118c27b9ac3998aa8ca4e7))
+
 ## [0.35.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.34.0-alpha...v0.35.0-alpha) (2023-08-21)
 
 
