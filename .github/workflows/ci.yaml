@@ -223,6 +223,8 @@ jobs:
         uses: sigstore/cosign-installer@v3.1.1
         with:
           cosign-release: "${{ env.COSIGN_VERSION }}"
+      - name: Install Syft
+        uses: anchore/sbom-action/download-syft@v0.14.3
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v4
         with:
