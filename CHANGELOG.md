@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.37.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.36.0-alpha...v0.37.0-alpha) (2023-08-22)
+
+
+### New Features
+
+* cyclonedx sbom ([#142](https://github.com/dadrus/github-integrations/issues/142)) ([3e9eac5](https://github.com/dadrus/github-integrations/commit/3e9eac53f098df47965d086f82869a8e8af1f18f))
+
 ## [0.36.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.35.0-alpha...v0.36.0-alpha) (2023-08-21)
 
 
