@@ -18,7 +18,6 @@ WORKDIR /app
 COPY . .
 RUN go mod download && GOOS=linux GOARCH=$TARGETARCH go build -a -trimpath -ldflags="-buildid= -w -s -X main.Version=${VERSION}"
 
-
 # The actual image of the app
 FROM scratch
 LABEL maintainer=dadrus@gmx.de
