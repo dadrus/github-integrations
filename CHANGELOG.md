@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.39.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.38.0-alpha...v0.39.0-alpha) (2023-08-22)
+
+
+### New Features
+
+* Attestating SBOM for released images ([#148](https://github.com/dadrus/github-integrations/issues/148)) ([d1fb9f2](https://github.com/dadrus/github-integrations/commit/d1fb9f2d7ab8953af8497fd94ebced322f322310))
+* attesting and attaching SBOM ([#146](https://github.com/dadrus/github-integrations/issues/146)) ([9046857](https://github.com/dadrus/github-integrations/commit/90468579f4539eb1b3d142654f32d5c37fc9499d))
+
 ## [0.38.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.37.0-alpha...v0.38.0-alpha) (2023-08-22)
 
 
