@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.38.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.37.0-alpha...v0.38.0-alpha) (2023-08-22)
+
+
+### New Features
+
+* Generated SBOM file added to gitignore ([#144](https://github.com/dadrus/github-integrations/issues/144)) ([2a916cb](https://github.com/dadrus/github-integrations/commit/2a916cb20bc89a37b6afec0f1841973e174041ef))
+
 ## [0.37.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.36.0-alpha...v0.37.0-alpha) (2023-08-22)
 
 
