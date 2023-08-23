@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"maps"
 
 	"github.com/goccy/go-json"
 )
@@ -13,4 +14,6 @@ func main() {
 
 	raw, _ := json.Marshal(map[string]string{"Foo": "Bar"})
 	fmt.Println("json: ", string(raw))
+
+	maps.Equal(map[string]string{"Foo": "Bar"}, map[string]string{"Foo": "Bar"})
 }
