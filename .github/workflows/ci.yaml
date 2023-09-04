@@ -29,7 +29,7 @@ jobs:
       docs_changed: ${{steps.docs-changes.outputs.count > 0}}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Check code changes
         id: code-changes
         uses: technote-space/get-diff-action@v6
@@ -74,7 +74,7 @@ jobs:
     if: needs.check-changes.outputs.code_changed == 'true'
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
@@ -91,7 +91,7 @@ jobs:
     if: needs.check-changes.outputs.code_changed == 'true'
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
@@ -109,7 +109,7 @@ jobs:
     if: needs.check-changes.outputs.image_config_changed == 'true'
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Run hadolint for Dockerfile
       uses: hadolint/hadolint-action@v3.1.0
       with:
@@ -122,7 +122,7 @@ jobs:
     if: needs.check-changes.outputs.helm_chart_changed == 'true'
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup k8s tools
         uses: yokawasa/action-setup-kube-tools@v0.9.3
         with:
@@ -149,7 +149,7 @@ jobs:
     if: needs.check-changes.outputs.code_changed == 'true' || needs.check-changes.outputs.test_data_changed == 'true'
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
@@ -191,7 +191,7 @@ jobs:
             goos: windows
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
@@ -215,7 +215,7 @@ jobs:
       id-token: write
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - name: Set up Go
@@ -252,7 +252,7 @@ jobs:
       (needs.test.result == 'success' || (needs.test.result == 'skipped' && needs.check-changes.outputs.image_config_changed == 'true'))
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Install Cosign
         if: github.ref == 'refs/heads/main'
         uses: sigstore/cosign-installer@v3.1.1
@@ -327,7 +327,7 @@ jobs:
       - prepare-release
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Prepare image version
         id: image-version
         run: |
@@ -389,7 +389,7 @@ jobs:
     if: needs.prepare-release.outputs.release_created
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Prepare image version
         id: image-version
         run: |
@@ -411,7 +411,7 @@ jobs:
     if: needs.prepare-release.outputs.release_created == false && needs.check-changes.outputs.docs_changed == 'true'
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           submodules: true  # Fetch Hugo themes (true OR recursive)
           fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
@@ -460,7 +460,7 @@ jobs:
     if: needs.prepare-release.outputs.release_created
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           submodules: true  # Fetch Hugo themes (true OR recursive)
           fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
@@ -537,7 +537,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
