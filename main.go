@@ -7,7 +7,7 @@ import (
 	"github.com/goccy/go-json"
 )
 
-var Version = "just test 17"
+var Version = "just test 18"
 
 func main() {
 	fmt.Println("Current Version: ", Version)
