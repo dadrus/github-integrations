@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.42.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.41.0-alpha...v0.42.0-alpha) (2023-11-16)
+
+
+### New Features
+
+* Attempt to publish in ghcr ([#163](https://github.com/dadrus/github-integrations/issues/163)) ([887299c](https://github.com/dadrus/github-integrations/commit/887299cd3495805dad8a4eb61261b842303b0132))
+* Attempt to publish in ghcr 2 ([#165](https://github.com/dadrus/github-integrations/issues/165)) ([9532015](https://github.com/dadrus/github-integrations/commit/9532015780194ce1fdaf6234e2a42a0fb1302eb3))
+* Next ghcr attempt ([#166](https://github.com/dadrus/github-integrations/issues/166)) ([c1b450d](https://github.com/dadrus/github-integrations/commit/c1b450d5da9ecd45cbcdc9f890e3e0087a74fc78))
+
 ## [0.41.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.40.0-alpha...v0.41.0-alpha) (2023-11-16)
 
 
