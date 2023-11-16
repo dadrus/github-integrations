@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.44.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.43.0-alpha...v0.44.0-alpha) (2023-11-16)
+
+
+### New Features
+
+* Next ghcr attempt 3 ([#171](https://github.com/dadrus/github-integrations/issues/171)) ([b51a4e9](https://github.com/dadrus/github-integrations/commit/b51a4e97b3eeab5e09663deb1975b4474ff21217))
+
 ## [0.43.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.42.0-alpha...v0.43.0-alpha) (2023-11-16)
 
 
