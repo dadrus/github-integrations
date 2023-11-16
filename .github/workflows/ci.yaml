@@ -286,12 +286,19 @@ jobs:
           push: false
           build-args: VERSION=${{ github.sha }}
           tags: ${{ github.repository }}:local
-      - name: Login to container registry
+      - name: Login to DockerHub
         if: github.ref == 'refs/heads/main'
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKERHUB_USER }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Login to GitHub
+        if: github.ref == 'refs/heads/main'
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build and push dev images to container registry
         if: github.ref == 'refs/heads/main'
         id: publish-image
@@ -303,19 +310,33 @@ jobs:
           push: true
           build-args: VERSION=${{ github.sha }}
           labels: ${{ steps.meta.outputs.labels }}
-          tags: ${{ github.repository }}:dev-${{ github.sha }},${{ github.repository }}:dev
-      - name: Sign the published Docker image
+          tags: |
+            ${{ github.repository }}:dev-${{ github.sha }}
+            ${{ github.repository }}:dev
+            ghcr.io/${{ github.repository }}:dev-${{ github.sha }}
+            ghcr.io/${{ github.repository }}:dev
+      - name: Sign the image published in DockerHub
         if: steps.publish-image.conclusion == 'success'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          COSIGN_REPOSITORY: ${{ github.repository }}-signatures
         run: cosign sign --yes ${{ github.repository }}@${{ steps.publish-image.outputs.digest }}
-      - name: Attest and attach SBOM
+      - name: Sign the image published in GitHub
         if: steps.publish-image.conclusion == 'success'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          COSIGN_REPOSITORY: ${{ github.repository }}-sbom
+          COSIGN_REPOSITORY: ghcr.io/${{ github.repository }}/signatures
+        run: cosign sign --yes ghcr.io/${{ github.repository }}@${{ steps.publish-image.outputs.digest }}
+      - name: Attest and attach SBOM to the image published in DockerHub
+        if: steps.publish-image.conclusion == 'success'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: cosign attest --yes --predicate CycloneDX-SBOM.json --type cyclonedx ${{ github.repository }}@${{ steps.publish-image.outputs.digest }}
+      - name: Attest and attach SBOM to the image published in GitHub
+        if: steps.publish-image.conclusion == 'success'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COSIGN_REPOSITORY: ghcr.io/${{ github.repository }}/sbom
+        run: cosign attest --yes --predicate CycloneDX-SBOM.json --type cyclonedx ghcr.io/${{ github.repository }}@${{ steps.publish-image.outputs.digest }}
 
 
   # this job releases container images
