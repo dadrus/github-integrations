@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-var Version = "just test 41"
+var Version = "just test 43"
 
 func main() {
 	fmt.Println("Current Version: ", Version)
