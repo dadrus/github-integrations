@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.43.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.42.0-alpha...v0.43.0-alpha) (2023-11-16)
+
+
+### New Features
+
+* Next attempt ([#169](https://github.com/dadrus/github-integrations/issues/169)) ([270ba71](https://github.com/dadrus/github-integrations/commit/270ba7129998a86c5a17fb2eff0c90387fa1e8ac))
+
 ## [0.42.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.41.0-alpha...v0.42.0-alpha) (2023-11-16)
 
 
