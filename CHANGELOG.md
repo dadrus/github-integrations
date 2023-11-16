@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.40.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.39.0-alpha...v0.40.0-alpha) (2023-11-16)
+
+
+### New Features
+
+* Separate repos for cosign artifacts ([#158](https://github.com/dadrus/github-integrations/issues/158)) ([1d0d2e7](https://github.com/dadrus/github-integrations/commit/1d0d2e7898889c58581f9cc9ab55329cb5ca070e))
+* test separate repos ([#160](https://github.com/dadrus/github-integrations/issues/160)) ([3ee0e5a](https://github.com/dadrus/github-integrations/commit/3ee0e5a3e79f897baddae11eaa4dffa9d0d9bfe3))
+
 ## [0.39.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.38.0-alpha...v0.39.0-alpha) (2023-08-22)
 
 
