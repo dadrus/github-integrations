@@ -255,12 +255,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: Install Cosign
-        if: github.ref == 'refs/heads/main'
+        #if: github.ref == 'refs/heads/main'
         uses: sigstore/cosign-installer@v3.1.1
         with:
           cosign-release: "${{ env.COSIGN_VERSION }}"
       - name: Generate SBOM
-        if: github.ref == 'refs/heads/main'
+        #if: github.ref == 'refs/heads/main'
         uses: CycloneDX/gh-gomod-generate-sbom@v2
         with:
           version: "${{ env.CYCLONEDX_GOMOD_VERSION }}"
