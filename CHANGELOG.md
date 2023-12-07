@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.46.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.45.0-alpha...v0.46.0-alpha) (2023-12-07)
+
+
+### New Features
+
+* goreleaser flags updated ([#179](https://github.com/dadrus/github-integrations/issues/179)) ([1b38cf9](https://github.com/dadrus/github-integrations/commit/1b38cf99230d017bb7c66a5c3c190036d3f6e707))
+
 ## [0.45.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.44.1-alpha...v0.45.0-alpha) (2023-12-07)
 
 
