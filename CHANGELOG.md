@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.44.1-alpha](https://github.com/dadrus/github-integrations/compare/v0.44.0-alpha...v0.44.1-alpha) (2023-12-07)
+
+
+### Updated Dependencies
+
+* update actions/setup-go action to v5 ([#174](https://github.com/dadrus/github-integrations/issues/174)) ([ca8bddd](https://github.com/dadrus/github-integrations/commit/ca8bdddb9ae1c1d5a19491d89b02c0d5552cafa9))
+* update actions/setup-node action to v4 ([#167](https://github.com/dadrus/github-integrations/issues/167)) ([f63f5a2](https://github.com/dadrus/github-integrations/commit/f63f5a2bb7503b1f4a3eb85e3d2b9142dddd23e7))
+* update dependency bootstrap to v5.3.2 ([#157](https://github.com/dadrus/github-integrations/issues/157)) ([17c758e](https://github.com/dadrus/github-integrations/commit/17c758e880764ef231f78386ee0677f4107c1d3a))
+* update dependency bootstrap-icons to v1.11.2 ([#156](https://github.com/dadrus/github-integrations/issues/156)) ([92bb432](https://github.com/dadrus/github-integrations/commit/92bb4321e899842faa07c0138a9ebe970c351f53))
+* update dependency ubuntu to v22 ([#137](https://github.com/dadrus/github-integrations/issues/137)) ([f84f3cb](https://github.com/dadrus/github-integrations/commit/f84f3cbb503fb916f32cd3e5d3b61cc688ca0d88))
+* update golang docker tag to v1.21.5 ([#136](https://github.com/dadrus/github-integrations/issues/136)) ([d111d5f](https://github.com/dadrus/github-integrations/commit/d111d5fd70dc68312b221dcf44e9f015554602ca))
+* update google-github-actions/release-please-action action to v4 ([#173](https://github.com/dadrus/github-integrations/issues/173)) ([418dbf7](https://github.com/dadrus/github-integrations/commit/418dbf723abb82788584907ffb4ef70e54c0e9a7))
+
 ## [0.44.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.43.0-alpha...v0.44.0-alpha) (2023-11-16)
 
 
