@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.46.1-alpha](https://github.com/dadrus/github-integrations/compare/v0.46.0-alpha...v0.46.1-alpha) (2023-12-07)
+
+
+### Bug Fixes
+
+* version settings ([#181](https://github.com/dadrus/github-integrations/issues/181)) ([97cf90c](https://github.com/dadrus/github-integrations/commit/97cf90c9f5e75f4e4ff64242d0af7d394ace64bf))
+
 ## [0.46.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.45.0-alpha...v0.46.0-alpha) (2023-12-07)
 
 
