@@ -167,9 +167,6 @@ jobs:
       - name: Prepare Release
         id: release_prepare
         uses: google-github-actions/release-please-action@v4
-        with:
-          command: manifest
-          token: ${{ secrets.GITHUB_TOKEN }}
 
   build-binaries:
     runs-on: ubuntu-22.04
