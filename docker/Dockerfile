@@ -16,7 +16,7 @@ RUN useradd -l -s "/sbin/nologin" -M -U -r -u ${UID} ${USER}
 WORKDIR /app
 
 COPY . .
-RUN go mod download && GOOS=linux GOARCH=$TARGETARCH go build -a -trimpath -ldflags="-buildid= -w -s -X main.Version=${VERSION}"
+RUN go mod download && GOOS=linux GOARCH=$TARGETARCH go build -a -trimpath -ldflags="-buildid= -w -s -X github.com/dadrus/github-integrations/version.Version=${VERSION}"
 
 # The actual image of the app
 FROM scratch

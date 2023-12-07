@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
+
+	"github.com/dadrus/github-integrations/version"
 )
 
-var Version = "just test 44"
-
 func main() {
-	fmt.Println("Current Version: ", Version)
+	fmt.Println("Current Version: ", version.Version)
 }
