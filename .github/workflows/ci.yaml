@@ -102,6 +102,7 @@ jobs:
         with:
           go_version: "${{ env.GO_VERSION }}"
           golangci_lint_version: "${{ env.GOLANGCI_LINT_VERSION }}"
+          golangci_lint_flags: --out-format=checkstyle
           reporter: github-pr-review
           fail_on_error: true
           reviewdog_flags: -f=checkstyle
