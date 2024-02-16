@@ -92,15 +92,11 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Set up Go
-        uses: actions/setup-go@v5
+      - name: Review code
+        uses: reviewdog/action-golangci-lint@v2
         with:
-          go-version: "${{ env.GO_VERSION }}"
-      - name: golangci-lint
-        uses: golangci/golangci-lint-action@v3
-        with:
-          version: ${{ env.GOLANGCI_LINT_VERSION }}
-          args: --timeout 5m
+          go_version: "${{ env.GO_VERSION }}"
+          golangci_lint_version: "${{ env.GOLANGCI_LINT_VERSION }}"
 
   lint-dockerfiles:
     runs-on: ubuntu-22.04
