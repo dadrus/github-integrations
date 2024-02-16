@@ -104,6 +104,7 @@ jobs:
           golangci_lint_version: "${{ env.GOLANGCI_LINT_VERSION }}"
           reporter: github-pr-review
           fail_on_error: true
+          reviewdog_flags: -diff="git diff FETCH_HEAD"
 
   lint-dockerfiles:
     runs-on: ubuntu-22.04
