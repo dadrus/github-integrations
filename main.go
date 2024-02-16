@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 
 	"github.com/dadrus/github-integrations/version"
@@ -16,6 +17,12 @@ func main() {
 
 	fmt.Println(Foo{Foo: "foo", Bar: "bar"})
 
-	foo := fmt.Sprintf("%s/%s", "foo", "bar")
+	foo := fmt.Sprintf("%s/bar", "foo")
 	fmt.Println(foo)
+
+	Test(context.TODO())
+}
+
+func Test(ctx context.Context) error {
+	return nil
 }
