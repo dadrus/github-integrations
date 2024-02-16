@@ -7,5 +7,5 @@ import (
 )
 
 func main() {
-	fmt.Println("Current Version: ", version.Version)
+	fmt.Println("Current Version: ", version.Version) //nolint:forbidigo
 }

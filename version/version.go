@@ -1,3 +1,3 @@
 package version
 
-var Version = "just test 47"
+var Version = "just test 48" //nolint:gochecknoglobals
