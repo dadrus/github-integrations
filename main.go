@@ -14,5 +14,5 @@ func main() {
 		Bar string `json:"bar_foo" yaml:"bar"`
 	}
 
-	fmt.Println(Foo{Foo: "foo", Bar: "bar"})
+	fmt.Println(Foo{Foo: "foo", Bar: "bar"} )
 }
