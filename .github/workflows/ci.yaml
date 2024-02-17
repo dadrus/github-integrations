@@ -87,10 +87,6 @@ jobs:
 
   lint-code:
     runs-on: ubuntu-22.04
-    permissions:
-      contents: read
-      checks: write
-      pull-requests: write
     needs:
       - check-changes
     if: needs.check-changes.outputs.code_changed == 'true'
@@ -115,10 +111,11 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
-    - name: Run hadolint for Dockerfile
-      uses: hadolint/hadolint-action@v3.1.0
+    - name: Run hadolint
+      uses: reviewdog/action-hadolint@v1
       with:
-        dockerfile: docker/Dockerfile
+        reporter: github-pr-review
+        fail_on_error: true
 
   lint-helm-chart:
     runs-on: ubuntu-22.04
