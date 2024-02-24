@@ -126,7 +126,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Setup k8s tools
-        uses: yokawasa/action-setup-kube-tools@v0.9.3
+        uses: yokawasa/action-setup-kube-tools@v0.11.0
         with:
           setup-tools: |
             helm
