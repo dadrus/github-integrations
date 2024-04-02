@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.46.3-alpha](https://github.com/dadrus/github-integrations/compare/v0.46.2-alpha...v0.46.3-alpha) (2024-04-02)
+
+
+### Updated Dependencies
+
+* update golang docker tag to v1.22.1 ([#193](https://github.com/dadrus/github-integrations/issues/193)) ([2f92e8b](https://github.com/dadrus/github-integrations/commit/2f92e8bceab7c49b554772f9246d56aaf8b5143a))
+
 ## [0.46.2-alpha](https://github.com/dadrus/github-integrations/compare/v0.46.1-alpha...v0.46.2-alpha) (2024-04-02)
 
 
