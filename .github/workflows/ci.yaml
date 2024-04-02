@@ -699,5 +699,6 @@ jobs:
         uses: peter-evans/create-pull-request@v6
         with:
           title: 'chore(${{ github.ref_name }}): data.json updated for next iteration'
+          commit-message: 'chore(${{ github.ref_name }}): data.json updated for next iteration'
           add-paths: |
             docs/versions/*.json
