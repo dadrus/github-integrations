@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.46.4-alpha](https://github.com/dadrus/github-integrations/compare/v0.46.3-alpha...v0.46.4-alpha) (2024-04-02)
+
+
+### Updated Dependencies
+
+* update peaceiris/actions-hugo action to v3 ([#194](https://github.com/dadrus/github-integrations/issues/194)) ([a6a5739](https://github.com/dadrus/github-integrations/commit/a6a5739a411a16d28a0292bde214d20f7b933b9d))
+
 ## [0.46.3-alpha](https://github.com/dadrus/github-integrations/compare/v0.46.2-alpha...v0.46.3-alpha) (2024-04-02)
 
 
