@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.46.2-alpha](https://github.com/dadrus/github-integrations/compare/v0.46.1-alpha...v0.46.2-alpha) (2024-04-02)
+
+
+### Updated Dependencies
+
+* update sigstore/cosign-installer action to v3.4.0 ([#183](https://github.com/dadrus/github-integrations/issues/183)) ([c0c7b24](https://github.com/dadrus/github-integrations/commit/c0c7b24e751a6668441b9f7b5456891ad6ffe73b))
+
 ## [0.46.1-alpha](https://github.com/dadrus/github-integrations/compare/v0.46.0-alpha...v0.46.1-alpha) (2023-12-07)
 
 
