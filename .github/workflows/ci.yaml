@@ -131,30 +131,6 @@ jobs:
           reporter: github-pr-review
           fail_on_error: true
 
-  lint-api:
-    runs-on: ubuntu-22.04
-    needs:
-      - check-changes
-    if: > 
-      needs.check-changes.outputs.docs_changed == 'true' || 
-      needs.check-changes.outputs.ci_config_changed == 'true'
-    steps:
-      - name: Harden Runner
-        uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # v2.7.0
-        with:
-          egress-policy: audit
-
-      - name: Checkout repository
-        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
-      - name: Setup Node
-        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-      - name: Install Redocly CLI
-        run: npm i -g @redocly/cli@1.10.5
-      - name: Run Redocly Lint
-        run: redocly lint
-
   lint-dockerfiles:
     runs-on: ubuntu-22.04
     needs:
@@ -724,6 +700,8 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./docs/versions
           keep_files: true
+      - name: Setup GitSign
+        uses: chainguard-dev/actions/setup-gitsign@main
       - name: Create a PR for the updated versions JSON document
         if: steps.update-version-json.outcome == 'success'
         uses: peter-evans/create-pull-request@v6
