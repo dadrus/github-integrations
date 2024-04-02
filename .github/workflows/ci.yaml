@@ -579,12 +579,10 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./docs/versions
           keep_files: true
-      - name: Commit updated versions JSON document
+      - name: Create a PR for the updated versions JSON document
         if: steps.update-version-json.outcome == 'success'
-        run: |
-          git config --local user.email "${{ github.sha }}+github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git add ./docs/versions/data.json
-          git commit -m "chore(${{ github.ref_name }}): Preparing for next iteration"
-      - name: Push changes
-        uses: ad-m/github-push-action@master
+        uses: peter-evans/create-pull-request@v6
+        with:
+          title: 'chore(${{ github.ref_name }}): data.json updated for next iteration'
+          add-paths: |
+            docs/versions/*.json
