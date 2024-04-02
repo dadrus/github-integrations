@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.46.5-alpha](https://github.com/dadrus/github-integrations/compare/v0.46.4-alpha...v0.46.5-alpha) (2024-04-02)
+
+
+### Updated Dependencies
+
+* update dependency bootstrap to v5.3.3 ([#192](https://github.com/dadrus/github-integrations/issues/192)) ([aab5494](https://github.com/dadrus/github-integrations/commit/aab54946efc57699567f09d197df1e165f81c238))
+
 ## [0.46.4-alpha](https://github.com/dadrus/github-integrations/compare/v0.46.3-alpha...v0.46.4-alpha) (2024-04-02)
 
 
