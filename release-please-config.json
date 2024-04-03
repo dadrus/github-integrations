@@ -1,5 +1,5 @@
 {
-  "last-release-sha": "cfc9ed56e3374a39e4a78bd8403442a0736f03f0",
+  "last-release-sha": "0d76cd7e31861227efe3c6d756a7bc935198f748",
   "bump-minor-pre-major": true,
   "draft": false,
   "release-type": "go",
