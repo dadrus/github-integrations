@@ -11,7 +11,7 @@ import (
 func main() {
 	fmt.Println("Current Version: ", version.Version) //nolint:forbidigo
 
-	res, err := json.Marshal(map[string]any{"foo": "bar"})
+	res, err := json.Marshal(map[string]any{"bar": "foo"})
 	if err != nil {
 		fmt.Println(err)
 	}
