@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.50.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.49.1-alpha...v0.50.0-alpha) (2024-04-03)
+
+
+### New Features
+
+* cool feature 6 ([#246](https://github.com/dadrus/github-integrations/issues/246)) ([0c93599](https://github.com/dadrus/github-integrations/commit/0c9359968e55e6a03bd4a24cbaa1dc0eb6b8aa6d))
+
 ## [0.49.1-alpha](https://github.com/dadrus/github-integrations/compare/v0.49.0-alpha...v0.49.1-alpha) (2024-04-03)
 
 
