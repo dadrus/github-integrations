@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.51.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.50.0-alpha...v0.51.0-alpha) (2024-04-03)
+
+
+### New Features
+
+* Cool feature 7 ([#255](https://github.com/dadrus/github-integrations/issues/255)) ([70f2a82](https://github.com/dadrus/github-integrations/commit/70f2a82bb7c05764def37d8f3a8c0b91aa953006))
+* Cool feature 8 ([#260](https://github.com/dadrus/github-integrations/issues/260)) ([6144859](https://github.com/dadrus/github-integrations/commit/614485937d78208efbcb52a31f78b57343bfbdcc))
+
+
+### Updated Dependencies
+
+* update module github.com/goccy/go-json to v0.10.2 ([#254](https://github.com/dadrus/github-integrations/issues/254)) ([bc471a7](https://github.com/dadrus/github-integrations/commit/bc471a77ad968b4cf0e458e68c62d117ead6cb10))
+
 ## [0.50.2-alpha](https://github.com/dadrus/github-integrations/compare/v0.50.1-alpha...v0.50.2-alpha) (2024-04-03)
 
 
