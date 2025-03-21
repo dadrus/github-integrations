@@ -326,8 +326,9 @@ jobs:
           hashes=$(echo $ARTIFACTS | jq --raw-output '.[] | {name, "digest": (.extra.Digest // .extra.Checksum)} | select(.digest) | {digest} + {name} | join("  ") | sub("^sha256:";"")' | base64 -w0)
           echo "hashes=$hashes" >> $GITHUB_OUTPUT
 
-  provenance:
+  provenance-binaries:
     needs:
+      - prepare-release
       - release-binaries
     permissions:
       actions: read
@@ -337,6 +338,8 @@ jobs:
     with:
       base64-subjects: "${{ needs.release-binaries.outputs.hashes }}"
       upload-assets: true
+      upload-tag-name: "${{ needs.prepare-release.outputs.tag_name }}"
+      provenance-name: "heimdall_${{ needs.prepare-release.outputs.tag_name }}.intoto.jsonl"
 
   # this job builds container images for PRs, as well as publishes these on merges to main
   build-dev-container-images:
