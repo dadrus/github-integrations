@@ -220,7 +220,7 @@
     "path": "/heimdall/fix/next_attempt_4"
   },
   {
-    "version": "renovate/main-docker-setup-qemu-action-3.x",
-    "path": "/heimdall/renovate/main-docker-setup-qemu-action-3.x"
+    "version": "fix/next_attempt_6",
+    "path": "/heimdall/fix/next_attempt_6"
   }
 ]
