@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.51.3-alpha](https://github.com/dadrus/github-integrations/compare/v0.51.2-alpha...v0.51.3-alpha) (2025-03-21)
+
+
+### Bug Fixes
+
+* gorelease ([#298](https://github.com/dadrus/github-integrations/issues/298)) ([f791204](https://github.com/dadrus/github-integrations/commit/f791204c12e90df4f71926ccf5959eb179a775f4))
+* release workflow trigger ([#296](https://github.com/dadrus/github-integrations/issues/296)) ([b21836b](https://github.com/dadrus/github-integrations/commit/b21836bbaafb5fbcfdde30fe3b15fa1942dae103))
+
 ## [0.51.2-alpha](https://github.com/dadrus/github-integrations/compare/v0.51.1-alpha...v0.51.2-alpha) (2025-03-21)
 
 
