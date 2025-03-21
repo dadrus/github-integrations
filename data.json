@@ -220,7 +220,7 @@
     "path": "/heimdall/fix/next_attempt_4"
   },
   {
-    "version": "fix/next_attempt_5",
-    "path": "/heimdall/fix/next_attempt_5"
+    "version": "renovate/main-goreleaser-goreleaser-action-5.x",
+    "path": "/heimdall/renovate/main-goreleaser-goreleaser-action-5.x"
   }
 ]
