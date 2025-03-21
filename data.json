@@ -220,7 +220,7 @@
     "path": "/heimdall/fix/next_attempt_4"
   },
   {
-    "version": "release-please--branches--main",
-    "path": "/heimdall/release-please--branches--main"
+    "version": "v0.51.8-alpha",
+    "path": "/heimdall/v0.51.8-alpha"
   }
 ]
