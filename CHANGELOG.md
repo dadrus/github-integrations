@@ -1,5 +1,25 @@
 # Changelog
 
+## [0.51.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.50.0-alpha...v0.51.0-alpha) (2025-03-21)
+
+
+### New Features
+
+* Cool feature 7 ([#255](https://github.com/dadrus/github-integrations/issues/255)) ([70f2a82](https://github.com/dadrus/github-integrations/commit/70f2a82bb7c05764def37d8f3a8c0b91aa953006))
+* Cool feature 8 ([#260](https://github.com/dadrus/github-integrations/issues/260)) ([6144859](https://github.com/dadrus/github-integrations/commit/614485937d78208efbcb52a31f78b57343bfbdcc))
+* provenance for released binaries ([#280](https://github.com/dadrus/github-integrations/issues/280)) ([ee11d0d](https://github.com/dadrus/github-integrations/commit/ee11d0d563b970c0a3b1b62c2cf9394f9b9c29c7))
+
+
+### Bug Fixes
+
+* ci build ([#283](https://github.com/dadrus/github-integrations/issues/283)) ([9aa0ba7](https://github.com/dadrus/github-integrations/commit/9aa0ba7ebbbc9d6288ff518e236405cbaf221b4f))
+* docker build ([#286](https://github.com/dadrus/github-integrations/issues/286)) ([62b7fe8](https://github.com/dadrus/github-integrations/commit/62b7fe87cd6a82b528379d1d5e7c833079f8976c))
+
+
+### Updated Dependencies
+
+* update module github.com/goccy/go-json to v0.10.2 ([#254](https://github.com/dadrus/github-integrations/issues/254)) ([bc471a7](https://github.com/dadrus/github-integrations/commit/bc471a77ad968b4cf0e458e68c62d117ead6cb10))
+
 ## [0.50.2-alpha](https://github.com/dadrus/github-integrations/compare/v0.50.1-alpha...v0.50.2-alpha) (2024-04-03)
 
 
