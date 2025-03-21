@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.51.4-alpha](https://github.com/dadrus/github-integrations/compare/v0.51.3-alpha...v0.51.4-alpha) (2025-03-21)
+
+
+### Bug Fixes
+
+* next attempt to fix gorelaser setup ([#300](https://github.com/dadrus/github-integrations/issues/300)) ([d909055](https://github.com/dadrus/github-integrations/commit/d90905515e4313f5c0fe307b67f70f5415a771aa))
+
 ## [0.51.3-alpha](https://github.com/dadrus/github-integrations/compare/v0.51.2-alpha...v0.51.3-alpha) (2025-03-21)
 
 
