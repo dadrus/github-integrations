@@ -1,6 +1,8 @@
 name: release
 
 on:
+  create:
+    tags: [ "*" ]
   push:
     tags: [ "*" ]
 
