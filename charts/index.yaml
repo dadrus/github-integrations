@@ -2,10 +2,10 @@ apiVersion: v1
 entries:
   heimdall:
   - apiVersion: v2
-    appVersion: release-please--branches--main
-    created: "2025-03-21T20:51:46.129681833Z"
+    appVersion: 0.51.9-alpha
+    created: "2025-03-21T20:53:30.534519132Z"
     description: A cloud native Identity Aware Proxy and Access Control Decision Service
-    digest: b570987b5f5a891c7a3f0953ab84fa4a35b1ef5ed72730041dda5551e56d6449
+    digest: 99442eced433801a5c60534f191a5f230e582f962f23d8a8cc01954f7ed05f1d
     home: https://dadrus.github.io/heimdall/
     keywords:
     - zero-trust
@@ -62,4 +62,4 @@ entries:
     urls:
     - https://dadrus.github.io/github-integrations/charts/heimdall-0.1.0.tgz
     version: 0.1.0
-generated: "2025-03-21T20:51:46.127513883Z"
+generated: "2025-03-21T20:53:30.532631136Z"
