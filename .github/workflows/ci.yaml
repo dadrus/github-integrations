@@ -11,14 +11,16 @@ on:
       - release
 
 env:
-  GO_VERSION: "1.22.1"
-  GOLANGCI_LINT_VERSION: "v1.56.1"
-  HELM_VERSION: "3.14.1"
-  KUBECONFORM_VERSION: "0.6.4"
-  KUBERNETES_API_VERSION: "1.27.0"
-  NODE_VERSION: "18.16"
-  COSIGN_VERSION: "v2.2.3"
-  CYCLONEDX_GOMOD_VERSION: "v1.4.1"
+  GO_VERSION: "1.24.1"
+  GOLANGCI_LINT_VERSION: "v1.64.4"
+  HELM_VERSION: "3.16.4"
+  KUBECONFORM_VERSION: "0.6.7"
+  KUBERNETES_API_VERSION: "1.30.0"
+  NODE_VERSION: "22.13"
+  RUBY_VERSION: "3.4"
+  COSIGN_VERSION: "v2.4.1"
+  CYCLONEDX_GOMOD_VERSION: "v1.9.0"
+  HUGO_VERSION: "0.140.1"
   DOCUMENTATION_URL: "https://dadrus.github.io/heimdall/"
 
 permissions: read-all
@@ -692,12 +694,15 @@ jobs:
           publish_dir: ./docs/versions
           keep_files: true
       - name: Setup GitSign
-        uses: chainguard-dev/actions/setup-gitsign@main
+        uses: chainguard-dev/actions/setup-gitsign@2cadca168a422313df94f6169691a86498ae51b1 # main
       - name: Create a PR for the updated versions JSON document
         if: steps.update-version-json.outcome == 'success'
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@70a41aba780001da0a30141984ae2a0c95d8704e # v6.0.2
         with:
-          title: 'chore(${{ github.ref_name }}): data.json updated for next iteration'
-          commit-message: 'chore(${{ github.ref_name }}): data.json updated for next iteration'
+          title: 'chore: Update to data.json to include the new released documentation version'
+          commit-message: 'chore: Update to data.json to include the new released documentation version'
+          body: >
+            data.json updated by the release-documentation job to include the entry 
+            referencing the released ${{ needs.prepare-release.outputs.tag_name }} documentation version
           add-paths: |
             docs/versions/*.json
