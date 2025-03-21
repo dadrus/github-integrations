@@ -284,6 +284,8 @@ jobs:
     permissions:
       contents: write
       id-token: write
+    outputs:
+      hashes: ${{ steps.hash.outputs.hashes }}
     steps:
       - name: Harden Runner
         uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # v2.7.0
@@ -309,11 +311,33 @@ jobs:
           version: "${{ env.CYCLONEDX_GOMOD_VERSION }}"
           args: app -licenses -assert-licenses -json -std -output CycloneDX-SBOM.json -main .
       - name: Run GoReleaser
+        id: goleaser
         uses: goreleaser/goreleaser-action@7ec5c2b0c6cdda6e8bbb49444bc797dd33d74dd8 # v5.0.0
         with:
           args: release --clean
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Generate provenance subject
+        id: hash
+        env:
+          ARTIFACTS: "${{ steps.goleaser.outputs.artifacts }}"
+        run: |
+          set -euo pipefail
+          hashes=$(echo $ARTIFACTS | jq --raw-output '.[] | {name, "digest": (.extra.Digest // .extra.Checksum)} | select(.digest) | {digest} + {name} | join("  ") | sub("^sha256:";"")' | base64 -w0)
+          echo "hashes=$hashes" >> $GITHUB_OUTPUT
+
+  provenance:
+    runs-on: ubuntu-22.04
+    needs:
+      - release-binaries
+    permissions:
+      actions: read
+      id-token: write
+      contents: write
+    uses: slsa-framework/slsa-github-generator/.github/workflows/generator_generic_slsa3.yml@v2.1.0
+    with:
+      base64-subjects: "${{ needs.release-binaries.outputs.hashes }}"
+      upload-assets: true
 
   # this job builds container images for PRs, as well as publishes these on merges to main
   build-dev-container-images:
