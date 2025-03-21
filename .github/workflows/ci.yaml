@@ -327,7 +327,6 @@ jobs:
           echo "hashes=$hashes" >> $GITHUB_OUTPUT
 
   provenance:
-    runs-on: ubuntu-22.04
     needs:
       - release-binaries
     permissions:
