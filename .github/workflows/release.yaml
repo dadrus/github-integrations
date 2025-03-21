@@ -1,8 +1,8 @@
 name: release
 
 on:
-  create:
-    tags: [ 'v*' ]
+  push:
+    tags: [ "*" ]
 
 env:
   GO_VERSION: "1.24.1"
@@ -58,7 +58,7 @@ jobs:
           hashes=$(echo $ARTIFACTS | jq --raw-output '.[] | {name, "digest": (.extra.Digest // .extra.Checksum)} | select(.digest) | {digest} + {name} | join("  ") | sub("^sha256:";"")' | base64 -w0)
           echo "hashes=$hashes" >> $GITHUB_OUTPUT
 
-  binaries-provenance:
+  create-binaries-provenance:
     needs:
       - release-binaries
     permissions:
