@@ -220,7 +220,7 @@
     "path": "/heimdall/fix/next_attempt_4"
   },
   {
-    "version": "renovate/main-peter-evans-create-pull-request-6.x",
-    "path": "/heimdall/renovate/main-peter-evans-create-pull-request-6.x"
+    "version": "renovate/main-reviewdog-action-hadolint-1.x",
+    "path": "/heimdall/renovate/main-reviewdog-action-hadolint-1.x"
   }
 ]
