@@ -15,7 +15,7 @@ permissions:
 
 jobs:
   release-binaries:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     permissions:
       contents: write
       id-token: write
@@ -74,7 +74,7 @@ jobs:
       provenance-name: "github-integrations_${{ github.ref_name }}.intoto.jsonl"
 
   release-container-images:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     permissions:
       packages: write
       id-token: write
@@ -169,7 +169,7 @@ jobs:
         run: cosign attest --yes --predicate CycloneDX-SBOM.json --type cyclonedx ghcr.io/${{ github.repository }}@${{ steps.publish-image.outputs.digest }}
 
   release-helm-chart:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     permissions:
       contents: write
     needs:
@@ -195,7 +195,7 @@ jobs:
           app_version: ${{ steps.image-version.outputs.result }}
 
   release-documentation:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     permissions:
       contents: write
       id-token: write
