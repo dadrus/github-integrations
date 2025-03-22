@@ -27,7 +27,7 @@ permissions: read-all
 
 jobs:
   check-changes:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     outputs:
       code_changed:  ${{steps.code-changes.outputs.count > 0}}
       test_data_changed: ${{steps.test-data-changes.outputs.count > 0}}
@@ -86,7 +86,7 @@ jobs:
             .github/workflows/*.yaml
 
   check-licenses:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs:
       - check-changes
     if: >
@@ -110,7 +110,7 @@ jobs:
         run: go-licenses check --disallowed_types=forbidden,restricted,reciprocal,permissive,unknown .
 
   lint-code:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs:
       - check-changes
     if: >
@@ -135,7 +135,7 @@ jobs:
           fail_on_error: true
 
   lint-dockerfiles:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs:
       - check-changes
     if: > 
@@ -156,7 +156,7 @@ jobs:
           fail_on_error: true
 
   lint-helm-chart:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs:
       - check-changes
     if: > 
@@ -190,7 +190,7 @@ jobs:
           kubeconform --skip RuleSet -kubernetes-version ${{ env.KUBERNETES_API_VERSION }} decision-demo.yaml
 
   test:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs:
       - check-changes
     if: >
@@ -219,7 +219,7 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
 
   prepare-release:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/release'
     permissions:
       pull-requests: write
@@ -240,7 +240,7 @@ jobs:
           token: ${{ secrets.RELEASE_TOKEN }}
 
   build-binaries:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs:
       - test
       - prepare-release
@@ -279,7 +279,7 @@ jobs:
 
   # this job builds container images for PRs, as well as publishes these on merges to main
   build-dev-container-images:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     permissions:
       packages: write
       id-token: write
@@ -393,7 +393,7 @@ jobs:
         run: cosign attest --yes --predicate CycloneDX-SBOM.json --type cyclonedx ghcr.io/${{ github.repository }}@${{ steps.publish-image.outputs.digest }}
 
   build-dev-documentation:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     permissions:
       contents: write
     needs:
