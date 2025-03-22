@@ -220,7 +220,7 @@
     "path": "/heimdall/fix/next_attempt_4"
   },
   {
-    "version": "renovate/main-codecov-codecov-action-5.x",
-    "path": "/heimdall/renovate/main-codecov-codecov-action-5.x"
+    "version": "renovate/main-docker-build-push-action-6.x",
+    "path": "/heimdall/renovate/main-docker-build-push-action-6.x"
   }
 ]
