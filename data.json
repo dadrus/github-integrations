@@ -220,7 +220,7 @@
     "path": "/heimdall/fix/next_attempt_4"
   },
   {
-    "version": "renovate/main-step-security-harden-runner-2.x",
-    "path": "/heimdall/renovate/main-step-security-harden-runner-2.x"
+    "version": "renovate/main-codecov-codecov-action-5.x",
+    "path": "/heimdall/renovate/main-codecov-codecov-action-5.x"
   }
 ]
