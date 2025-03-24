@@ -82,6 +82,7 @@ jobs:
       actions: read
       id-token: write
       contents: write
+    # Note: this _must_ be referenced by tag. See: https://github.com/slsa-framework/slsa-verifier/issues/12
     uses: slsa-framework/slsa-github-generator/.github/workflows/generator_generic_slsa3.yml@v2.1.0
     with:
       base64-subjects: "${{ needs.release-binaries.outputs.hashes }}"
@@ -193,26 +194,27 @@ jobs:
       actions: read
       id-token: write
       contents: write
-    uses: slsa-framework/slsa-github-generator/.github/workflows/generator_container_slsa3.yml@v2.0.0
+    # Note: this _must_ be referenced by tag. See: https://github.com/slsa-framework/slsa-verifier/issues/12
+    uses: slsa-framework/slsa-github-generator/.github/workflows/generator_container_slsa3.yml@v2.1.0
     with:
       image: ${{ github.repository }}
       digest: ${{ needs.release-container-images.outputs.image_digest }}
-      registry-username: ${{ secrets.DOCKERHUB_USER }}
     secrets:
+      registry-username: ${{ secrets.DOCKERHUB_USER }}
       registry-password: ${{ secrets.DOCKERHUB_TOKEN }}
 
   create-ghcr-provenance:
     needs:
       - release-container-images
     permissions:
-      actions: read # for detecting the Github Actions environment.
-      id-token: write # for creating OIDC tokens for signing.
-      packages: write # for uploading attestations.
-    uses: slsa-framework/slsa-github-generator/.github/workflows/generator_container_slsa3.yml@v2.0.0
+      actions: read
+      id-token: write
+      packages: write
+    # Note: this _must_ be referenced by tag. See: https://github.com/slsa-framework/slsa-verifier/issues/12
+    uses: slsa-framework/slsa-github-generator/.github/workflows/generator_container_slsa3.yml@v2.1.0
     with:
       image: ghcr.io/${{ github.repository }}
       digest: ${{ needs.release-container-images.outputs.image_digest }}
-      registry-username: dadrus
     secrets:
       registry-password: ${{ secrets.GITHUB_TOKEN }}
 
