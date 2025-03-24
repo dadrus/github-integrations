@@ -57,7 +57,7 @@ jobs:
           version: "${{ env.CYCLONEDX_GOMOD_VERSION }}"
           args: app -licenses -assert-licenses -json -std -output CycloneDX-SBOM.json -main .
       - name: Run GoReleaser
-        id: goleaser
+        id: goreleaser
         uses: goreleaser/goreleaser-action@90a3faa9d0182683851fbfa97ca1a2cb983bfca3 # v6.2.1
         with:
           args: release --clean
@@ -66,7 +66,7 @@ jobs:
       - name: Generate provenance subject
         id: hash
         env:
-          ARTIFACTS: "${{ steps.goleaser.outputs.artifacts }}"
+          ARTIFACTS: "${{ steps.goreleaser.outputs.artifacts }}"
         run: |
           set -euo pipefail
           echo "ARTIFACTS:"
