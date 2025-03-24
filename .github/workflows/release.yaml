@@ -11,8 +11,10 @@ env:
   HELM_VERSION: "3.16.4"
   DOCUMENTATION_URL: "https://dadrus.github.io/heimdall/"
 
-jobs:
+permissions:
+  contents: read
 
+jobs:
   release-binaries:
     runs-on: ubuntu-24.04
     permissions:
@@ -77,7 +79,6 @@ jobs:
     permissions:
       packages: write
       id-token: write
-      contents: read
     outputs:
       digest: ${{ steps.publish-image.outputs.digest }}
     steps:
