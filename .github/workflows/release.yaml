@@ -216,6 +216,7 @@ jobs:
       image: ghcr.io/${{ github.repository }}
       digest: ${{ needs.release-container-images.outputs.image_digest }}
     secrets:
+      registry-username: dadrus
       registry-password: ${{ secrets.GITHUB_TOKEN }}
 
   release-helm-chart:
@@ -332,7 +333,8 @@ jobs:
         with:
           title: 'chore: Update to data.json to include the new released documentation version'
           commit-message: 'chore: Update to data.json to include the new released documentation version'
-          base: ${{ github.base_ref }}
+          base: ${{ steps.base-branch.outputs.result }}
+          sign-commits: true
           body: >
             data.json updated by the release-documentation job to include the entry 
             referencing the released ${{ github.ref_name }} documentation version
