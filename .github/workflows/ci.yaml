@@ -244,33 +244,11 @@ jobs:
           verbose: true
           token: ${{ secrets.CODECOV_TOKEN }}
 
-  prepare-release:
-    runs-on: ubuntu-24.04
-    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/release'
-    permissions:
-      pull-requests: write
-      contents: write
-    outputs:
-      release_created: ${{ steps.release_prepare.outputs.release_created }}
-      tag_name: ${{ steps.release_prepare.outputs.tag_name }}
-    steps:
-      - name: Harden Runner
-        uses: step-security/harden-runner@4d991eb9b905ef189e4c376166672c3f2f230481 # v2.11.0
-        with:
-          egress-policy: audit
-      - name: Prepare Release
-        id: release_prepare
-        uses: googleapis/release-please-action@v4.2.0
-        with:
-          target-branch: ${{ github.ref_name }}
-          token: ${{ secrets.RELEASE_TOKEN }}
-
   build-binaries:
     runs-on: ubuntu-24.04
     needs:
       - test
-      - prepare-release
-    if: always() && needs.prepare-release.outputs.release_created == false && needs.test.result == 'success'
+    if: needs.test.result == 'success'
     strategy:
       matrix:
         # build and publish in parallel: linux/amd64, linux/arm64, windows/amd64, darwin/amd64, darwin/arm64
@@ -312,11 +290,8 @@ jobs:
     needs:
       - test
       - check-changes
-      - prepare-release
     if: >
-      github.ref == 'refs/heads/main' &&
-      needs.prepare-release.outputs.release_created == false &&
-      (needs.test.result == 'success' || (needs.test.result == 'skipped' && needs.check-changes.outputs.image_config_changed == 'true'))
+      needs.test.result == 'success' || (needs.test.result == 'skipped' && needs.check-changes.outputs.image_config_changed == 'true')
     steps:
       - name: Harden Runner
         uses: step-security/harden-runner@4d991eb9b905ef189e4c376166672c3f2f230481 # v2.11.0
@@ -417,17 +392,15 @@ jobs:
           COSIGN_REPOSITORY: ghcr.io/${{ github.repository }}-sbom
         run: cosign attest --yes --predicate CycloneDX-SBOM.json --type cyclonedx ghcr.io/${{ github.repository }}@${{ steps.publish-image.outputs.digest }}
 
+
   build-dev-documentation:
     runs-on: ubuntu-24.04
     permissions:
       contents: write
     needs:
-      - prepare-release
       - check-changes
     if: >
-      github.ref == 'refs/heads/main' &&
-      needs.prepare-release.outputs.release_created == false && 
-      (needs.check-changes.outputs.docs_changed == 'true' || needs.check-changes.outputs.ci_config_changed == 'true')
+      needs.check-changes.outputs.docs_changed == 'true' || needs.check-changes.outputs.ci_config_changed == 'true'
     steps:
       - name: Harden Runner
         uses: step-security/harden-runner@4d991eb9b905ef189e4c376166672c3f2f230481 # v2.11.0
