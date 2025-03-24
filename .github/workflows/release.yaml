@@ -325,7 +325,7 @@ jobs:
       - name: Get branch of the tag
         id: base-branch
         run: |
-          branch=$(git branch --contains tags/${{ github.ref_name }})
+          branch=$(git log -1 --pretty='%D' ${{ github.ref_name }} | grep -Eo '[^ ]+$')
           echo "result=$branch" >> $GITHUB_OUTPUT
       - name: Create a PR for the updated versions JSON document
         if: steps.update-version-json.outcome == 'success'
