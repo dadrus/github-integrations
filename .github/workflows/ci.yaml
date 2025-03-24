@@ -392,6 +392,7 @@ jobs:
           COSIGN_REPOSITORY: ghcr.io/${{ github.repository }}-sbom
         run: cosign attest --yes --predicate CycloneDX-SBOM.json --type cyclonedx ghcr.io/${{ github.repository }}@${{ steps.publish-image.outputs.digest }}
 
+
   build-dev-documentation:
     runs-on: ubuntu-24.04
     permissions:
