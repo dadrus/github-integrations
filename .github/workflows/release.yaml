@@ -282,12 +282,18 @@ jobs:
           keep_files: true
       - name: Setup GitSign
         uses: chainguard-dev/actions/setup-gitsign@19f50ca62fcb3e94c768f5fcffb4b14fcdc6c5ed # main
+      - name: Get branch of the tag
+        id: base-branch
+        run: |
+          branch=$(git branch --contains tags/${{ github.ref_name }})
+          echo "result=$branch" >> $GITHUB_OUTPUT
       - name: Create a PR for the updated versions JSON document
         if: steps.update-version-json.outcome == 'success'
         uses: peter-evans/create-pull-request@271a8d0340265f705b14b6d32b9829c1cb33d45e # v7.0.8
         with:
           title: 'chore: Update to data.json to include the new released documentation version'
           commit-message: 'chore: Update to data.json to include the new released documentation version'
+          base: ${{ steps.base-branch.outputs.result }}
           body: >
             data.json updated by the release-documentation job to include the entry 
             referencing the released ${{ github.ref_name }} documentation version
