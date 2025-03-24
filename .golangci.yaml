@@ -10,23 +10,14 @@ linters:
     - wrapcheck
     - ireturn
     - exhaustruct
-    - exhaustivestruct
     - testpackage
     - paralleltest
     - nolintlint
     - tparallel
     - depguard
     - zerologlint
-    # deprecated
-    - interfacer
-    - varcheck
-    - deadcode
-    - nosnakecase
-    - structcheck
-    - maligned
-    - scopelint
-    - ifshort
-    - golint
+    # depricated
+    - tenv
 
 issues:
   exclude-rules:
@@ -36,9 +27,13 @@ issues:
         - maintidx
         - cyclop
         - gocognit
-        - goerr113
+        - err113
         - lll
         - errcheck
+        - canonicalheader
+        - mnd
+        - forcetypeassert
+        - iface
 
 linters-settings:
   exhaustive:
@@ -52,8 +47,6 @@ linters-settings:
         json: snake
         yaml: snake
   gci:
-    no-inline-comments: true
-    no-prefix-comments: true
     sections:
       - standard # Captures all standard packages if they do not match another section.
       - default # Contains all imports that could not be matched to another section type.
@@ -81,5 +74,9 @@ linters-settings:
   gomoddirectives:
     replace-allow-list:
       # to avoid having a CVE in the used version
-      - golang.org/x/net
-      - golang.org/x/text
+      - golang.org/x/oauth2
+  mnd:
+    ignored-functions:
+      - '^make'
+      - '^math\.'
+      - '^time\.*'
