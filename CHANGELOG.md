@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.52.2-alpha](https://github.com/dadrus/github-integrations/compare/v0.52.1-alpha...v0.52.2-alpha) (2025-03-24)
+
+
+### Bug Fixes
+
+* release please ([#396](https://github.com/dadrus/github-integrations/issues/396)) ([fc2f06f](https://github.com/dadrus/github-integrations/commit/fc2f06f657cc60a9106c1153bb788f222cfa3418))
+
 ## [0.52.1-alpha](https://github.com/dadrus/github-integrations/compare/v0.52.0-alpha...v0.52.1-alpha) (2025-03-24)
 
 
