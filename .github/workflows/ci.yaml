@@ -29,7 +29,7 @@ jobs:
   check-changes:
     runs-on: ubuntu-24.04
     outputs:
-      code_changed:  ${{steps.code-changes.outputs.count > 0}}
+      code_changed: ${{steps.code-changes.outputs.count > 0}}
       test_data_changed: ${{steps.test-data-changes.outputs.count > 0}}
       image_config_changed: ${{steps.image-config-changes.outputs.count > 0}}
       helm_chart_changed: ${{steps.helm-chart-changes.outputs.count > 0}}
@@ -97,7 +97,6 @@ jobs:
         uses: step-security/harden-runner@4d991eb9b905ef189e4c376166672c3f2f230481 # v2.11.0
         with:
           egress-policy: audit
-
       - name: Checkout repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
       - name: Set up Go
@@ -111,6 +110,8 @@ jobs:
 
   lint-code:
     runs-on: ubuntu-24.04
+    permissions:
+      pull-requests: write
     needs:
       - check-changes
     if: >
@@ -121,7 +122,6 @@ jobs:
         uses: step-security/harden-runner@4d991eb9b905ef189e4c376166672c3f2f230481 # v2.11.0
         with:
           egress-policy: audit
-
       - name: Checkout repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
         with:
@@ -132,10 +132,36 @@ jobs:
           go_version: "${{ env.GO_VERSION }}"
           golangci_lint_version: "${{ env.GOLANGCI_LINT_VERSION }}"
           reporter: github-pr-review
-          fail_on_error: true
+          fail_level: error
+
+  lint-api:
+    runs-on: ubuntu-24.04
+    needs:
+      - check-changes
+    if: > 
+      needs.check-changes.outputs.docs_changed == 'true' || 
+      needs.check-changes.outputs.ci_config_changed == 'true'
+    steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@4d991eb9b905ef189e4c376166672c3f2f230481 # v2.11.0
+        with:
+          egress-policy: audit
+
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - name: Setup Node
+        uses: actions/setup-node@1d0ff469b7ec7b3cb9d8673fde0c81c44821de2a # v4.2.0
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Install Redocly CLI
+        run: npm i -g @redocly/cli@1.25.9
+      - name: Run Redocly Lint
+        run: redocly lint
 
   lint-dockerfiles:
     runs-on: ubuntu-24.04
+    permissions:
+      pull-requests: write
     needs:
       - check-changes
     if: > 
@@ -153,7 +179,7 @@ jobs:
         uses: reviewdog/action-hadolint@fc7ee4a9f71e521bc43e370819247b70e5327540 # v1.50.2
         with:
           reporter: github-pr-review
-          fail_on_error: true
+          reviewdog_flags: -fail-level=error
 
   lint-helm-chart:
     runs-on: ubuntu-24.04
@@ -296,7 +322,6 @@ jobs:
         uses: step-security/harden-runner@4d991eb9b905ef189e4c376166672c3f2f230481 # v2.11.0
         with:
           egress-policy: audit
-
       - name: Checkout repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
       - name: Install Cosign
