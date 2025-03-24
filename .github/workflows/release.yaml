@@ -31,7 +31,7 @@ jobs:
       contents: write
       id-token: write
     outputs:
-      hashes: ${{ steps.hash.outputs.hashes }}
+      hashes: ${{ steps.hash.outputs.result }}
     steps:
       - name: Harden Runner
         uses: step-security/harden-runner@4d991eb9b905ef189e4c376166672c3f2f230481 # v2.11.0
@@ -68,8 +68,21 @@ jobs:
           ARTIFACTS: "${{ steps.goleaser.outputs.artifacts }}"
         run: |
           set -euo pipefail
+          echo "ARTIFACTS:"
+          echo "$ARTIFACTS"
           hashes=$(echo $ARTIFACTS | jq --raw-output '.[] | {name, "digest": (.extra.Digest // .extra.Checksum)} | select(.digest) | {digest} + {name} | join("  ") | sub("^sha256:";"")' | base64 -w0)
-          echo "hashes=$hashes" >> $GITHUB_OUTPUT
+          echo "hashes: ${hashes}"
+          echo "result=$hashes" >> $GITHUB_OUTPUT
+
+  print-provenance-subject:
+    runs-on: ubuntu-24.04
+    needs:
+      - release-binaries
+    steps:
+      - name: Provenance subject
+        run: |
+          set -euo pipefail
+          echo "subject: ${{ needs.release-binaries.outputs.hashes }}"
 
   create-binaries-provenance:
     needs:
