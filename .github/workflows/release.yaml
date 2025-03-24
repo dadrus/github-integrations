@@ -24,7 +24,7 @@ jobs:
           echo "github.ref_name: ${{ github.ref_name }}"
           echo "github.sha: ${{ github.sha }}"
           echo "github.event_name: ${{ github.event_name }}"
-          echo "github.base_ref: ${{ github.base_ref }}"
+          echo "github.head_ref: ${{ github.head_ref }}"
           echo "repo name: ${{ github.event.repository.name }}"
 
   release-binaries:
@@ -320,13 +320,16 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./docs/versions
           keep_files: true
-      - name: Setup GitSign
-        uses: chainguard-dev/actions/setup-gitsign@19f50ca62fcb3e94c768f5fcffb4b14fcdc6c5ed # main
+#      - name: Setup GitSign
+#        uses: chainguard-dev/actions/setup-gitsign@19f50ca62fcb3e94c768f5fcffb4b14fcdc6c5ed # main
       - name: Get branch of the tag
         id: base-branch
         run: |
-          branch=$(git log -1 --pretty='%D' ${{ github.ref_name }} | grep -Eo '[^ ]+$')
-          echo "result=$branch" >> $GITHUB_OUTPUT
+          echo "ref name = ${{ github.ref_name }}"
+          echo "sha = ${{ github.sha }}"
+          branch_name=$(git for-each-ref | grep ^${{ github.sha }} | grep origin | grep -v HEAD | head -n1 | sed "s/.*\///")
+          echo "tag ${{ github.ref_name }} is on branch $branch_name"
+          echo "result=$branch_name" >> $GITHUB_OUTPUT
       - name: Create a PR for the updated versions JSON document
         if: steps.update-version-json.outcome == 'success'
         uses: peter-evans/create-pull-request@271a8d0340265f705b14b6d32b9829c1cb33d45e # v7.0.8
