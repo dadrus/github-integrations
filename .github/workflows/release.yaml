@@ -332,7 +332,7 @@ jobs:
         with:
           title: 'chore: Update to data.json to include the new released documentation version'
           commit-message: 'chore: Update to data.json to include the new released documentation version'
-          base: ${{ github.base_ref }}
+          base: ${{ steps.base-branch.outputs.result }}
           body: >
             data.json updated by the release-documentation job to include the entry 
             referencing the released ${{ github.ref_name }} documentation version
