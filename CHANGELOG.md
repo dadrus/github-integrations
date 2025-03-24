@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.52.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.51.18-alpha...v0.52.0-alpha) (2025-03-24)
+
+
+### New Features
+
+* helm chart as OCI images ([#391](https://github.com/dadrus/github-integrations/issues/391)) ([5ce3bd9](https://github.com/dadrus/github-integrations/commit/5ce3bd9c694c56da0f8d8abe121fdca6133de299))
+
 ## [0.51.18-alpha](https://github.com/dadrus/github-integrations/compare/v0.51.17-alpha...v0.51.18-alpha) (2025-03-24)
 
 
