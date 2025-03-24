@@ -224,7 +224,7 @@
     "path": "/heimdall/renovate/main-peter-evans-create-pull-request-7.x"
   },
   {
-    "version": "fix/provenance",
-    "path": "/heimdall/fix/provenance"
+    "version": "v0.51.10-alpha",
+    "path": "/heimdall/v0.51.10-alpha"
   }
 ]
