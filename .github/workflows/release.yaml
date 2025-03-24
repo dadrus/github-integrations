@@ -193,7 +193,7 @@ jobs:
     permissions:
       actions: read
       id-token: write
-      contents: write
+      packages: write
     # Note: this _must_ be referenced by tag. See: https://github.com/slsa-framework/slsa-verifier/issues/12
     uses: slsa-framework/slsa-github-generator/.github/workflows/generator_container_slsa3.yml@v2.1.0
     with:
