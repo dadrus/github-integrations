@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.53.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.52.14-alpha...v0.53.0-alpha) (2025-03-25)
+
+
+### New Features
+
+* new chart version ([#435](https://github.com/dadrus/github-integrations/issues/435)) ([29a06a2](https://github.com/dadrus/github-integrations/commit/29a06a29e5e12805d26b4de6dd388cf613d3ff0f))
+
 ## [0.52.14-alpha](https://github.com/dadrus/github-integrations/compare/v0.52.13-alpha...v0.52.14-alpha) (2025-03-25)
 
 
