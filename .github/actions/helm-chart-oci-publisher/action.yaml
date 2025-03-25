@@ -83,7 +83,10 @@ runs:
       shell: bash
       run: |
         set -euo pipefail
-        OUTPUT=$(helm push ${{ inputs.name }}-${{ inputs.chart_version }}.tgz oci://${{ inputs.registry }}/${{ inputs.repository }} 2>&1)
+        OUTPUT=$(helm push ${{ inputs.name }}-${{ inputs.chart_version }}.tgz oci://${{ inputs.registry }}/${{ inputs.repository }} 2>&1) || {
+          echo "Helm push failed: $OUTPUT"
+          exit 1
+        }
         IMAGE_NAME=${{ inputs.registry }}/${{ inputs.repository }}/${{ inputs.name }}
         IMAGE=$(echo "$OUTPUT" | grep "Pushed:" | awk '{print $2}')
         DIGEST=$(echo "$OUTPUT" | grep "Digest:" | awk '{print $2}')
