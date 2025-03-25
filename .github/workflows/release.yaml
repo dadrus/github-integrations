@@ -213,8 +213,8 @@ jobs:
     needs:
       - release-container-image
     outputs:
-      digest: ${{ steps.push-ghcr.outputs.digest }}
-      image_name: ${{ steps.push-ghcr.outputs.image_name }}
+      digest: ${{ steps.publish-ghcr.outputs.digest }}
+      image_name: ${{ steps.publish-ghcr.outputs.image_name }}
     steps:
       - name: Harden Runner
         uses: step-security/harden-runner@4d991eb9b905ef189e4c376166672c3f2f230481 # v2.11.0
