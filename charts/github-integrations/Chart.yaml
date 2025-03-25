@@ -15,8 +15,8 @@
 # SPDX-License-Identifier: Apache-2.0
 
 apiVersion: v2
-name: heimdall
-description: A cloud native Identity Aware Proxy and Access Control Decision Service
+name: github-integrations
+description: GH Integration tests
 version: 0.8.2
 appVersion: latest
 kubeVersion: ^1.19.0
