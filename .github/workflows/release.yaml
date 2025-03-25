@@ -9,6 +9,9 @@ env:
   COSIGN_VERSION: "v2.4.1"
   CYCLONEDX_GOMOD_VERSION: "v1.9.0"
   HELM_VERSION: "3.16.4"
+  NODE_VERSION: "22.13"
+  RUBY_VERSION: "3.4"
+  HUGO_VERSION: "0.140.1"
   DOCUMENTATION_URL: "https://dadrus.github.io/heimdall/"
 
 permissions:
@@ -60,6 +63,7 @@ jobs:
           hashes=$(echo $ARTIFACTS | jq --raw-output '.[] | {name, "digest": (.extra.Digest // .extra.Checksum)} | select(.digest) | {digest} + {name} | join("  ") | sub("^sha256:";"")' | base64 -w0)
           echo "result=$hashes" >> $GITHUB_OUTPUT
 
+
   create-binaries-provenance:
     needs:
       - release-binaries
@@ -73,6 +77,7 @@ jobs:
       base64-subjects: "${{ needs.release-binaries.outputs.hashes }}"
       upload-assets: true
       provenance-name: "${{ github.event.repository.name }}_${{ github.ref_name }}.intoto.jsonl"
+
 
   release-container-image:
     runs-on: ubuntu-24.04
@@ -98,7 +103,7 @@ jobs:
         uses: sigstore/cosign-installer@d7d6bc7722e3daa8354c50bcb52f4837da5e9b6a # v3.8.1
         with:
           cosign-release: "${{ env.COSIGN_VERSION }}"
-      - name: Set up Go
+      - name: Set up Go # required as the sbom generator is compiled using go < 1.21
         uses: actions/setup-go@0aaccfd150d50ccaeb58ebd88d36e91967a5f35b # v5.4.0
         with:
           go-version: "${{ env.GO_VERSION }}"
@@ -157,6 +162,14 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COSIGN_REPOSITORY: ${{ github.repository }}-sbom
         run: cosign attest --yes --predicate CycloneDX-SBOM.json --type cyclonedx ${{ github.repository }}@${{ steps.publish-image.outputs.digest }}
+      - name: Update DockerHub repository description & readme
+        uses: peter-evans/dockerhub-description@e98e4d1628a5f3be2be7c231e50981aee98723ae # v4.0.0
+        with:
+          username: ${{ secrets.DOCKERHUB_USER }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          short-description: ${{ github.event.repository.description }}
+          readme-filepath: ./DockerHub-README.md
       - name: Sign the image published in GitHub
         if: steps.publish-image.conclusion == 'success'
         env:
@@ -202,7 +215,7 @@ jobs:
     secrets:
       registry-username: ${{ github.actor }}
       registry-password: ${{ secrets.GITHUB_TOKEN }}
-          
+
 
   release-helm-chart:
     runs-on: ubuntu-24.04
@@ -238,6 +251,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           target_dir: charts
           linting: off
+          chart_version: ${{ steps.prepare.outputs.chart_version }}
           app_version: ${{ steps.prepare.outputs.app_version }}
       - name: Publish Chart to GHCR
         id: publish-ghcr
@@ -263,7 +277,6 @@ jobs:
       - name: Sign the Helm chart in GHCR
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          COSIGN_REPOSITORY: ghcr.io/${{ github.repository }}/chart-signatures
         run: |
           set -euo pipefail
           cosign sign --yes ${{ steps.publish-ghcr.outputs.image_name }}@${{ steps.publish-ghcr.outputs.digest }}
@@ -361,18 +374,16 @@ jobs:
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@75d2e84710de30f6ff7268e08f310b60ef14033f # v3.0.0
         with:
-          hugo-version: 0.100.1
+          hugo-version: ${{ env.HUGO_VERSION }}
           extended: true
       - name: Setup Node
         uses: actions/setup-node@cdca7365b2dadb8aad0a33bc7601856ffabcc48e # v4.3.0
         with:
-          node-version: 17.7
-      - name: Install mermaid
-        run: npm install -g @mermaid-js/mermaid-cli@10.8.0
+          node-version: ${{ env.NODE_VERSION }}
       - name: Setup ruby
         uses: ruby/setup-ruby@1a615958ad9d422dd932dc1d5823942ee002799f # v1.227.0
         with:
-          ruby-version: 2.7
+          ruby-version: ${{ env.RUBY_VERSION }}
       - name: Install asciidoctor
         run: gem install asciidoctor asciidoctor-diagram asciidoctor-html5s rouge
       - name: Install dependencies
@@ -385,9 +396,6 @@ jobs:
           replace: "${{ github.ref_name }}"
           regex: false
           include: docs/**
-      - name: Build documentation
-        working-directory: ./docs
-        run: hugo --minify -d ./public
       - name: Update uri for redirecting to new version
         uses: jacobtomlinson/gha-find-replace@2ff30f644d2e0078fc028beb9193f5ff0dcad39e # v3
         with:
@@ -395,6 +403,21 @@ jobs:
           replace: "${{ github.ref_name }}"
           regex: false
           include: docs/**
+      - name: Prepare image version
+        id: image-version
+        run: |
+          export version=$(echo {{ github.ref_name }} |  sed 's/v//g')
+          echo "result=$version" >> $GITHUB_OUTPUT
+      - name: Update used image tags to the released version
+        uses: jacobtomlinson/gha-find-replace@2ff30f644d2e0078fc028beb9193f5ff0dcad39e # v3
+        with:
+          find: "heimdall:dev"
+          replace: "heimdall:${{ steps.image-version.outputs.result }}"
+          regex: false
+          include: docs/**
+      - name: Build documentation
+        working-directory: ./docs
+        run: hugo --minify -d ./public
       - name: Update versions JSON document
         id: update-version-json
         run: |
@@ -426,8 +449,8 @@ jobs:
         if: steps.update-version-json.outcome == 'success'
         uses: peter-evans/create-pull-request@271a8d0340265f705b14b6d32b9829c1cb33d45e # v7.0.8
         with:
-          title: 'chore: Update to data.json to include the new released documentation version'
-          commit-message: 'chore: Update to data.json to include the new released documentation version'
+          title: 'chore(${{ github.ref_name }}): Update to data.json to include the new released documentation version'
+          commit-message: 'chore(${{ github.ref_name }}): Update to data.json to include the new released documentation version'
           base: ${{ steps.base-branch.outputs.result }}
           sign-commits: true
           body: >
