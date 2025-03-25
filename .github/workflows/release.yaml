@@ -227,12 +227,12 @@ jobs:
         id: prepare
         run: |
           set -euo pipefail
-          app_version=$(echo ${{ github.ref_name }} | sed 's/v//g')
-          echo "app_version=$version" >> $GITHUB_OUTPUT
-          chart_name=$(yq '.name' charts/*/Chart.yaml)
-          echo "chart_name=$chart_name" >> $GITHUB_OUTPUT
-          chart_version=$(yq '.version' charts/*/Chart.yaml)
-          echo "chart_version=$chart_version" >> $GITHUB_OUTPUT
+          APP_VERSION=$(echo ${{ github.ref_name }} | sed 's/v//g')
+          echo "app_version=$APP_VERSION" >> $GITHUB_OUTPUT
+          CHART_NAME=$(yq '.name' charts/*/Chart.yaml)
+          echo "chart_name=$CHART_NAME" >> $GITHUB_OUTPUT
+          CHART_VERSION=$(yq '.version' charts/*/Chart.yaml)
+          echo "chart_version=$CHART_VERSION" >> $GITHUB_OUTPUT
       - name: Publish Helm Chart to GH Pages
         uses: stefanprodan/helm-gh-pages@0ad2bb377311d61ac04ad9eb6f252fb68e207260 # v1.7.0
         with:
