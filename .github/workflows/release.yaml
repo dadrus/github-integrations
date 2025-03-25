@@ -260,7 +260,7 @@ jobs:
           chart_version: ${{ steps.prepare.outputs.chart_version }}
           app_version: ${{ steps.prepare.outputs.app_version }}
           registry: registry-1.docker.io
-          registry_username: ${{ github.DOCKERHUB_USER }}
+          registry_username: ${{ secrets.DOCKERHUB_USER }}
           registry_password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Verify Chart Digests
         run: |
