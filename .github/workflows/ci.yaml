@@ -205,14 +205,14 @@ jobs:
           helm: '${{ env.HELM_VERSION }}'
           kubeconform: '${{ env.KUBECONFORM_VERSION }}'
       - name: Helm Lint
-        run: helm lint ./charts/heimdall
+        run: helm lint ./charts/github-integrations
       - name: Kubeconform decision mode deployment
         run: |
-          helm template --set demo.enabled=true ./charts/heimdall > decision-demo.yaml
+          helm template --set demo.enabled=true ./charts/github-integrations > decision-demo.yaml
           kubeconform --skip RuleSet -kubernetes-version ${{ env.KUBERNETES_API_VERSION }} decision-demo.yaml
       - name: Kubeconform proxy mode deployment
         run: |
-          helm template --set operationMode=proxy --set demo.enabled=true ./charts/heimdall > proxy-demo.yaml
+          helm template --set operationMode=proxy --set demo.enabled=true ./charts/github-integrations > proxy-demo.yaml
           kubeconform --skip RuleSet -kubernetes-version ${{ env.KUBERNETES_API_VERSION }} decision-demo.yaml
 
   test:
@@ -273,7 +273,7 @@ jobs:
         with:
           go-version: "${{ env.GO_VERSION }}"
       - name: Build
-        run: CGO_ENABLED=0 GOOS=${{ matrix.goos }} GOARCH=${{ matrix.goarch }} go build -trimpath -ldflags="-buildid= -w -s -X github.com/dadrus/heimdall/version.Version=${{ github.sha }}" -o ./build/
+        run: CGO_ENABLED=0 GOOS=${{ matrix.goos }} GOARCH=${{ matrix.goarch }} go build -trimpath -ldflags="-buildid= -w -s -X github.com/dadrus/github-integrations/version.Version=${{ github.sha }}" -o ./build/
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         if: github.ref == 'refs/heads/main'
         with:
