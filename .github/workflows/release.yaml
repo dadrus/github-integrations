@@ -214,8 +214,7 @@ jobs:
       - release-container-image
     outputs:
       digest: ${{ steps.push-ghcr.outputs.digest }}
-      ghcr_image_name: ${{ steps.push-ghcr.outputs.image_name }}
-      dockerhub_image_name: ${{ steps.push-dockerhub.outputs.image_name }}
+      image_name: ${{ steps.push-ghcr.outputs.image_name }}
     steps:
       - name: Harden Runner
         uses: step-security/harden-runner@4d991eb9b905ef189e4c376166672c3f2f230481 # v2.11.0
@@ -251,33 +250,6 @@ jobs:
           registry: ghcr.io
           registry_username: ${{ github.actor }}
           registry_password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Publish Chart to DockerHub
-        id: publish-dockerhub
-        uses: ./.github/actions/helm-chart-oci-publisher
-        with:
-          name: ${{ github.event.repository.name }}
-          repository: ${{ github.repository }}/chart
-          chart_version: ${{ steps.prepare.outputs.chart_version }}
-          app_version: ${{ steps.prepare.outputs.app_version }}
-          registry: registry-1.docker.io
-          registry_username: ${{ secrets.DOCKERHUB_USER }}
-          registry_password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Verify Chart Digests
-        run: |
-          set -euo pipefail
-          DOCKERHUB_DIGEST=${{ steps.publish-dockerhub.outputs.digest }}
-          GHCR_DIGEST=${{ steps.publish-ghcr.outputs.digest }}
-          if [ "$DOCKERHUB_DIGEST" != "$GHCR_DIGEST" ]; then
-            echo "Error: Digests do not match between DockerHub ($DOCKERHUB_DIGEST) and GHCR ($GHCR_DIGEST)"
-            exit 1
-          fi
-      - name: Sign the Helm chart in Docker Hub
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          COSIGN_REPOSITORY: registry-1.docker.io/${{ github.repository }}/chart-signatures
-        run: |
-          set -euo pipefail
-          cosign sign --yes ${{ steps.publish-dockerhub.outputs.image_name }}@${{ steps.publish-dockerhub.outputs.digest }}
       - name: Sign the Helm chart in GHCR
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -302,22 +274,6 @@ jobs:
     secrets:
       registry-username: ${{ github.actor }}
       registry-password: ${{ secrets.GITHUB_TOKEN }}
-
-  create-dockerhub-helm-provenance:
-    needs:
-      - release-helm-chart
-    permissions:
-      actions: read
-      id-token: write
-      packages: write
-    # Note: this _must_ be referenced by tag. See: https://github.com/slsa-framework/slsa-verifier/issues/12
-    uses: slsa-framework/slsa-github-generator/.github/workflows/generator_container_slsa3.yml@v2.1.0
-    with:
-      image: ${{ needs.release-helm-chart.outputs.dockerhub_image_name }}
-      digest: ${{ needs.release-helm-chart.outputs.digest }}
-    secrets:
-      registry-username: ${{ secrets.DOCKERHUB_USERNAME }}
-      registry-password: ${{ secrets.DOCKERHUB_TOKEN }}
           
 
   verify-provenance:
@@ -327,7 +283,6 @@ jobs:
       - create-binaries-provenance
       - create-dockerhub-image-provenance
       - create-ghcr-image-provenance
-      - create-dockerhub-helm-provenance
       - create-ghcr-helm-provenance
     runs-on: ubuntu-24.04
     permissions: read-all
@@ -368,17 +323,13 @@ jobs:
         run: |
           IMAGE=${{ github.repository }}:${{ steps.version.outputs.result }}@${{ needs.release-container-image.outputs.digest }}
           slsa-verifier verify-image "${IMAGE}" --source-uri github.com/${{ github.repository }} --source-tag ${{ github.ref_name }}
-      - name: Verify helm chart released to DockerHub
-        run: |
-          IMAGE=${{ github.repository }}-chart:${{ steps.version.outputs.result }}@${{ needs.release-helm-chart.outputs.digest }}
-          slsa-verifier verify-image "${IMAGE}" --source-uri github.com/${{ github.repository }} --source-tag ${{ github.ref_name }}
       - name: Verify image released to GitHub
         run: |
           IMAGE=ghcr.io/${{ github.repository }}:${{ steps.version.outputs.result }}@${{ needs.release-container-image.outputs.digest }}
           slsa-verifier verify-image "${IMAGE}" --source-uri github.com/${{ github.repository }} --source-tag ${{ github.ref_name }}
       - name: Verify helm chart released to GitHub
         run: |
-          IMAGE=ghcr.io/${{ github.repository }}-chart:${{ steps.version.outputs.result }}@${{ needs.release-helm-chart.outputs.digest }}
+          IMAGE=${{ needs.release-helm-chart.outputs.image_name }}@${{ needs.release-helm-chart.outputs.digest }}
           slsa-verifier verify-image "${IMAGE}" --source-uri github.com/${{ github.repository }} --source-tag ${{ github.ref_name }}
 
   release-documentation:
