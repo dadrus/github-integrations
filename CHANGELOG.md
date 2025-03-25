@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.55.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.54.0-alpha...v0.55.0-alpha) (2025-03-25)
+
+
+### New Features
+
+* signature and provenance for the tgz chart ([#441](https://github.com/dadrus/github-integrations/issues/441)) ([685e08e](https://github.com/dadrus/github-integrations/commit/685e08e0e41f98dfce0ebc1bec4dc53cb209f86d))
+
 ## [0.54.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.53.0-alpha...v0.54.0-alpha) (2025-03-25)
 
 
