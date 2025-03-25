@@ -214,6 +214,8 @@ jobs:
       - release-container-image
     outputs:
       digest: ${{ steps.push-ghcr.outputs.digest }}
+      ghcr_image_name: ${{ steps.push-ghcr.outputs.image_name }}
+      dockerhub_image_name: ${{ steps.push-dockerhub.outputs.image_name }}
     steps:
       - name: Harden Runner
         uses: step-security/harden-runner@4d991eb9b905ef189e4c376166672c3f2f230481 # v2.11.0
@@ -221,60 +223,50 @@ jobs:
           egress-policy: audit
       - name: Checkout repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
-      - name: Prepare image version and chart name
+      - name: Prepare versions and chart name
         id: prepare
         run: |
           set -euo pipefail
-          export version=$(echo ${{ github.ref_name }} | sed 's/v//g')
-          echo "version=$version" >> $GITHUB_OUTPUT
-          export chart_name=$(yq e '.name' charts/*/Chart.yaml)
+          app_version=$(echo ${{ github.ref_name }} | sed 's/v//g')
+          echo "app_version=$version" >> $GITHUB_OUTPUT
+          chart_name=$(yq '.name' charts/*/Chart.yaml)
           echo "chart_name=$chart_name" >> $GITHUB_OUTPUT
-      - name: Update Chart.yaml
-        run: |
-          set -euo pipefail
-          yq e '.version = "${{ steps.prepare.outputs.version }}"' -i charts/${{ steps.prepare.outputs.chart_name }}/Chart.yaml
-          yq e '.appVersion = "${{ steps.prepare.outputs.version }}"' -i charts/${{ steps.prepare.outputs.chart_name }}/Chart.yaml
-      - name: Package Helm chart
-        id: helm-chart-package
-        run: |
-          set -euo pipefail
-          tmpDir=$(mktemp -d)
-          helm package charts/${{ steps.prepare.outputs.chart_name }} -d ${tmpDir}
-          export package=${tmpDir}/${{ steps.prepare.outputs.chart_name }}-${{ steps.prepare.outputs.version }}.tgz
-          echo "result=$package" >> $GITHUB_OUTPUT
-      - name: Login to Docker Hub
-        id: dockerhub-login
-        uses: docker/login-action@v3
+          chart_version=$(yq '.version' charts/*/Chart.yaml)
+          echo "chart_version=$chart_version" >> $GITHUB_OUTPUT
+      - name: Publish Helm Chart to GH Pages
+        uses: stefanprodan/helm-gh-pages@0ad2bb377311d61ac04ad9eb6f252fb68e207260 # v1.7.0
         with:
-          registry: docker.io
-          username: ${{ secrets.DOCKERHUB_USER }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Login to GHCR
-        id: ghcr-login
-        uses: docker/login-action@v3
+          token: ${{ secrets.GITHUB_TOKEN }}
+          target_dir: charts
+          linting: off
+          app_version: ${{ steps.prepare.outputs.app_version }}
+      - name: Publish Chart to GHCR
+        id: publish-ghcr
+        uses: ./.github/actions/helm-chart-oci-publisher
         with:
+          name: ${{ github.event.repository.name }}
+          repository: ${{ github.repository }}/chart
+          chart_version: ${{ steps.prepare.outputs.chart_version }}
+          app_version: ${{ steps.prepare.outputs.app_version }}
           registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Push to GHCR and get digest
-        id: push-ghcr
-        run: |
-          set -euo pipefail
-          helm push ${{ steps.helm-chart-package.outputs.result }} oci://ghcr.io/${{ github.repository }}-chart
-          digest=$(helm inspect chart oci://ghcr.io/${{ github.repository }}-chart --version ${{ steps.prepare.outputs.version }} | grep "digest:" | awk '{print $2}')
-          echo "digest=$digest" >> $GITHUB_OUTPUT
-      - name: Push to Docker Hub and get digest
-        id: push-dockerhub
-        run: |
-          set -euo pipefail
-          helm push ${{ steps.helm-chart-package.outputs.result }} oci://registry-1.docker.io/${{ github.repository }}-chart
-          digest=$(helm inspect chart oci://registry-1.docker.io/${{ github.repository }}-chart --version ${{ steps.prepare.outputs.version }} | grep "digest:" | awk '{print $2}')
-          echo "digest=$digest" >> $GITHUB_OUTPUT
+          registry_username: ${{ github.actor }}
+          registry_password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Publish Chart to DockerHub
+        id: publish-dockerhub
+        uses: ./.github/actions/helm-chart-oci-publisher
+        with:
+          name: ${{ github.event.repository.name }}
+          repository: ${{ github.repository }}/chart
+          chart_version: ${{ steps.prepare.outputs.chart_version }}
+          app_version: ${{ steps.prepare.outputs.app_version }}
+          registry: registry-1.docker.io
+          registry_username: ${{ github.DOCKERHUB_USER }}
+          registry_password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Verify Chart Digests
         run: |
           set -euo pipefail
-          DOCKERHUB_DIGEST=${{ steps.push-dockerhub.outputs.digest }}
-          GHCR_DIGEST=${{ steps.push-ghcr.outputs.digest }}
+          DOCKERHUB_DIGEST=${{ steps.publish-dockerhub.outputs.digest }}
+          GHCR_DIGEST=${{ steps.publish-ghcr.outputs.digest }}
           if [ "$DOCKERHUB_DIGEST" != "$GHCR_DIGEST" ]; then
             echo "Error: Digests do not match between DockerHub ($DOCKERHUB_DIGEST) and GHCR ($GHCR_DIGEST)"
             exit 1
@@ -282,17 +274,17 @@ jobs:
       - name: Sign the Helm chart in Docker Hub
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          COSIGN_REPOSITORY: registry-1.docker.io/${{ github.repository }}-chart-signatures
+          COSIGN_REPOSITORY: registry-1.docker.io/${{ github.repository }}/chart-signatures
         run: |
           set -euo pipefail
-          cosign sign --yes oci://registry-1.docker.io/${{ github.repository }}-chart@${{ steps.push-dockerhub.outputs.digest }}
+          cosign sign --yes ${{ steps.publish-dockerhub.outputs.image_name }}@${{ steps.publish-dockerhub.outputs.digest }}
       - name: Sign the Helm chart in GHCR
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          COSIGN_REPOSITORY: ghcr.io/${{ github.repository }}-chart-signatures
+          COSIGN_REPOSITORY: ghcr.io/${{ github.repository }}/chart-signatures
         run: |
           set -euo pipefail
-          cosign sign --yes oci://ghcr.io/${{ github.repository }}-chart@${{ steps.push-ghcr.outputs.digest }}
+          cosign sign --yes ${{ steps.publish-ghcr.outputs.image_name }}@${{ steps.publish-ghcr.outputs.digest }}
       
 
   create-ghcr-helm-provenance:
@@ -305,7 +297,7 @@ jobs:
     # Note: this _must_ be referenced by tag. See: https://github.com/slsa-framework/slsa-verifier/issues/12
     uses: slsa-framework/slsa-github-generator/.github/workflows/generator_container_slsa3.yml@v2.1.0
     with:
-      image: ghcr.io/${{ github.repository }}-chart
+      image: ${{ needs.release-helm-chart.outputs.ghcr_image_name }}
       digest: ${{ needs.release-helm-chart.outputs.digest }}
     secrets:
       registry-username: ${{ github.actor }}
@@ -321,7 +313,7 @@ jobs:
     # Note: this _must_ be referenced by tag. See: https://github.com/slsa-framework/slsa-verifier/issues/12
     uses: slsa-framework/slsa-github-generator/.github/workflows/generator_container_slsa3.yml@v2.1.0
     with:
-      image: registry-1.docker.io/${{ github.repository }}-chart
+      image: ${{ needs.release-helm-chart.outputs.dockerhub_image_name }}
       digest: ${{ needs.release-helm-chart.outputs.digest }}
     secrets:
       registry-username: ${{ secrets.DOCKERHUB_USERNAME }}
