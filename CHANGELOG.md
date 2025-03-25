@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.52.14-alpha](https://github.com/dadrus/github-integrations/compare/v0.52.13-alpha...v0.52.14-alpha) (2025-03-25)
+
+
+### Bug Fixes
+
+* helm provenance ([#432](https://github.com/dadrus/github-integrations/issues/432)) ([4a03a78](https://github.com/dadrus/github-integrations/commit/4a03a78008906cb9c10198fc0a9439da77b5f12a))
+
 ## [0.52.13-alpha](https://github.com/dadrus/github-integrations/compare/v0.52.12-alpha...v0.52.13-alpha) (2025-03-25)
 
 
