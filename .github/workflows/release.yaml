@@ -245,7 +245,7 @@ jobs:
         uses: ./.github/actions/helm-chart-oci-publisher
         with:
           name: ${{ github.event.repository.name }}
-          repository: ${{ github.event.repository.name }}/chart
+          repository: ${{ github.repository }}/chart
           chart_version: ${{ steps.prepare.outputs.chart_version }}
           app_version: ${{ steps.prepare.outputs.app_version }}
           registry: ghcr.io
@@ -256,7 +256,7 @@ jobs:
         uses: ./.github/actions/helm-chart-oci-publisher
         with:
           name: ${{ github.event.repository.name }}
-          repository: ${{ github.event.repository.name }}/chart
+          repository: ${{ github.repository }}/chart
           chart_version: ${{ steps.prepare.outputs.chart_version }}
           app_version: ${{ steps.prepare.outputs.app_version }}
           registry: registry-1.docker.io
