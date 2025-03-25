@@ -230,5 +230,9 @@
   {
     "version": "v0.52.3-alpha",
     "path": "/heimdall/v0.52.3-alpha"
+  },
+  {
+    "version": "v0.52.4-alpha",
+    "path": "/heimdall/v0.52.4-alpha"
   }
 ]
