@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.52.11-alpha](https://github.com/dadrus/github-integrations/compare/v0.52.10-alpha...v0.52.11-alpha) (2025-03-25)
+
+
+### Bug Fixes
+
+* dh helm removed ([#423](https://github.com/dadrus/github-integrations/issues/423)) ([ead3365](https://github.com/dadrus/github-integrations/commit/ead336529e09f128cad5d5579175ea7dbeaceb51))
+
 ## [0.52.10-alpha](https://github.com/dadrus/github-integrations/compare/v0.52.9-alpha...v0.52.10-alpha) (2025-03-25)
 
 
