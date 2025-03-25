@@ -2,10 +2,10 @@ apiVersion: v1
 entries:
   github-integrations:
   - apiVersion: v2
-    appVersion: 0.52.11-alpha
-    created: "2025-03-25T13:50:54.642858008Z"
+    appVersion: 0.52.12-alpha
+    created: "2025-03-25T14:00:23.613181849Z"
     description: GH Integration tests
-    digest: cc5c9f8630749e559638d5dc04243fd0d9f2e9afd95835e732dc69a908504752
+    digest: 04cea5445a4906325ee1310211dbe949d07a58492fd4dfc417fb32fdd0861807
     home: https://dadrus.github.io/heimdall/
     keywords:
     - zero-trust
@@ -125,4 +125,4 @@ entries:
     urls:
     - https://dadrus.github.io/github-integrations/charts/heimdall-0.1.0.tgz
     version: 0.1.0
-generated: "2025-03-25T13:50:54.641187656Z"
+generated: "2025-03-25T14:00:23.611802138Z"
