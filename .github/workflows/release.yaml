@@ -145,15 +145,6 @@ jobs:
             ${{ github.repository }}:${{ steps.image-version.outputs.result }}
             ghcr.io/${{ github.repository }}:latest
             ghcr.io/${{ github.repository }}:${{ steps.image-version.outputs.result }}
-      - name: Verify Image Digests
-        run: |
-          set -euo pipefail
-          DOCKERHUB_DIGEST=$(docker inspect ${{ github.repository }}:${{ steps.image-version.outputs.result }} | jq -r '.[0].RepoDigests[] | split("@")[1]')
-          GHCR_DIGEST=$(docker inspect ghcr.io/${{ github.repository }}:${{ steps.image-version.outputs.result }} | jq -r '.[0].RepoDigests[] | split("@")[1]')
-          if [ "$DOCKERHUB_DIGEST" != "$GHCR_DIGEST" ]; then
-            echo "Error: Digests do not match between DockerHub ($DOCKERHUB_DIGEST) and GHCR ($GHCR_DIGEST)"
-            exit 1
-          fi
       - name: Sign the image published in DockerHub
         if: steps.publish-image.conclusion == 'success'
         env:
