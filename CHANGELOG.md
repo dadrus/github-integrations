@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.52.9-alpha](https://github.com/dadrus/github-integrations/compare/v0.52.8-alpha...v0.52.9-alpha) (2025-03-25)
+
+
+### Bug Fixes
+
+* dockerhub user ([#417](https://github.com/dadrus/github-integrations/issues/417)) ([67aa7de](https://github.com/dadrus/github-integrations/commit/67aa7ded17d945194d7f9e070a94ce55cce9aacf))
+
 ## [0.52.8-alpha](https://github.com/dadrus/github-integrations/compare/v0.52.7-alpha...v0.52.8-alpha) (2025-03-25)
 
 
