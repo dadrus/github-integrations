@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.54.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.53.0-alpha...v0.54.0-alpha) (2025-03-25)
+
+
+### New Features
+
+* updates from heimdall repo ([#438](https://github.com/dadrus/github-integrations/issues/438)) ([1e32205](https://github.com/dadrus/github-integrations/commit/1e322057bfd2617ae32230140ae2f522391252a8))
+
 ## [0.53.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.52.14-alpha...v0.53.0-alpha) (2025-03-25)
 
 
