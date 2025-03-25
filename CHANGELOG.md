@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.52.12-alpha](https://github.com/dadrus/github-integrations/compare/v0.52.11-alpha...v0.52.12-alpha) (2025-03-25)
+
+
+### Bug Fixes
+
+* helm signing ([#426](https://github.com/dadrus/github-integrations/issues/426)) ([445709b](https://github.com/dadrus/github-integrations/commit/445709b6790d595eef1787e2bfb5c75f68181a31))
+
 ## [0.52.11-alpha](https://github.com/dadrus/github-integrations/compare/v0.52.10-alpha...v0.52.11-alpha) (2025-03-25)
 
 
