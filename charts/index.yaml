@@ -2,6 +2,37 @@ apiVersion: v1
 entries:
   github-integrations:
   - apiVersion: v2
+    appVersion: 0.52.10-alpha
+    created: "2025-03-25T13:37:38.884389249Z"
+    description: GH Integration tests
+    digest: 19e37ca0681c046a754b5bd4a421a765da96e565fd40b81d5d3fea80f56b1aa9
+    home: https://dadrus.github.io/heimdall/
+    keywords:
+    - zero-trust
+    - authentication
+    - authorization
+    - access-control
+    - access-management
+    - policy-enforcement
+    - oauth2
+    - openid-connect
+    - iap
+    - auth-proxy
+    - identity-aware-proxy
+    - decision-api
+    - auth-filter
+    kubeVersion: ^1.19.0
+    maintainers:
+    - email: dadrus@gmx.de
+      name: Dimitrij Drus
+    name: github-integrations
+    sources:
+    - https://github.com/dadrus/heimdall
+    type: application
+    urls:
+    - https://dadrus.github.io/github-integrations/charts/github-integrations-0.9.0.tgz
+    version: 0.9.0
+  - apiVersion: v2
     appVersion: 0.52.9-alpha
     created: "2025-03-25T13:12:27.738088424Z"
     description: GH Integration tests
@@ -94,4 +125,4 @@ entries:
     urls:
     - https://dadrus.github.io/github-integrations/charts/heimdall-0.1.0.tgz
     version: 0.1.0
-generated: "2025-03-25T13:12:27.736201158Z"
+generated: "2025-03-25T13:37:38.883375776Z"
