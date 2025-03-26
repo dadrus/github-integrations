@@ -260,10 +260,10 @@ jobs:
         run: |
           set -euo pipefail
           APP_VERSION=$(echo ${{ github.ref_name }} | sed 's/v//g')
-          echo "app_version=$APP_VERSION" >> $GITHUB_OUTPUT
           CHART_NAME=$(yq '.name' charts/*/Chart.yaml)
-          echo "chart_name=$CHART_NAME" >> $GITHUB_OUTPUT
           CHART_VERSION=$(yq '.version' charts/*/Chart.yaml)
+          echo "app_version=$APP_VERSION" >> $GITHUB_OUTPUT
+          echo "chart_name=$CHART_NAME" >> $GITHUB_OUTPUT
           echo "chart_version=$CHART_VERSION" >> $GITHUB_OUTPUT
       - name: Publish Helm Chart to GH Pages
         uses: stefanprodan/helm-gh-pages@0ad2bb377311d61ac04ad9eb6f252fb68e207260 # v1.7.0
