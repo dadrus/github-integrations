@@ -314,11 +314,21 @@ jobs:
         uses: docker/setup-qemu-action@29109295f81e9208d7d86ff1c6c12d2833863392 # v3.6.0
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@b5ca514318bd6ebac0fb2aedd5d36ec1b5c232a2 # v3.10.0
-      - name: Collect container meta-info
-        id: meta
+      - name: Collect container meta-info for DockerHub
+        id: dockerhub-meta
+        if: github.ref == 'refs/heads/main'
         uses: docker/metadata-action@902fa8ec7d6ecbf8d84d538b9b233a880e428804 # v5.7.0
         with:
           images: ${{ github.repository }}
+          labels: |
+            org.opencontainers.image.version=${{ github.sha }}
+            org.opencontainers.image.documentation=${{ env.DOCUMENTATION_URL }}
+      - name: Collect container meta-info for GHCR
+        id: ghcr-meta
+        if: github.ref == 'refs/heads/main'
+        uses: docker/metadata-action@902fa8ec7d6ecbf8d84d538b9b233a880e428804 # v5.7.0
+        with:
+          images: ghcr.io/${{ github.repository }}
           labels: |
             org.opencontainers.image.version=${{ github.sha }}
             org.opencontainers.image.documentation=${{ env.DOCUMENTATION_URL }}
@@ -345,9 +355,9 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Build and push dev images to container registry
+      - name: Build and push dev image to DockerHub
         if: github.ref == 'refs/heads/main'
-        id: publish-image
+        id: dockerhub-image
         uses: docker/build-push-action@471d1dc4e07e5cdedd4c2171150001c434f0b7a4 # v6.15.0
         with:
           context: .
@@ -355,38 +365,48 @@ jobs:
           platforms: linux/amd64,linux/arm64,linux/arm
           push: true
           build-args: VERSION=${{ github.sha }}
-          labels: ${{ steps.meta.outputs.labels }}
+          labels: ${{ steps.dockerhub-meta.outputs.labels }}
           tags: |
             ${{ github.repository }}:dev
             ${{ github.repository }}:dev-${{ github.sha }}
+      - name: Build and push dev image to GHCR
+        if: github.ref == 'refs/heads/main'
+        id: ghcr-image
+        uses: docker/build-push-action@471d1dc4e07e5cdedd4c2171150001c434f0b7a4 # v6.15.0
+        with:
+          context: .
+          file: ./docker/Dockerfile
+          platforms: linux/amd64,linux/arm64,linux/arm
+          push: true
+          build-args: VERSION=${{ github.sha }}
+          labels: ${{ steps.ghcr-meta.outputs.labels }}
+          tags: |
             ghcr.io/${{ github.repository }}:dev
             ghcr.io/${{ github.repository }}:dev-${{ github.sha }}
-      # DockerHub
       - name: Sign the image published in DockerHub
-        if: steps.publish-image.conclusion == 'success'
+        if: steps.dockerhub-image.conclusion == 'success'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COSIGN_REPOSITORY: ${{ github.repository }}-signatures
-        run: cosign sign --yes ${{ github.repository }}@${{ steps.publish-image.outputs.digest }}
+        run: cosign sign --yes ${{ github.repository }}@${{ steps.dockerhub-image.outputs.digest }}
       - name: Attest and attach SBOM to the image published in DockerHub
-        if: steps.publish-image.conclusion == 'success'
+        if: steps.dockerhub-image.conclusion == 'success'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COSIGN_REPOSITORY: ${{ github.repository }}-sbom
-        run: cosign attest --yes --predicate CycloneDX-SBOM.json --type cyclonedx ${{ github.repository }}@${{ steps.publish-image.outputs.digest }}
-      # GHCR
+        run: cosign attest --yes --predicate CycloneDX-SBOM.json --type cyclonedx ${{ github.repository }}@${{ steps.dockerhub-image.outputs.digest }}
       - name: Sign the image published in GitHub
-        if: steps.publish-image.conclusion == 'success'
+        if: steps.ghcr-image.conclusion == 'success'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COSIGN_REPOSITORY: ghcr.io/${{ github.repository }}-signatures
-        run: cosign sign --yes ghcr.io/${{ github.repository }}@${{ steps.publish-image.outputs.digest }}
+        run: cosign sign --yes ghcr.io/${{ github.repository }}@${{ steps.ghcr-image.outputs.digest }}
       - name: Attest and attach SBOM to the image published in GitHub
-        if: steps.publish-image.conclusion == 'success'
+        if: steps.ghcr-image.conclusion == 'success'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COSIGN_REPOSITORY: ghcr.io/${{ github.repository }}-sbom
-        run: cosign attest --yes --predicate CycloneDX-SBOM.json --type cyclonedx ghcr.io/${{ github.repository }}@${{ steps.publish-image.outputs.digest }}
+        run: cosign attest --yes --predicate CycloneDX-SBOM.json --type cyclonedx ghcr.io/${{ github.repository }}@${{ steps.ghcr-image.outputs.digest }}
 
   build-dev-documentation:
     runs-on: ubuntu-24.04
@@ -416,7 +436,7 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
       - name: Setup ruby
-        uses: ruby/setup-ruby@1a615958ad9d422dd932dc1d5823942ee002799f # v1.227.0
+        uses: ruby/setup-ruby@7886c6653556e1164c58a7603d88286b5f708293 # v1.228.0
         with:
           ruby-version: ${{ env.RUBY_VERSION }}
       - name: Install asciidoctor

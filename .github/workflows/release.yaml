@@ -149,6 +149,15 @@ jobs:
           tags: |
             ${{ github.repository }}:latest
             ${{ github.repository }}:${{ steps.image-version.outputs.result }}
+      - name: Update DockerHub repository description & readme
+        if: steps.dockerhub-image.conclusion == 'success'
+        uses: peter-evans/dockerhub-description@e98e4d1628a5f3be2be7c231e50981aee98723ae # v4.0.0
+        with:
+          username: ${{ secrets.DOCKERHUB_USER }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          short-description: ${{ github.event.repository.description }}
+          readme-filepath: ./DockerHub-README.md
       - name: Collect meta-info for GHCR
         id: ghcr-meta
         uses: docker/metadata-action@902fa8ec7d6ecbf8d84d538b9b233a880e428804 # v5.7.0
@@ -182,15 +191,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COSIGN_REPOSITORY: ${{ github.repository }}-sbom
         run: cosign attest --yes --predicate CycloneDX-SBOM.json --type cyclonedx ${{ github.repository }}@${{ steps.dockerhub-image.outputs.digest }}
-      - name: Update DockerHub repository description & readme
-        if: steps.dockerhub-image.conclusion == 'success'
-        uses: peter-evans/dockerhub-description@e98e4d1628a5f3be2be7c231e50981aee98723ae # v4.0.0
-        with:
-          username: ${{ secrets.DOCKERHUB_USER }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-          repository: ${{ github.repository }}
-          short-description: ${{ github.event.repository.description }}
-          readme-filepath: ./DockerHub-README.md
       - name: Sign the image published in GitHub
         if: steps.ghcr-image.conclusion == 'success'
         env:
