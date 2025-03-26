@@ -144,7 +144,7 @@ jobs:
           platforms: linux/amd64,linux/arm64,linux/arm
           push: true
           build-args: VERSION=${{ github.ref_name }}
-          labels: ${{ steps.meta.outputs.labels }}
+          labels: ${{ steps.dockerhub-meta.outputs.labels }}
           tags: |
             ${{ github.repository }}:latest
             ${{ github.repository }}:${{ steps.image-version.outputs.result }}
@@ -165,7 +165,7 @@ jobs:
           platforms: linux/amd64,linux/arm64,linux/arm
           push: true
           build-args: VERSION=${{ github.ref_name }}
-          labels: ${{ steps.meta.outputs.labels }}
+          labels: ${{ steps.ghcr-meta.outputs.labels }}
           tags: |
             ghcr.io/${{ github.repository }}:latest
             ghcr.io/${{ github.repository }}:${{ steps.image-version.outputs.result }}
