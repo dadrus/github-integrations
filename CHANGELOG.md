@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.55.3-alpha](https://github.com/dadrus/github-integrations/compare/v0.55.2-alpha...v0.55.3-alpha) (2025-03-26)
+
+
+### Bug Fixes
+
+* proper digest for provenance ([#449](https://github.com/dadrus/github-integrations/issues/449)) ([a067616](https://github.com/dadrus/github-integrations/commit/a0676165859a52d40dca48cb8fb865da478db8b2))
+
 ## [0.55.2-alpha](https://github.com/dadrus/github-integrations/compare/v0.55.1-alpha...v0.55.2-alpha) (2025-03-26)
 
 
