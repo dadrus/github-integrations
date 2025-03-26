@@ -85,7 +85,7 @@ jobs:
       packages: write
       id-token: write
     outputs:
-      digest: ${{ steps.publish-image.outputs.digest }}
+      digest: ${{ steps.ghcr-image.outputs.digest }}
     steps:
       - name: Harden Runner
         uses: step-security/harden-runner@4d991eb9b905ef189e4c376166672c3f2f230481 # v2.11.0
@@ -127,16 +127,16 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Collect Docker meta-info
-        id: meta
+      - name: Collect meta-info for DockerHub
+        id: dockerhub-meta
         uses: docker/metadata-action@902fa8ec7d6ecbf8d84d538b9b233a880e428804 # v5.7.0
         with:
           images: ${{ github.repository }}
           labels: |
             org.opencontainers.image.version=${{ steps.image-version.outputs.result }}
             org.opencontainers.image.documentation=${{ env.DOCUMENTATION_URL }}
-      - name: Build and push images to container registry
-        id: publish-image
+      - name: Build and push images to DockerHub
+        id: dockerhub-image
         uses: docker/build-push-action@471d1dc4e07e5cdedd4c2171150001c434f0b7a4 # v6.15.0
         with:
           context: .
@@ -144,25 +144,45 @@ jobs:
           platforms: linux/amd64,linux/arm64,linux/arm
           push: true
           build-args: VERSION=${{ github.ref_name }}
-          labels: ${{ steps.meta.outputs.labels }}
+          labels: ${{ steps.dockerhub-meta.outputs.labels }}
           tags: |
             ${{ github.repository }}:latest
             ${{ github.repository }}:${{ steps.image-version.outputs.result }}
+      - name: Collect meta-info for GHCR
+        id: ghcr-meta
+        uses: docker/metadata-action@902fa8ec7d6ecbf8d84d538b9b233a880e428804 # v5.7.0
+        with:
+          images: ghcr.io/${{ github.repository }}
+          labels: |
+            org.opencontainers.image.version=${{ steps.image-version.outputs.result }}
+            org.opencontainers.image.documentation=${{ env.DOCUMENTATION_URL }}
+      - name: Build and push images to GHCR
+        id: ghcr-image
+        uses: docker/build-push-action@471d1dc4e07e5cdedd4c2171150001c434f0b7a4 # v6.15.0
+        with:
+          context: .
+          file: ./docker/Dockerfile
+          platforms: linux/amd64,linux/arm64,linux/arm
+          push: true
+          build-args: VERSION=${{ github.ref_name }}
+          labels: ${{ steps.ghcr-meta.outputs.labels }}
+          tags: |
             ghcr.io/${{ github.repository }}:latest
             ghcr.io/${{ github.repository }}:${{ steps.image-version.outputs.result }}
       - name: Sign the image published in DockerHub
-        if: steps.publish-image.conclusion == 'success'
+        if: steps.dockerhub-image.conclusion == 'success'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COSIGN_REPOSITORY: ${{ github.repository }}-signatures
-        run: cosign sign --yes ${{ github.repository }}@${{ steps.publish-image.outputs.digest }}
+        run: cosign sign --yes ${{ github.repository }}@${{ steps.dockerhub-image.outputs.digest }}
       - name: Attest and attach SBOM to the image published in DockerHub
-        if: steps.publish-image.conclusion == 'success'
+        if: steps.dockerhub-image.conclusion == 'success'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COSIGN_REPOSITORY: ${{ github.repository }}-sbom
-        run: cosign attest --yes --predicate CycloneDX-SBOM.json --type cyclonedx ${{ github.repository }}@${{ steps.publish-image.outputs.digest }}
+        run: cosign attest --yes --predicate CycloneDX-SBOM.json --type cyclonedx ${{ github.repository }}@${{ steps.dockerhub-image.outputs.digest }}
       - name: Update DockerHub repository description & readme
+        if: steps.dockerhub-image.conclusion == 'success'
         uses: peter-evans/dockerhub-description@e98e4d1628a5f3be2be7c231e50981aee98723ae # v4.0.0
         with:
           username: ${{ secrets.DOCKERHUB_USER }}
@@ -171,17 +191,17 @@ jobs:
           short-description: ${{ github.event.repository.description }}
           readme-filepath: ./DockerHub-README.md
       - name: Sign the image published in GitHub
-        if: steps.publish-image.conclusion == 'success'
+        if: steps.ghcr-image.conclusion == 'success'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COSIGN_REPOSITORY: ghcr.io/${{ github.repository }}-signatures
-        run: cosign sign --yes ghcr.io/${{ github.repository }}@${{ steps.publish-image.outputs.digest }}
+        run: cosign sign --yes ghcr.io/${{ github.repository }}@${{ steps.ghcr-image.outputs.digest }}
       - name: Attest and attach SBOM to the image published in GitHub
-        if: steps.publish-image.conclusion == 'success'
+        if: steps.ghcr-image.conclusion == 'success'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COSIGN_REPOSITORY: ghcr.io/${{ github.repository }}-sbom
-        run: cosign attest --yes --predicate CycloneDX-SBOM.json --type cyclonedx ghcr.io/${{ github.repository }}@${{ steps.publish-image.outputs.digest }}
+        run: cosign attest --yes --predicate CycloneDX-SBOM.json --type cyclonedx ghcr.io/${{ github.repository }}@${{ steps.ghcr-image.outputs.digest }}
 
 
   create-dockerhub-image-provenance:
@@ -226,23 +246,13 @@ jobs:
     needs:
       - release-container-image
     outputs:
-      chart_file: ${{ steps.download-chart.outputs.result }}
-      chart_hash: ${{ steps.hash.outputs.result }}
-      image_digest: ${{ steps.publish-ghcr.outputs.digest }}
+      digest: ${{ steps.publish-ghcr.outputs.digest }}
       image_name: ${{ steps.publish-ghcr.outputs.image_name }}
     steps:
       - name: Harden Runner
         uses: step-security/harden-runner@4d991eb9b905ef189e4c376166672c3f2f230481 # v2.11.0
         with:
           egress-policy: audit
-      - name: Set up Helm
-        uses: azure/setup-helm@v4
-        with:
-          version: ${{ env.HELM_VERSION }}
-      - name: Install Cosign
-        uses: sigstore/cosign-installer@d7d6bc7722e3daa8354c50bcb52f4837da5e9b6a # v3.8.1
-        with:
-          cosign-release: "${{ env.COSIGN_VERSION }}"
       - name: Checkout repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
       - name: Prepare versions and chart name
@@ -250,10 +260,10 @@ jobs:
         run: |
           set -euo pipefail
           APP_VERSION=$(echo ${{ github.ref_name }} | sed 's/v//g')
-          echo "app_version=$APP_VERSION" >> $GITHUB_OUTPUT
           CHART_NAME=$(yq '.name' charts/*/Chart.yaml)
-          echo "chart_name=$CHART_NAME" >> $GITHUB_OUTPUT
           CHART_VERSION=$(yq '.version' charts/*/Chart.yaml)
+          echo "app_version=$APP_VERSION" >> $GITHUB_OUTPUT
+          echo "chart_name=$CHART_NAME" >> $GITHUB_OUTPUT
           echo "chart_version=$CHART_VERSION" >> $GITHUB_OUTPUT
       - name: Publish Helm Chart to GH Pages
         uses: stefanprodan/helm-gh-pages@0ad2bb377311d61ac04ad9eb6f252fb68e207260 # v1.7.0
@@ -263,31 +273,6 @@ jobs:
           linting: off
           chart_version: ${{ steps.prepare.outputs.chart_version }}
           app_version: ${{ steps.prepare.outputs.app_version }}
-      - name: Download published Helm Chart
-        id: download-chart
-        run: |
-          set -euo pipefail
-          helm repo add gh-pages https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/charts
-          helm repo update
-          helm pull gh-pages/${{ github.event.repository.name }} --version ${{ steps.prepare.outputs.chart_version }}
-          CHART_FILE="${{ github.event.repository.name }}-${{ steps.prepare.outputs.chart_version }}.tgz"
-          echo "result=$CHART_FILE" >> $GITHUB_OUTPUT
-      - name: Generate provenance subject
-        id: hash
-        run: |
-          set -euo pipefail
-          HASH=$(echo -n "${{ steps.download-chart.outputs.result }} " | sha256sum | cut -d ' ' -f 1 | base64 -w0)
-          echo "result=$HASH" >> $GITHUB_OUTPUT
-      - name: Sign the Helm chart
-        run: |
-          set -euo pipefail
-          cosign sign-blob --yes --output-signature="chart_${{ steps.download-chart.outputs.result }}.sig" --output-certificate="chart_${{ steps.download-chart.outputs.result }}.pem" "${{ steps.download-chart.outputs.result }}"
-      - name: Upload chart signature to the release
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          set -euo pipefail
-          gh release upload ${{ github.ref_name }} "chart_${{ steps.download-chart.outputs.result }}.sig" "chart_${{ steps.download-chart.outputs.result }}.pem"
       - name: Publish Chart to GHCR
         id: publish-ghcr
         uses: ./.github/actions/helm-chart-oci-publisher
@@ -299,6 +284,10 @@ jobs:
           registry: ghcr.io
           registry_username: ${{ github.actor }}
           registry_password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Install Cosign
+        uses: sigstore/cosign-installer@d7d6bc7722e3daa8354c50bcb52f4837da5e9b6a # v3.8.1
+        with:
+          cosign-release: "${{ env.COSIGN_VERSION }}"
       - name: Login to GitHub
         uses: docker/login-action@74a5d142397b4f367a81961eba4e8cd7edddf772 # v3.4.0
         with:
@@ -312,20 +301,6 @@ jobs:
           set -euo pipefail
           cosign sign --yes ${{ steps.publish-ghcr.outputs.image_name }}@${{ steps.publish-ghcr.outputs.digest }}
 
-  create-helm-chart-provenance:
-    needs:
-      - release-helm-chart
-    permissions:
-      actions: read
-      id-token: write
-      contents: write
-    # Note: this _must_ be referenced by tag. See: https://github.com/slsa-framework/slsa-verifier/issues/12
-    uses: slsa-framework/slsa-github-generator/.github/workflows/generator_generic_slsa3.yml@v2.1.0
-    with:
-       base64-subjects: ${{ needs.release-helm-chart.outputs.chart_hash }}
-       upload-assets: true
-       provenance-name: "chart_${{ needs.release-helm-chart.outputs.chart_file }}.intoto.jsonl"
-
   create-ghcr-helm-provenance:
     needs:
       - release-helm-chart
@@ -337,7 +312,7 @@ jobs:
     uses: slsa-framework/slsa-github-generator/.github/workflows/generator_container_slsa3.yml@v2.1.0
     with:
       image: ${{ needs.release-helm-chart.outputs.image_name }}
-      digest: ${{ needs.release-helm-chart.outputs.image_digest }}
+      digest: ${{ needs.release-helm-chart.outputs.digest }}
     secrets:
       registry-username: ${{ github.actor }}
       registry-password: ${{ secrets.GITHUB_TOKEN }}
@@ -350,7 +325,6 @@ jobs:
       - create-binaries-provenance
       - create-dockerhub-image-provenance
       - create-ghcr-image-provenance
-      - create-helm-chart-provenance
       - create-ghcr-helm-provenance
     runs-on: ubuntu-24.04
     permissions: read-all
@@ -361,10 +335,6 @@ jobs:
           egress-policy: audit
       - name: Install SLSA verifier
         uses: slsa-framework/slsa-verifier/actions/installer@6657aada084353c65e5dde35394b1a010289fab0 # v2.7.0
-      - name: Set up Helm
-        uses: azure/setup-helm@v4
-        with:
-          version: ${{ env.HELM_VERSION }}
       - name: Download released binaries
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -372,15 +342,6 @@ jobs:
           set -euo pipefail
           gh -R "${{ github.repository }}" release download "${{ github.ref_name }}" \
              -p "${{ needs.create-binaries-provenance.outputs.provenance-name }}" -p "*.tar.gz" -p "*.zip"
-      - name: Download Helm Chart released to gh pages
-        id: download-chart
-        run: |
-          set -euo pipefail
-          helm repo add gh-pages https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/charts
-          helm repo update
-          helm pull gh-pages/${{ github.event.repository.name }} --version ${{ steps.prepare.outputs.chart_version }}
-          CHART_FILE="${{ github.event.repository.name }}-${{ steps.prepare.outputs.chart_version }}.tgz"
-          echo "result=$CHART_FILE" >> $GITHUB_OUTPUT
       - name: Verify released binaries
         run: |
           slsa-verifier verify-artifact \
@@ -388,13 +349,6 @@ jobs:
             --source-uri "github.com/${{ github.repository }}" \
             --source-tag "${{ github.ref_name }}" \
             *.tar.gz *.zip
-      - name: Verify helm chart released to gh pages
-        run: |
-          slsa-verifier verify-artifact \
-            --provenance-path "${{ needs.create-helm-chart-provenance.outputs.provenance-name }}" \
-            --source-uri "github.com/${{ github.repository }}" \
-            --source-tag "${{ github.ref_name }}" \
-            ${{ steps.download-chart.outputs.result }}
       - name: Login to DockerHub
         uses: docker/login-action@74a5d142397b4f367a81961eba4e8cd7edddf772 # v3.4.0
         with:
@@ -421,7 +375,7 @@ jobs:
           slsa-verifier verify-image "${IMAGE}" --source-uri github.com/${{ github.repository }} --source-tag ${{ github.ref_name }}
       - name: Verify helm chart released to GitHub
         run: |
-          IMAGE=${{ needs.release-helm-chart.outputs.image_name }}@${{ needs.release-helm-chart.outputs.image_digest }}
+          IMAGE=${{ needs.release-helm-chart.outputs.image_name }}@${{ needs.release-helm-chart.outputs.digest }}
           slsa-verifier verify-image "${IMAGE}" --source-uri github.com/${{ github.repository }} --source-tag ${{ github.ref_name }}
 
   release-documentation:
