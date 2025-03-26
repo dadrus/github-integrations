@@ -85,7 +85,8 @@ jobs:
       packages: write
       id-token: write
     outputs:
-      digest: ${{ steps.ghcr-image.outputs.digest }}
+      ghcr_image_digest: ${{ steps.ghcr-image.outputs.digest }}
+      dockerhub_image_digest: ${{ steps.dockerhub-image.outputs.digest }}
     steps:
       - name: Harden Runner
         uses: step-security/harden-runner@4d991eb9b905ef189e4c376166672c3f2f230481 # v2.11.0
@@ -215,7 +216,7 @@ jobs:
     uses: slsa-framework/slsa-github-generator/.github/workflows/generator_container_slsa3.yml@v2.1.0
     with:
       image: ${{ github.repository }}
-      digest: ${{ needs.release-container-image.outputs.digest }}
+      digest: ${{ needs.release-container-image.outputs.dockerhub_image_digest }}
     secrets:
       registry-username: ${{ secrets.DOCKERHUB_USER }}
       registry-password: ${{ secrets.DOCKERHUB_TOKEN }}
@@ -231,7 +232,7 @@ jobs:
     uses: slsa-framework/slsa-github-generator/.github/workflows/generator_container_slsa3.yml@v2.1.0
     with:
       image: ghcr.io/${{ github.repository }}
-      digest: ${{ needs.release-container-image.outputs.digest }}
+      digest: ${{ needs.release-container-image.outputs.ghcr_image_digest }}
     secrets:
       registry-username: ${{ github.actor }}
       registry-password: ${{ secrets.GITHUB_TOKEN }}
@@ -367,11 +368,11 @@ jobs:
           echo "result=$version" >> $GITHUB_OUTPUT
       - name: Verify image released to DockerHub
         run: |
-          IMAGE=${{ github.repository }}:${{ steps.version.outputs.result }}@${{ needs.release-container-image.outputs.digest }}
+          IMAGE=${{ github.repository }}:${{ steps.version.outputs.result }}@${{ needs.release-container-image.outputs.dockerhub_image_digest }}
           slsa-verifier verify-image "${IMAGE}" --source-uri github.com/${{ github.repository }} --source-tag ${{ github.ref_name }}
       - name: Verify image released to GitHub
         run: |
-          IMAGE=ghcr.io/${{ github.repository }}:${{ steps.version.outputs.result }}@${{ needs.release-container-image.outputs.digest }}
+          IMAGE=ghcr.io/${{ github.repository }}:${{ steps.version.outputs.result }}@${{ needs.release-container-image.outputs.ghcr_image_digest }}
           slsa-verifier verify-image "${IMAGE}" --source-uri github.com/${{ github.repository }} --source-tag ${{ github.ref_name }}
       - name: Verify helm chart released to GitHub
         run: |
