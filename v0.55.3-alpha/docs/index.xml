@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Docs on Test</title><link>https://dadrus.github.io/docs/</link><description>Recent content in Docs on Test</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Wed, 26 Mar 2025 09:09:25 +0000</lastBuildDate><atom:link href="https://dadrus.github.io/docs/index.xml" rel="self" type="application/rss+xml"/><item><title>Welcome</title><link>https://dadrus.github.io/docs/welcome/</link><pubDate>Fri, 10 Jun 2022 17:30:17 +0200</pubDate><guid>https://dadrus.github.io/docs/welcome/</guid><description>&lt;div class="paragraph">
+&lt;p>Just to check how versioning is working. Dev status&lt;/p>
+&lt;/div>
+&lt;div class="admonitionblock note">
+&lt;table>
+&lt;tbody>&lt;tr>
+&lt;td class="icon">
+&lt;i class="fa icon-note" title="Note">&lt;/i>
+&lt;/td>
+&lt;td class="content">
+This is a note. &lt;a href="http://foo.bar">Link&lt;/a> &lt;code>inline code&lt;/code>
+&lt;/td>
+&lt;/tr>
+&lt;/tbody>&lt;/table>
+&lt;/div>
+&lt;div class="paragraph">
+&lt;p>Regular text&lt;/p>
+&lt;/div>
+&lt;div class="admonitionblock tip">
+&lt;table>
+&lt;tbody>&lt;tr>
+&lt;td class="icon">
+&lt;i class="fa icon-tip" title="Tip">&lt;/i>
+&lt;/td>
+&lt;td class="content">
+This is a tip. &lt;a href="http://foo.bar">Link&lt;/a> &lt;code>inline code&lt;/code>
+&lt;/td>
+&lt;/tr>
+&lt;/tbody>&lt;/table>
+&lt;/div>
+&lt;div class="paragraph">
+&lt;p>Regular Text&lt;/p>
+&lt;/div>
+&lt;div class="paragraph">
+&lt;p>Regular Text&lt;/p>
+&lt;/div>
+&lt;div class="admonitionblock caution">
+&lt;table>
+&lt;tbody>&lt;tr>
+&lt;td class="icon">
+&lt;i class="fa icon-caution" title="Caution">&lt;/i>
+&lt;/td>
+&lt;td class="content">
+This is a caution note. &lt;a href="http://foo.bar">Link&lt;/a> &lt;code>inline code&lt;/code>
+&lt;/td>
+&lt;/tr>
+&lt;/tbody>&lt;/table>
+&lt;/div>
+&lt;div class="paragraph">
+&lt;p>Regular Text&lt;/p>
+&lt;/div>
+&lt;div class="admonitionblock warning">
+&lt;table>
+&lt;tbody>&lt;tr>
+&lt;td class="icon">
+&lt;i class="fa icon-warning" title="Warning">&lt;/i>
+&lt;/td>
+&lt;td class="content">
+This is a warning note. &lt;a href="http://foo.bar">Link&lt;/a> &lt;code>inline code&lt;/code>
+&lt;/td>
+&lt;/tr>
+&lt;/tbody>&lt;/table>
+&lt;/div>
+&lt;div class="paragraph">
+&lt;p>Regular Text&lt;/p>
+&lt;/div>
+&lt;div class="paragraph">
+&lt;p>Small change for test purpose&lt;/p>
+&lt;/div></description></item></channel></rss>
