@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.56.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.55.3-alpha...v0.56.0-alpha) (2025-03-26)
+
+
+### New Features
+
+* Separate GHCR and DockerHub image builds ([#452](https://github.com/dadrus/github-integrations/issues/452)) ([cbb26c8](https://github.com/dadrus/github-integrations/commit/cbb26c8fa7f2da1959f3b9c51e0f0aeeda7b8846))
+
 ## [0.55.3-alpha](https://github.com/dadrus/github-integrations/compare/v0.55.2-alpha...v0.55.3-alpha) (2025-03-26)
 
 
