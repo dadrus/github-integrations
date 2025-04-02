@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.57.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.56.0-alpha...v0.57.0-alpha) (2025-04-02)
+
+
+### New Features
+
+* releas workflow ([#465](https://github.com/dadrus/github-integrations/issues/465)) ([92eacd4](https://github.com/dadrus/github-integrations/commit/92eacd499c557613f9c96dbc8f4e65bbb05c04da))
+
+
+### Bug Fixes
+
+* missing permission added ([#466](https://github.com/dadrus/github-integrations/issues/466)) ([1da9ebe](https://github.com/dadrus/github-integrations/commit/1da9ebe7000b6794e58d42a399e57e9faf5230df))
+
 ## [0.56.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.55.3-alpha...v0.56.0-alpha) (2025-03-26)
 
 
