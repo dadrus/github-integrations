@@ -1,4 +1,4 @@
-# syntax = docker/dockerfile:experimental
+# syntax = docker/dockerfile:experimental@sha256:600e5c62eedff338b3f7a0850beb7c05866e0ef27b2d2e8c02aa468e78496ff5
 # Builder image to build the app
 FROM --platform=$BUILDPLATFORM golang:1.24.2@sha256:991aa6a6e4431f2f01e869a812934bd60fbc87fb939e4a1ea54b8494ab9d2fc6 as builder
 LABEL maintainer=dadrus@gmx.de
