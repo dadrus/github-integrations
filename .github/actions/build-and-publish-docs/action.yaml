@@ -19,12 +19,12 @@ runs:
   using: composite
   steps:
     - name: Setup Hugo
-      uses: peaceiris/actions-hugo@v3
+      uses: peaceiris/actions-hugo@75d2e84710de30f6ff7268e08f310b60ef14033f # v3
       with:
         hugo-version: 0.100.1
         extended: true
     - name: Setup Node
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
       with:
         node-version: 17.7
     - name: Install mermaid
