@@ -36,7 +36,7 @@ demo:
 image:
   repository: dadrus/heimdall
   pullPolicy: IfNotPresent
-  tag: ""
+  tag: "@sha256:44f6246c33c580fe168e4ab02ed1f5ec688e555c03edc93f1d6d394f9a19c979"
   pullSecrets: [ ]
 
 nameOverride: ""
