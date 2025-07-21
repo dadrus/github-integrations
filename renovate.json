@@ -10,13 +10,20 @@
   ],
   "packageRules": [
     {
-      "matchCategories": [ "golang" ],
+      "matchCategories": [
+        "golang"
+      ],
       "semanticCommitType": "deps"
     }
   ],
   "configMigration": true,
-  "baseBranches": ["main", "release"],
+  "baseBranchPatterns": [
+    "main",
+    "release"
+  ],
   "assigneesFromCodeOwners": true,
-  "addLabels": ["dependency"],
+  "addLabels": [
+    "dependency"
+  ],
   "automerge": false
 }
