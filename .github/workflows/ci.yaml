@@ -237,7 +237,7 @@ jobs:
         run: helm plugin install --version ${{ env.HELM_UNITTEST_VERSION }} https://github.com/helm-unittest/helm-unittest.git
       - name: Run tests
         run: |
-          helm unittest ./charts/heimdall
+          helm unittest ./charts/github-integrations
 
   test:
     runs-on: ubuntu-24.04
