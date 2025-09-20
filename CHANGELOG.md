@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.50.3-alpha](https://github.com/dadrus/github-integrations/compare/v0.50.2-alpha...v0.50.3-alpha) (2025-09-20)
+
+
+### Updated Dependencies
+
+* update module github.com/goccy/go-json to v0.10.5 ([#347](https://github.com/dadrus/github-integrations/issues/347)) ([cfdb427](https://github.com/dadrus/github-integrations/commit/cfdb42785d9b99d855aca8eb74739be4a9950bd3))
+
 ## [0.50.2-alpha](https://github.com/dadrus/github-integrations/compare/v0.50.1-alpha...v0.50.2-alpha) (2024-04-03)
 
 
