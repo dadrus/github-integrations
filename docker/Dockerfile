@@ -1,32 +1,36 @@
-# syntax = docker/dockerfile:experimental
 # Builder image to build the app
-FROM --platform=$BUILDPLATFORM golang:1.24.2@sha256:991aa6a6e4431f2f01e869a812934bd60fbc87fb939e4a1ea54b8494ab9d2fc6 as builder
-LABEL maintainer=dadrus@gmx.de
+ARG USER=test
 
+FROM --platform=$BUILDPLATFORM golang:1.25.1-bookworm@sha256:c4bc0741e3c79c0e2d47ca2505a06f5f2a44682ada94e1dba251a3854e60c2bd AS builder
+ARG USER
 ARG TARGETARCH
 ARG VERSION="unknown"
 
-ENV USER=test
-ENV UID=10001
+LABEL maintainer=dadrus@gmx.de
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-RUN useradd -l -s "/sbin/nologin" -M -U -r -u ${UID} ${USER}
+# hadolint ignore=DL3008
+RUN apt-get update & apt-get -y --no-install-recommends install tzdata
+RUN useradd -l -M -U -s "/usr/sbin/nologin" -d "/nonexistent" -u 10001 ${USER}
 
-WORKDIR /app
+WORKDIR /build
 
 COPY . .
-RUN go mod download && GOOS=linux GOARCH=$TARGETARCH go build -a -trimpath -ldflags="-buildid= -w -s -X github.com/dadrus/github-integrations/version.Version=${VERSION}"
+RUN go mod download && go mod verify && \
+    CGO_ENABLED=0 GOOS=linux GOARCH=${TARGETARCH} go build -trimpath -ldflags="-buildid= -w -s -X github.com/dadrus/github-integrations/version.Version=${VERSION}"
 
 # The actual image of the app
 FROM scratch
+ARG USER
 LABEL maintainer=dadrus@gmx.de
 
 WORKDIR /opt/github-integrations
 
+COPY --from=builder /usr/share/zoneinfo /usr/share/zoneinfo
 COPY --from=builder /etc/passwd /etc/passwd
 COPY --from=builder /etc/group /etc/group
-COPY --from=builder /app/github-integrations .
+COPY --from=builder /build/github-integrations .
 
 USER ${USER}:${USER}
 

@@ -9,8 +9,8 @@ enableGitInfo: true
 security:
   enableInlineShortcodes: false
   exec:
-    allow: ['^dart-sass-embedded$', '^go$', '^npx$', '^postcss$', 'asciidoctor']
-    osEnv: ['(?i)^(PATH|PATHEXT|APPDATA|TMP|TEMP|TERM)$']
+    allow: ['asciidoctor', 'git']
+    osEnv: ['(?i)^(PATH|PATHEXT|APPDATA|TMP|TEMP|TERM|GEM_PATH)$']
 
   funcs:
     getenv: ['^HUGO_']
@@ -28,10 +28,21 @@ markup:
     workingFolderCurrent: true
     attributes:
       source-highlighter: rouge
-      rouge-css: style
-      rouge-style: monokai.sublime
       icons: font
 
+outputs:
+  home:
+    - html
+    - rss
+    - json
+  page:
+    - html
+    - rss
+    - json
+  section:
+    - html
+    - rss
+    - json
 
 menu:
   main:
@@ -58,16 +69,29 @@ frontmatter:
     - ':default'
 
 params:
-  author: Dimitrij Drus
-  description: Test docu
+  copyright: 2022-2024 © Heimdall Project Authors. All rights reserved.
   version: x-current-version
+  license:
+    name: Apache 2.0
+    url: https://github.com/dadrus/heimdall/blob/master/LICENSE
+  author: Dimitrij Drus
+  description: An open source Identity Aware Proxy and an Access Control Decision service for cloud native applications
   github:
     user: dadrus
-    project: github-integrations
+    project: heimdall
+  community:
+    title: Discord
+    url: https://discord.gg/qQgg8xKuyb
+  version_file: /heimdall/data.json
+  search_index_file: /heimdall/x-current-version/index.json
+  path_prefix: /heimdall/x-current-version
+  docs_entry_point: /docs/getting_started/discover_heimdall.adoc
 
 module:
   mounts:
-    - source: static
+    - source: versions
+      target: static
+    - source: openapi
       target: static
     - source: node_modules/bootstrap/dist/js/bootstrap.bundle.js
       target: assets/js/bootstrap.bundle.js

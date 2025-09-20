@@ -1,5 +1,320 @@
 # Changelog
 
+## [0.57.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.56.0-alpha...v0.57.0-alpha) (2025-04-02)
+
+
+### New Features
+
+* releas workflow ([#465](https://github.com/dadrus/github-integrations/issues/465)) ([92eacd4](https://github.com/dadrus/github-integrations/commit/92eacd499c557613f9c96dbc8f4e65bbb05c04da))
+
+
+### Bug Fixes
+
+* missing permission added ([#466](https://github.com/dadrus/github-integrations/issues/466)) ([1da9ebe](https://github.com/dadrus/github-integrations/commit/1da9ebe7000b6794e58d42a399e57e9faf5230df))
+
+## [0.56.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.55.3-alpha...v0.56.0-alpha) (2025-03-26)
+
+
+### New Features
+
+* Separate GHCR and DockerHub image builds ([#452](https://github.com/dadrus/github-integrations/issues/452)) ([cbb26c8](https://github.com/dadrus/github-integrations/commit/cbb26c8fa7f2da1959f3b9c51e0f0aeeda7b8846))
+
+## [0.55.3-alpha](https://github.com/dadrus/github-integrations/compare/v0.55.2-alpha...v0.55.3-alpha) (2025-03-26)
+
+
+### Bug Fixes
+
+* proper digest for provenance ([#449](https://github.com/dadrus/github-integrations/issues/449)) ([a067616](https://github.com/dadrus/github-integrations/commit/a0676165859a52d40dca48cb8fb865da478db8b2))
+
+## [0.55.2-alpha](https://github.com/dadrus/github-integrations/compare/v0.55.1-alpha...v0.55.2-alpha) (2025-03-26)
+
+
+### Bug Fixes
+
+* chart provenance ([#446](https://github.com/dadrus/github-integrations/issues/446)) ([2422e70](https://github.com/dadrus/github-integrations/commit/2422e702f8750b4caecbf092b5348a9df9c753bb))
+
+## [0.55.1-alpha](https://github.com/dadrus/github-integrations/compare/v0.55.0-alpha...v0.55.1-alpha) (2025-03-25)
+
+
+### Bug Fixes
+
+* chart provenance ([#443](https://github.com/dadrus/github-integrations/issues/443)) ([cb1085c](https://github.com/dadrus/github-integrations/commit/cb1085cbc529b7d2f7bffdb354584bee038326ef))
+
+## [0.55.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.54.0-alpha...v0.55.0-alpha) (2025-03-25)
+
+
+### New Features
+
+* signature and provenance for the tgz chart ([#441](https://github.com/dadrus/github-integrations/issues/441)) ([685e08e](https://github.com/dadrus/github-integrations/commit/685e08e0e41f98dfce0ebc1bec4dc53cb209f86d))
+
+## [0.54.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.53.0-alpha...v0.54.0-alpha) (2025-03-25)
+
+
+### New Features
+
+* updates from heimdall repo ([#438](https://github.com/dadrus/github-integrations/issues/438)) ([1e32205](https://github.com/dadrus/github-integrations/commit/1e322057bfd2617ae32230140ae2f522391252a8))
+
+## [0.53.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.52.14-alpha...v0.53.0-alpha) (2025-03-25)
+
+
+### New Features
+
+* new chart version ([#435](https://github.com/dadrus/github-integrations/issues/435)) ([29a06a2](https://github.com/dadrus/github-integrations/commit/29a06a29e5e12805d26b4de6dd388cf613d3ff0f))
+
+## [0.52.14-alpha](https://github.com/dadrus/github-integrations/compare/v0.52.13-alpha...v0.52.14-alpha) (2025-03-25)
+
+
+### Bug Fixes
+
+* helm provenance ([#432](https://github.com/dadrus/github-integrations/issues/432)) ([4a03a78](https://github.com/dadrus/github-integrations/commit/4a03a78008906cb9c10198fc0a9439da77b5f12a))
+
+## [0.52.13-alpha](https://github.com/dadrus/github-integrations/compare/v0.52.12-alpha...v0.52.13-alpha) (2025-03-25)
+
+
+### Bug Fixes
+
+* helm signing ([#429](https://github.com/dadrus/github-integrations/issues/429)) ([1e609e8](https://github.com/dadrus/github-integrations/commit/1e609e84cfd5dcbe1fd97a37c3814499da3cc31a))
+
+## [0.52.12-alpha](https://github.com/dadrus/github-integrations/compare/v0.52.11-alpha...v0.52.12-alpha) (2025-03-25)
+
+
+### Bug Fixes
+
+* helm signing ([#426](https://github.com/dadrus/github-integrations/issues/426)) ([445709b](https://github.com/dadrus/github-integrations/commit/445709b6790d595eef1787e2bfb5c75f68181a31))
+
+## [0.52.11-alpha](https://github.com/dadrus/github-integrations/compare/v0.52.10-alpha...v0.52.11-alpha) (2025-03-25)
+
+
+### Bug Fixes
+
+* dh helm removed ([#423](https://github.com/dadrus/github-integrations/issues/423)) ([ead3365](https://github.com/dadrus/github-integrations/commit/ead336529e09f128cad5d5579175ea7dbeaceb51))
+
+## [0.52.10-alpha](https://github.com/dadrus/github-integrations/compare/v0.52.9-alpha...v0.52.10-alpha) (2025-03-25)
+
+
+### Bug Fixes
+
+* helm release to dh ([#420](https://github.com/dadrus/github-integrations/issues/420)) ([41589f5](https://github.com/dadrus/github-integrations/commit/41589f56afb131a6714c20708e6365e32d894e49))
+
+## [0.52.9-alpha](https://github.com/dadrus/github-integrations/compare/v0.52.8-alpha...v0.52.9-alpha) (2025-03-25)
+
+
+### Bug Fixes
+
+* dockerhub user ([#417](https://github.com/dadrus/github-integrations/issues/417)) ([67aa7de](https://github.com/dadrus/github-integrations/commit/67aa7ded17d945194d7f9e070a94ce55cce9aacf))
+
+## [0.52.8-alpha](https://github.com/dadrus/github-integrations/compare/v0.52.7-alpha...v0.52.8-alpha) (2025-03-25)
+
+
+### Bug Fixes
+
+* helm chart ([#414](https://github.com/dadrus/github-integrations/issues/414)) ([53abba4](https://github.com/dadrus/github-integrations/commit/53abba4624b6936b193a2d88ce884d6ffd01e0c1))
+
+## [0.52.7-alpha](https://github.com/dadrus/github-integrations/compare/v0.52.6-alpha...v0.52.7-alpha) (2025-03-25)
+
+
+### Bug Fixes
+
+* helm release ([#411](https://github.com/dadrus/github-integrations/issues/411)) ([9f9bb66](https://github.com/dadrus/github-integrations/commit/9f9bb66250cc212ea06bb9bde8d082fecaef2057))
+
+## [0.52.6-alpha](https://github.com/dadrus/github-integrations/compare/v0.52.5-alpha...v0.52.6-alpha) (2025-03-25)
+
+
+### Bug Fixes
+
+* helm release ([#409](https://github.com/dadrus/github-integrations/issues/409)) ([e4c5dbf](https://github.com/dadrus/github-integrations/commit/e4c5dbf65b493a5de37851fa88c2c91db96a027e))
+
+## [0.52.5-alpha](https://github.com/dadrus/github-integrations/compare/v0.52.4-alpha...v0.52.5-alpha) (2025-03-25)
+
+
+### Bug Fixes
+
+* chart release ([#404](https://github.com/dadrus/github-integrations/issues/404)) ([fc5686f](https://github.com/dadrus/github-integrations/commit/fc5686f5df7efd84ea260137e8b978f329f61017))
+
+## [0.52.4-alpha](https://github.com/dadrus/github-integrations/compare/v0.52.3-alpha...v0.52.4-alpha) (2025-03-25)
+
+
+### Bug Fixes
+
+* image release ([#401](https://github.com/dadrus/github-integrations/issues/401)) ([09f5d60](https://github.com/dadrus/github-integrations/commit/09f5d6023c772e6ce499bbcf04e0adcba414e913))
+
+## [0.52.3-alpha](https://github.com/dadrus/github-integrations/compare/v0.52.2-alpha...v0.52.3-alpha) (2025-03-25)
+
+
+### Bug Fixes
+
+* release images ([#399](https://github.com/dadrus/github-integrations/issues/399)) ([c593660](https://github.com/dadrus/github-integrations/commit/c593660883ab23c17a8893e52bfe662234e277e9))
+
+## [0.52.2-alpha](https://github.com/dadrus/github-integrations/compare/v0.52.1-alpha...v0.52.2-alpha) (2025-03-24)
+
+
+### Bug Fixes
+
+* release please ([#396](https://github.com/dadrus/github-integrations/issues/396)) ([fc2f06f](https://github.com/dadrus/github-integrations/commit/fc2f06f657cc60a9106c1153bb788f222cfa3418))
+
+## [0.52.1-alpha](https://github.com/dadrus/github-integrations/compare/v0.52.0-alpha...v0.52.1-alpha) (2025-03-24)
+
+
+### Bug Fixes
+
+* release run ([#394](https://github.com/dadrus/github-integrations/issues/394)) ([ff39bc9](https://github.com/dadrus/github-integrations/commit/ff39bc9ebf838fac30a6c412cc457a8db087ac7b))
+
+## [0.52.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.51.18-alpha...v0.52.0-alpha) (2025-03-24)
+
+
+### New Features
+
+* helm chart as OCI images ([#391](https://github.com/dadrus/github-integrations/issues/391)) ([5ce3bd9](https://github.com/dadrus/github-integrations/commit/5ce3bd9c694c56da0f8d8abe121fdca6133de299))
+
+## [0.51.18-alpha](https://github.com/dadrus/github-integrations/compare/v0.51.17-alpha...v0.51.18-alpha) (2025-03-24)
+
+
+### Bug Fixes
+
+* docs ([#388](https://github.com/dadrus/github-integrations/issues/388)) ([92d65b5](https://github.com/dadrus/github-integrations/commit/92d65b5d26e68dd641c3963954a3c7ef30eb6207))
+
+## [0.51.17-alpha](https://github.com/dadrus/github-integrations/compare/v0.51.16-alpha...v0.51.17-alpha) (2025-03-24)
+
+
+### Bug Fixes
+
+* docs in release ([#386](https://github.com/dadrus/github-integrations/issues/386)) ([4917c78](https://github.com/dadrus/github-integrations/commit/4917c7871a03806dd9a68c984a99c6046227dea3))
+
+## [0.51.16-alpha](https://github.com/dadrus/github-integrations/compare/v0.51.15-alpha...v0.51.16-alpha) (2025-03-24)
+
+
+### Bug Fixes
+
+* provenance ([#382](https://github.com/dadrus/github-integrations/issues/382)) ([cff7990](https://github.com/dadrus/github-integrations/commit/cff79909fb96e4db1894212800a6ace9effd8f85))
+
+## [0.51.15-alpha](https://github.com/dadrus/github-integrations/compare/v0.51.14-alpha...v0.51.15-alpha) (2025-03-24)
+
+
+### Bug Fixes
+
+* provenance ([#380](https://github.com/dadrus/github-integrations/issues/380)) ([375e1bd](https://github.com/dadrus/github-integrations/commit/375e1bd09e8d6a6d8f748396911475b24da18d18))
+
+## [0.51.14-alpha](https://github.com/dadrus/github-integrations/compare/v0.51.13-alpha...v0.51.14-alpha) (2025-03-24)
+
+
+### Bug Fixes
+
+* provenance ([#378](https://github.com/dadrus/github-integrations/issues/378)) ([bb1756b](https://github.com/dadrus/github-integrations/commit/bb1756bd6d3fad982d8b53fc2bf3e3fcaad709ce))
+
+## [0.51.13-alpha](https://github.com/dadrus/github-integrations/compare/v0.51.12-alpha...v0.51.13-alpha) (2025-03-24)
+
+
+### Bug Fixes
+
+* provenance ([#375](https://github.com/dadrus/github-integrations/issues/375)) ([40870d2](https://github.com/dadrus/github-integrations/commit/40870d213eebd5b8f74fa12eb557104fa6dc60d5))
+
+## [0.51.12-alpha](https://github.com/dadrus/github-integrations/compare/v0.51.11-alpha...v0.51.12-alpha) (2025-03-24)
+
+
+### Bug Fixes
+
+* provenance ([#373](https://github.com/dadrus/github-integrations/issues/373)) ([8966398](https://github.com/dadrus/github-integrations/commit/89663981d8628a7d424aa99574a9edda620fdf5c))
+
+## [0.51.11-alpha](https://github.com/dadrus/github-integrations/compare/v0.51.10-alpha...v0.51.11-alpha) (2025-03-24)
+
+
+### Bug Fixes
+
+* provenance ([#371](https://github.com/dadrus/github-integrations/issues/371)) ([e139fe1](https://github.com/dadrus/github-integrations/commit/e139fe125b4226a0cb6351eaa0e8b11bb08f61d0))
+
+## [0.51.10-alpha](https://github.com/dadrus/github-integrations/compare/v0.51.9-alpha...v0.51.10-alpha) (2025-03-24)
+
+
+### Bug Fixes
+
+* provenance ([#367](https://github.com/dadrus/github-integrations/issues/367)) ([a431c65](https://github.com/dadrus/github-integrations/commit/a431c65722f35cb292f361bc847cdf7357b1b822))
+
+## [0.51.9-alpha](https://github.com/dadrus/github-integrations/compare/v0.51.8-alpha...v0.51.9-alpha) (2025-03-21)
+
+
+### Bug Fixes
+
+* next attempt ([#323](https://github.com/dadrus/github-integrations/issues/323)) ([3ff8303](https://github.com/dadrus/github-integrations/commit/3ff830378f46ae9f79fed3c84719c06b615b9f8f))
+
+## [0.51.8-alpha](https://github.com/dadrus/github-integrations/compare/v0.51.7-alpha...v0.51.8-alpha) (2025-03-21)
+
+
+### Bug Fixes
+
+* next attempt ([#316](https://github.com/dadrus/github-integrations/issues/316)) ([bb56678](https://github.com/dadrus/github-integrations/commit/bb56678c5cf6edc49f04b4b1d98605223355d1e8))
+* next attempt ([#321](https://github.com/dadrus/github-integrations/issues/321)) ([b6b39cb](https://github.com/dadrus/github-integrations/commit/b6b39cb6fc0444bcade3fd61ceac2e98d0d62b17))
+
+## [0.51.7-alpha](https://github.com/dadrus/github-integrations/compare/v0.51.6-alpha...v0.51.7-alpha) (2025-03-21)
+
+
+### Bug Fixes
+
+* next attempt ([#311](https://github.com/dadrus/github-integrations/issues/311)) ([a1c254f](https://github.com/dadrus/github-integrations/commit/a1c254f310534572c46e902486450537737c37e3))
+
+## [0.51.6-alpha](https://github.com/dadrus/github-integrations/compare/v0.51.5-alpha...v0.51.6-alpha) (2025-03-21)
+
+
+### Bug Fixes
+
+* next attempt ([#307](https://github.com/dadrus/github-integrations/issues/307)) ([bd26d99](https://github.com/dadrus/github-integrations/commit/bd26d9941bcd2e864d7d1e96436851530da1b977))
+
+## [0.51.5-alpha](https://github.com/dadrus/github-integrations/compare/v0.51.4-alpha...v0.51.5-alpha) (2025-03-21)
+
+
+### Bug Fixes
+
+* next attempt ([#303](https://github.com/dadrus/github-integrations/issues/303)) ([1130abd](https://github.com/dadrus/github-integrations/commit/1130abd496185c4a3a0833b9ed3f8ef1a28483cf))
+
+## [0.51.4-alpha](https://github.com/dadrus/github-integrations/compare/v0.51.3-alpha...v0.51.4-alpha) (2025-03-21)
+
+
+### Bug Fixes
+
+* next attempt to fix gorelaser setup ([#300](https://github.com/dadrus/github-integrations/issues/300)) ([d909055](https://github.com/dadrus/github-integrations/commit/d90905515e4313f5c0fe307b67f70f5415a771aa))
+
+## [0.51.3-alpha](https://github.com/dadrus/github-integrations/compare/v0.51.2-alpha...v0.51.3-alpha) (2025-03-21)
+
+
+### Bug Fixes
+
+* gorelease ([#298](https://github.com/dadrus/github-integrations/issues/298)) ([f791204](https://github.com/dadrus/github-integrations/commit/f791204c12e90df4f71926ccf5959eb179a775f4))
+* release workflow trigger ([#296](https://github.com/dadrus/github-integrations/issues/296)) ([b21836b](https://github.com/dadrus/github-integrations/commit/b21836bbaafb5fbcfdde30fe3b15fa1942dae103))
+
+## [0.51.2-alpha](https://github.com/dadrus/github-integrations/compare/v0.51.1-alpha...v0.51.2-alpha) (2025-03-21)
+
+
+### Bug Fixes
+
+* provenance upload ([#292](https://github.com/dadrus/github-integrations/issues/292)) ([c6919ee](https://github.com/dadrus/github-integrations/commit/c6919ee78bca4e3159f4228f1f430c4df15038ac))
+
+## [0.51.1-alpha](https://github.com/dadrus/github-integrations/compare/v0.51.0-alpha...v0.51.1-alpha) (2025-03-21)
+
+
+### Bug Fixes
+
+* Provenance upload ([#290](https://github.com/dadrus/github-integrations/issues/290)) ([ffca7d1](https://github.com/dadrus/github-integrations/commit/ffca7d19e6fe9fc32a54be3a407a3c88986bea6c))
+
+## [0.51.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.50.0-alpha...v0.51.0-alpha) (2025-03-21)
+
+
+### New Features
+
+* Cool feature 7 ([#255](https://github.com/dadrus/github-integrations/issues/255)) ([70f2a82](https://github.com/dadrus/github-integrations/commit/70f2a82bb7c05764def37d8f3a8c0b91aa953006))
+* Cool feature 8 ([#260](https://github.com/dadrus/github-integrations/issues/260)) ([6144859](https://github.com/dadrus/github-integrations/commit/614485937d78208efbcb52a31f78b57343bfbdcc))
+* provenance for released binaries ([#280](https://github.com/dadrus/github-integrations/issues/280)) ([ee11d0d](https://github.com/dadrus/github-integrations/commit/ee11d0d563b970c0a3b1b62c2cf9394f9b9c29c7))
+
+
+### Bug Fixes
+
+* ci build ([#283](https://github.com/dadrus/github-integrations/issues/283)) ([9aa0ba7](https://github.com/dadrus/github-integrations/commit/9aa0ba7ebbbc9d6288ff518e236405cbaf221b4f))
+* docker build ([#286](https://github.com/dadrus/github-integrations/issues/286)) ([62b7fe8](https://github.com/dadrus/github-integrations/commit/62b7fe87cd6a82b528379d1d5e7c833079f8976c))
+
+
+### Updated Dependencies
+
+* update module github.com/goccy/go-json to v0.10.2 ([#254](https://github.com/dadrus/github-integrations/issues/254)) ([bc471a7](https://github.com/dadrus/github-integrations/commit/bc471a77ad968b4cf0e458e68c62d117ead6cb10))
+
+>>>>>>> main
 ## [0.50.2-alpha](https://github.com/dadrus/github-integrations/compare/v0.50.1-alpha...v0.50.2-alpha) (2024-04-03)
 
 
