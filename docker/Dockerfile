@@ -30,7 +30,7 @@ WORKDIR /opt/github-integrations
 COPY --from=builder /usr/share/zoneinfo /usr/share/zoneinfo
 COPY --from=builder /etc/passwd /etc/passwd
 COPY --from=builder /etc/group /etc/group
-COPY --from=builder /app/github-integrations .
+COPY --from=builder /build/github-integrations .
 
 USER ${USER}:${USER}
 
