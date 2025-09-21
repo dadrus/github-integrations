@@ -1,206 +1,22 @@
 [
   {
-    "version": "dev",
-    "path": "/github-integrations/dev"
+    "version": "v0.55.1-alpha",
+    "path": "/heimdall/v0.55.1-alpha"
   },
   {
-    "version": "v0.6.0-alpha",
-    "path": "/github-integrations/v0.6.0-alpha"
+    "version": "v0.55.2-alpha",
+    "path": "/heimdall/v0.55.2-alpha"
   },
   {
-    "version": "v0.10.0-alpha",
-    "path": "/github-integrations/v0.10.0-alpha"
+    "version": "v0.55.3-alpha",
+    "path": "/heimdall/v0.55.3-alpha"
   },
   {
-    "version": "v0.11.0-alpha",
-    "path": "/github-integrations/v0.11.0-alpha"
+    "version": "v0.56.0-alpha",
+    "path": "/heimdall/v0.56.0-alpha"
   },
   {
-    "version": "v0.13.0-alpha",
-    "path": "/github-integrations/v0.13.0-alpha"
-  },
-  {
-    "version": "v0.14.0-alpha",
-    "path": "/github-integrations/v0.14.0-alpha"
-  },
-  {
-    "version": "v0.15.0-alpha",
-    "path": "/github-integrations/v0.15.0-alpha"
-  },
-  {
-    "version": "v0.16.0-alpha",
-    "path": "/github-integrations/v0.16.0-alpha"
-  },
-  {
-    "version": "v0.17.0-alpha",
-    "path": "/github-integrations/v0.17.0-alpha"
-  },
-  {
-    "version": "v0.18.0-alpha",
-    "path": "/github-integrations/v0.18.0-alpha"
-  },
-  {
-    "version": "v0.19.0-alpha",
-    "path": "/github-integrations/v0.19.0-alpha"
-  },
-  {
-    "version": "v0.20.0-alpha",
-    "path": "/github-integrations/v0.20.0-alpha"
-  },
-  {
-    "version": "v0.21.0-alpha",
-    "path": "/github-integrations/v0.21.0-alpha"
-  },
-  {
-    "version": "v0.22.0-alpha",
-    "path": "/github-integrations/v0.22.0-alpha"
-  },
-  {
-    "version": "v0.23.0-alpha",
-    "path": "/github-integrations/v0.23.0-alpha"
-  },
-  {
-    "version": "v0.24.0-alpha",
-    "path": "/github-integrations/v0.24.0-alpha"
-  },
-  {
-    "version": "v0.25.0-alpha",
-    "path": "/github-integrations/v0.25.0-alpha"
-  },
-  {
-    "version": "v0.26.0-alpha",
-    "path": "/github-integrations/v0.26.0-alpha"
-  },
-  {
-    "version": "v0.27.0-alpha",
-    "path": "/github-integrations/v0.27.0-alpha"
-  },
-  {
-    "version": "v0.28.0-alpha",
-    "path": "/github-integrations/v0.28.0-alpha"
-  },
-  {
-    "version": "v0.29.0-alpha",
-    "path": "/github-integrations/v0.29.0-alpha"
-  },
-  {
-    "version": "v0.30.0-alpha",
-    "path": "/github-integrations/v0.30.0-alpha"
-  },
-  {
-    "version": "v0.31.0-alpha",
-    "path": "/github-integrations/v0.31.0-alpha"
-  },
-  {
-    "version": "v0.32.0-alpha",
-    "path": "/github-integrations/v0.32.0-alpha"
-  },
-  {
-    "version": "v0.33.0-alpha",
-    "path": "/github-integrations/v0.33.0-alpha"
-  },
-  {
-    "version": "v0.34.0-alpha",
-    "path": "/github-integrations/v0.34.0-alpha"
-  },
-  {
-    "version": "v0.35.0-alpha",
-    "path": "/github-integrations/v0.35.0-alpha"
-  },
-  {
-    "version": "v0.36.0-alpha",
-    "path": "/github-integrations/v0.36.0-alpha"
-  },
-  {
-    "version": "v0.38.0-alpha",
-    "path": "/github-integrations/v0.38.0-alpha"
-  },
-  {
-    "version": "v0.39.0-alpha",
-    "path": "/github-integrations/v0.39.0-alpha"
-  },
-  {
-    "version": "v0.40.0-alpha",
-    "path": "/github-integrations/v0.40.0-alpha"
-  },
-  {
-    "version": "v0.41.0-alpha",
-    "path": "/github-integrations/v0.41.0-alpha"
-  },
-  {
-    "version": "v0.42.0-alpha",
-    "path": "/github-integrations/v0.42.0-alpha"
-  },
-  {
-    "version": "v0.43.0-alpha",
-    "path": "/github-integrations/v0.43.0-alpha"
-  },
-  {
-    "version": "v0.44.0-alpha",
-    "path": "/github-integrations/v0.44.0-alpha"
-  },
-  {
-    "version": "v0.44.1-alpha",
-    "path": "/github-integrations/v0.44.1-alpha"
-  },
-  {
-    "version": "v0.45.0-alpha",
-    "path": "/github-integrations/v0.45.0-alpha"
-  },
-  {
-    "version": "v0.46.0-alpha",
-    "path": "/github-integrations/v0.46.0-alpha"
-  },
-  {
-    "version": "v0.46.1-alpha",
-    "path": "/github-integrations/v0.46.1-alpha"
-  },
-  {
-    "version": "v0.46.3-alpha",
-    "path": "/heimdall/v0.46.3-alpha"
-  },
-  {
-    "version": "v0.46.4-alpha",
-    "path": "/heimdall/v0.46.4-alpha"
-  },
-  {
-    "version": "v0.46.5-alpha",
-    "path": "/heimdall/v0.46.5-alpha"
-  },
-  {
-    "version": "v0.47.0-alpha",
-    "path": "/heimdall/v0.47.0-alpha"
-  },
-  {
-    "version": "v0.47.1-alpha",
-    "path": "/heimdall/v0.47.1-alpha"
-  },
-  {
-    "version": "v0.47.2-alpha",
-    "path": "/heimdall/v0.47.2-alpha"
-  },
-  {
-    "version": "v0.48.0-alpha",
-    "path": "/heimdall/v0.48.0-alpha"
-  },
-  {
-    "version": "v0.49.0-alpha",
-    "path": "/heimdall/v0.49.0-alpha"
-  },
-  {
-    "version": "v0.49.1-alpha",
-    "path": "/heimdall/v0.49.1-alpha"
-  },
-  {
-    "version": "v0.50.0-alpha",
-    "path": "/heimdall/v0.50.0-alpha"
-  },
-  {
-    "version": "v0.50.1-alpha",
-    "path": "/heimdall/v0.50.1-alpha"
-  },
-  {
-    "version": "v0.50.2-alpha",
-    "path": "/heimdall/v0.50.2-alpha"
+    "version": "v0.57.0-alpha",
+    "path": "/heimdall/v0.57.0-alpha"
   }
 ]
