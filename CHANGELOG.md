@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.59.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.58.2-alpha...v0.59.0-alpha) (2025-09-21)
+
+
+### Features
+
+* clean up docs vrsions ([#512](https://github.com/dadrus/github-integrations/issues/512)) ([ab1b32e](https://github.com/dadrus/github-integrations/commit/ab1b32e578c19384110fdbb17ebf9b760d4e6e3f))
+
 ## [0.58.2-alpha](https://github.com/dadrus/github-integrations/compare/v0.58.1-alpha...v0.58.2-alpha) (2025-09-21)
 
 
