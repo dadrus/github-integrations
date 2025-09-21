@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.58.2-alpha](https://github.com/dadrus/github-integrations/compare/v0.58.1-alpha...v0.58.2-alpha) (2025-09-21)
+
+
+### Bug Fixes
+
+* release outputs ([#506](https://github.com/dadrus/github-integrations/issues/506)) ([a8bbf24](https://github.com/dadrus/github-integrations/commit/a8bbf24a25a90b47ba3d1a41e0c81d6be4069c8e))
+
 ## [0.58.1-alpha](https://github.com/dadrus/github-integrations/compare/v0.58.0-alpha...v0.58.1-alpha) (2025-09-21)
 
 
