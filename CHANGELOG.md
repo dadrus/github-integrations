@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.58.1-alpha](https://github.com/dadrus/github-integrations/compare/v0.58.0-alpha...v0.58.1-alpha) (2025-09-21)
+
+
+### Bug Fixes
+
+* not creating a release PR if a release has just been created ([#503](https://github.com/dadrus/github-integrations/issues/503)) ([54edf42](https://github.com/dadrus/github-integrations/commit/54edf429efe2a3b507b4d85a0cfab2163e7dde0e))
+
 ## [0.58.0-alpha](https://github.com/dadrus/github-integrations/compare/v0.57.0-alpha...v0.58.0-alpha) (2025-09-21)
 
 
