@@ -24,7 +24,7 @@ runs:
         hugo-version: 0.100.1
         extended: true
     - name: Setup Node
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
       with:
         node-version: 17.7
     - name: Install mermaid
