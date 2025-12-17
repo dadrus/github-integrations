@@ -33,7 +33,7 @@ runs:
     - name: Setup ruby
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: 2.7
+        ruby-version: 3.4.8
     - name: Install asciidoctor
       shell: bash
       run: gem install asciidoctor asciidoctor-diagram asciidoctor-html5s rouge
