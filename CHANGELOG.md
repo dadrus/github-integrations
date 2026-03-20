@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.58.4-alpha](https://github.com/dadrus/github-integrations/compare/v0.58.3-alpha...v0.58.4-alpha) (2026-03-20)
+
+
+### Bug Fixes
+
+* cosign new bundle format disabled for releases ([#552](https://github.com/dadrus/github-integrations/issues/552)) ([374f685](https://github.com/dadrus/github-integrations/commit/374f685f373d925dd1a87bc4e6f6683e2e82f613))
+
 ## [0.58.3-alpha](https://github.com/dadrus/github-integrations/compare/v0.58.2-alpha...v0.58.3-alpha) (2026-03-20)
 
 
