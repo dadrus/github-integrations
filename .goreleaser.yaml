@@ -57,6 +57,7 @@ signs:
       - "sign-blob"
       - "--output-signature=${artifact}.sig"
       - "--output-certificate=${artifact}.pem"
+      - "--new-bundle-format=false"
       - "${artifact}"
       - "--yes"
     artifacts: all
