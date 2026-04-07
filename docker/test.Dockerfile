@@ -1,6 +1,6 @@
 # syntax = docker/dockerfile:experimental
 # Builder image to build the app
-FROM --platform=$BUILDPLATFORM golang:1.26.1@sha256:c42e4d75186af6a44eb4159dcfac758ef1c05a7011a0052fe8a8df016d8e8fb9 as builder
+FROM --platform=$BUILDPLATFORM golang:1.26.1@sha256:cd78d88e00afadbedd272f977d375a6247455f3a4b1178f8ae8bbcb201743a8a as builder
 LABEL maintainer=dadrus@gmx.de
 
 ARG TARGETARCH
