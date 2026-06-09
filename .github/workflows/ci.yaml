@@ -274,7 +274,7 @@ jobs:
           verbose: true
           token: ${{ secrets.CODECOV_TOKEN }}
       - name: Upload code coverage report to Codecov
-        uses: codecov/codecov-action@1af58845a975a7985b0beb0cbe6fbbb71a41dbad # v5.5.3
+        uses: codecov/codecov-action@0fb7174895f61a3b6b78fc075e0cd60383518dac # v5.5.5
         with:
           report_type: coverage
           files: coverage.cov
