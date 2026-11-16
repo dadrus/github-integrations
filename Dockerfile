@@ -1,6 +1,6 @@
-# syntax = docker/dockerfile:experimental
+# syntax = docker/dockerfile:experimental@sha256:600e5c62eedff338b3f7a0850beb7c05866e0ef27b2d2e8c02aa468e78496ff5
 # Builder image to build the app
-FROM golang:1.20.5-buster as builder
+FROM golang:1.20.5-buster@sha256:eb3f9ac805435c1b2c965d63ce460988e1000058e1f67881324746362baf9572 as builder
 LABEL maintainer=dadrus@gmx.de
 
 ARG HOST_ARCH
